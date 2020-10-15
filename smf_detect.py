@@ -313,7 +313,7 @@ class TackerAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_vnf_response = requests.get(get_vnf_url, headers=headers)
-        get_vnf_result = get_vnf_list_response.json()['vnfs']
+        get_vnf_result = get_vnf_response.json()['vnfs']
         return get_vnf_result['status']
         
     def smf_detect(self):
