@@ -72,73 +72,7 @@ class TackerAPI():
         print("Project ID:" + self.project_id)
         return self.project_id
 
-    def create_nsd(self, nsd_name, nsd_file_name):
-        post_create_nsd_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nsds'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
-        
-        vnfd_name = self.parse_nsd_file(nsd_file_name)
-        #print(vnfd_name)
-        #print(len(vnfd_name))
-        node_templates = self.generate_node_templates(len(vnfd_name))
-        #node_templates = json.dumps(node_templates)
-        nsd_description = 'NSD:' + nsd_name
-        nsd_body = {
-                'nsd': {
-                    'tenant_id': tenant_id,
-                    'name': nsd_name,
-                    'description': nsd_description,
-                    'attributes': {
-                        'nsd': {
-                "imports": 
-                    vnfd_name,
-                "tosca_definitions_version": "tosca_simple_profile_for_nfv_1_0_0",
-                        "topology_template": {
-                            "node_templates": node_templates
-                #"node_templates": {
-                #  "VNF1": {
-                #    "type": "tosca.nodes.nfv.VNF1"
-                #  },
-                #  "VNF2": {
-                #    "type": "tosca.nodes.nfv.VNF2"
-                #  }
-                #}
-                        }
-                }
-                    },
-                }
-            }
-        
-        print(json.dumps(nsd_body))
-        response = requests.post(post_create_nsd_url, data=json.dumps(nsd_body), headers=headers)
-        print('Create NSD status: ' + str(response.status_code))
-            #nsd_id = response.json()['nsd']['id']
-        #print(nsd_id)
-
-    def create_ns(self, ns_name, nsd_name, vim_name):
-        post_create_ns_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nss'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
-        nsd_id = self.get_nsd_id(nsd_name)
-        ns_description = 'NS:' + ns_name
-        vim_id = self.get_vim_id(vim_name)
-        ns_body = {
-                'ns': {
-                    'name': ns_name,
-                    'description': ns_description,
-                    'tenant_id': tenant_id,
-                    'nsd_id': nsd_id,
-                    'vim_id': vim_id,
-                }
-            }
-	
-        #print(nsd_body)
-        response = requests.post(post_create_ns_url, data=json.dumps(ns_body), headers=headers)
-        print('Create NS status: ' + str(response.status_code))
-        result = response.json()
-        print(result)
+    
 
     def create_vnf(self, vnf_name, vnfd_name, vim_name):
         post_create_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs'
@@ -146,7 +80,7 @@ class TackerAPI():
         headers = {'X-Auth-Token': token}
         tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
         vnfd_id = self.get_vnfd_id(vnfd_name)
-        vnf_description = 'VNF:' + vnf_name
+        vnf_description = 'smf'
         vim_id = self.get_vim_id(vim_name)
         vnf_body = {
                 'vnf': {
@@ -159,40 +93,22 @@ class TackerAPI():
         }
 	
         #print(nsd_body)
-        response = requests.post(post_create_vnf_url, data=json.dumps(vnf_body), headers=headers)
-        print('Create VNF status: ' + str(response.status_code))
-        result = response.json()
-        print(result)
+        res_create_vnf = requests.post(post_create_vnf_url, data=json.dumps(vnf_body), headers=headers)
+        print('Create VNF status: ' + str(res_create_vnf.status_code))
+        vnf_id = res_create_vnf.json()['vnf']['id']
+        create_vnf_status = res_create_vnf.json()['vnf']['status']
+        count =0
+        while create_vnf_status !='ACTIVE' and create_vnf_status != 'ERROR':
+            show_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + vnf_id
+            res_show_vnf = requests.get(show_vnf_url, headers=headers).json()
+            create_vnf_status = res_show_vnf['vnf']['status']
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        #result = response.json()
+        #print(result)
 
-    def parse_nsd_file(self, nsd_file_name):
-        vnfd_num = 0
-        vnfd_name = []
-        tag = 0
-
-        ## Open file
-        fp = open(nsd_file_name, "r")
-        line = fp.readline()
-        while line:
-            #print(line)
-            check = line.split()
-            if len(check) != 0 and check[0] == 'imports:':
-                tag = 1
-                if tag == 1:
-                    line = fp.readline()
-                    x = line.split()
-                    #print(x)
-                    if len(x) != 0 and x[0] == '-':
-                        vnfd_name.append(x[1])
-                        vnfd_num = vnfd_num + 1
-                    else:
-                        tag = 0 
-                else:
-                    line = fp.readline()
-                    fp.close()
-
-        #print(vnfd_name)
-        #print(len(vnfd_name))
-        return vnfd_name
+    
 
     def list_vim(self):
         get_vim_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vims'
@@ -217,28 +133,7 @@ class TackerAPI():
             pass
         return vim_id
 
-    def list_nsd(self):
-        get_nsd_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nsds'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        get_nsd_list_response = requests.get(get_nsd_list_url, headers=headers)
-        print("Get Tacker nsd list status: " + str(get_nsd_list_response.status_code))
-        get_nsd_list_result = get_nsd_list_response.json()
-        #text = get_nsd_list_response.text
-        #print(get_nsd_list_result)
-        #print(text)
-        return get_nsd_list_result     
-
-    def get_nsd_id(self, nsd_name):
-        nsd_list = self.list_nsd()
-        #print(nsd_list)
-        nsd_id = None
-        for nsd in nsd_list['nsds']:
-            if nsd['name'] == nsd_name:
-                nsd_id = nsd['id']
-                print nsd_id
-            pass
-        return nsd_id
+    
 
     def list_vnfd(self):
         get_vnfd_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfds'
@@ -314,8 +209,9 @@ class TackerAPI():
         headers = {'X-Auth-Token': token}
         get_vnf_response = requests.get(get_vnf_url, headers=headers)
         print("Get SMF status: " + str(get_vnf_response.status_code))
-        get_vnf_result = get_vnf_response.json()['vnf']
-        return get_vnf_result['status']
+        return str(get_vnf_response.status_code)
+        #get_vnf_result = get_vnf_response.json()['vnf']
+        #return get_vnf_result['status']
         
     def smf_detect(self):
         get_vnf_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs'
@@ -325,9 +221,12 @@ class TackerAPI():
         get_vnf_list_result = get_vnf_list_response.json()
         name = 'smf'
         vnf_id = self.get_vnf_id(get_vnf_list_result,name)
-        print('id: {}'.format(vnf_id))
+        #print('id: {}'.format(vnf_id))
         vnf_status = self.get_smf_status(vnf_id) 
-        print('smf status: {}'.format(vnf_status))
+        if vnf_status!='200':
+            create_vnf('smf','smf','jefferyvim')
+        return 
+        #print('smf status: {}'.format(vnf_status))
     def list_ns(self):
         get_ns_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nss'
         token = self.get_token()
@@ -340,295 +239,7 @@ class TackerAPI():
         #print(text)
         return get_ns_list_result
 
-class OpenStackAPI():
-    def __init__(self):
-        #super().__init__()
-        self.OPENSTACK_IP = OPENSTACK_IP
-        self.OS_AUTH_URL = OS_AUTH_URL
-        self.OS_USER_DOMAIN_NAME = OS_USER_DOMAIN_NAME
-        self.OS_USERNAME = OS_USERNAME
-        self.OS_PASSWORD = OS_PASSWORD
-        self.OS_PROJECT_DOMAIN_NAME = OS_PROJECT_DOMAIN_NAME
-        self.OS_PROJECT_NAME = OS_PROJECT_NAME
-        self.ary_data = []
-        self.nsd_id = ''
-        self.nsd_name = ''
-        self.get_token_result = ''
-        self.project_id = ''
 
-    def get_token(self):
-        # print("\nGet token:")
-        self.get_token_result = ''
-        get_token_url = self.OS_AUTH_URL + '/v3/auth/tokens'
-        get_token_body = {
-            'auth': {
-                'identity': {
-                    'methods': [
-                        'password'
-                    ],
-                    'password': {
-                        'user': {
-                            'domain': {
-                                'name': self.OS_USER_DOMAIN_NAME
-                            },
-                            'name': self.OS_USERNAME,
-                            'password': self.OS_PASSWORD
-                        }
-                    }
-                },
-                'scope': {
-                    'project': {
-                        'domain': {
-                            'name': self.OS_PROJECT_DOMAIN_NAME
-                        },
-                        'name': self.OS_PROJECT_NAME
-                    }
-                }
-            }
-        }
-        get_token_response = requests.post(get_token_url, data=json.dumps(get_token_body))
-        #print("Get OpenStack token status: " + str(get_token_response.status_code))
-        self.get_token_result = get_token_response.headers['X-Subject-Token']
-        return self.get_token_result
-
-    def get_project_id(self, project_name):
-        # print("\nGet Project ID:")
-        self.project_id = ''
-        get_project_list_url = self.OS_AUTH_URL + '/v3/projects'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        get_project_list_response = requests.get(get_project_list_url, headers=headers)
-        print("Get OpenStack project list status: " + str(get_project_list_response.status_code))
-        get_project_list_result = get_project_list_response.json()['projects']
-        #print(get_project_list_result)
-        for project in get_project_list_result:
-            if project['name'] == project_name:
-                self.project_id = project['id']
-            pass
-        print("Project ID:" + self.project_id)
-        return self.project_id
-
-    def list_networks(self):
-        get_network_list_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/networks'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        get_network_list_response = requests.get(get_network_list_url, headers=headers)
-        print("Get OpenStack network list status: " + str(get_network_list_response.status_code))
-        get_network_list_result = get_network_list_response.json()
-        #text = get_network_list_response.text
-        #print(get_network_list_result)
-        #print(text)
-        return get_network_list_result
-
-    def get_network_id(self, network_name):
-        network_list = self.list_networks()
-        #print(network_list)
-        network_id = None
-        for network in network_list['networks']:
-            if network['name'] == network_name:
-                network_id = network['id']
-                print network_id
-            pass
-        return network_id
-
-    def update_network(self, network_name, qos_policy_name):
-        network_id = self.get_network_id(network_name)
-        qos_policy_id = self.check_qos_policy_name(qos_policy_name)
-        #print(qos_policy_id)
-        update_network_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/networks/' + network_id
-        update_network_body = {
-            "network": {
-                "qos_policy_id": qos_policy_id
-            }
-        }
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        response = requests.put(update_network_url, data=json.dumps(update_network_body), headers=headers)
-        print('update network: ' + str(response.status_code))
-        print(response.json())
-        #if response.status_code == 201:
-        #    get_rule_id = response.json()['bandwidth_limit_rule']
-        #    rule_id = get_rule_id['id']
-        #    print("Rule ID:" + rule_id)
-        #    return rule_id
-        #else:
-        #    get_error = response.json()['NeutronError']
-        #    print(get_error)
-
-
-    def show_network_detail(self, network_name):
-        network_id = self.get_network_id(network_name)
-        show_network_detail_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/networks/' + network_id
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        show_network_detail_response = requests.get(show_network_detail_url, headers=headers)
-        print("Show OpenStack network detail status: " + str(show_network_detail_response.status_code))
-        show_network_detail_result = show_network_detail_response.json()
-        #text = get_network_list_response.text
-        print(show_network_detail_result)
-        #print(text)
-
-    def list_qos_policy(self):
-        get_qos_policy_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/qos/policies/'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        get_qos_policy_list_response = requests.get(get_qos_policy_url, headers=headers)
-        print("Get OpenStack qos policy status: " + str(get_qos_policy_list_response.status_code))
-        get_qos_policy_list_result = get_qos_policy_list_response.json()
-        #print(get_qos_policy_list_result)
-        return get_qos_policy_list_result
-   
-    def check_qos_policy_name(self, qos_policy_name):
-        qos_policy_list = self.list_qos_policy()
-        #print(qos_policy_list)
-        policy_id = None
-        for policy in qos_policy_list['policies']:
-            if policy['name'] == qos_policy_name:
-                print("QoS policy: name already exists")
-                #print(policy)
-                policy_id = policy['id']
-                print(policy_id)
-            pass
-        return policy_id
-
-
-    def create_qos_policy(self, qos_policy_name, description_content):
-        policy_id = self.check_qos_policy_name(qos_policy_name)
-        if policy_id == None:
-            post_qos_policy_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/qos/policies/'
-            policy_body = {
-                "policy": {
-                    "name": qos_policy_name,
-                    "description": description_content,
-                    "shared": "False"
-                }
-            }
-            token = self.get_token()
-            headers = {'X-Auth-Token': token}
-            response = requests.post(post_qos_policy_url, data=json.dumps(policy_body), headers=headers)
-            print('create qos policy: ' + str(response.status_code))
-            get_qos_policy_id = response.json()['policy']
-            #print(response.json())
-            #print(get_qos_policy_id)
-            policy_id = get_qos_policy_id['id']
-        print("Policy ID:" + policy_id)
-        return policy_id
-    
-    def create_bandwidth_limit_rule(self, qos_policy_id, max_kbps, max_burst_kbps, direction):
-        post_bandwidth_limit_rule_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/qos/policies/' + qos_policy_id + '/bandwidth_limit_rules'
-        bandwidth_limit_body = {
-            "bandwidth_limit_rule": {
-                "max_kbps": max_kbps,
-                "max_burst_kbps": max_burst_kbps,
-                "direction": direction
-            }
-        }
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        response = requests.post(post_bandwidth_limit_rule_url, data=json.dumps(bandwidth_limit_body), headers=headers)
-        print('create bandwidth limit rule: ' + str(response.status_code))
-        #print(response.json())
-        if response.status_code == 201:
-            get_rule_id = response.json()['bandwidth_limit_rule']
-            rule_id = get_rule_id['id']
-            print("Rule ID:" + rule_id)
-            return rule_id
-        else:
-            get_error = response.json()['NeutronError']
-            print(get_error)
-
-    def update_bandwidth_limit_rule(self, qos_policy_id, rule_id, max_kbps, max_burst_kbps, direction):
-        put_bandwidth_limit_rule_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/qos/policies/' + qos_policy_id + '/bandwidth_limit_rules/' + rule_id
-        #print(put_bandwidth_limit_rule_url)
-        bandwidth_limit_body = {
-            "bandwidth_limit_rule": {
-                "max_kbps": max_kbps,
-                "max_burst_kbps": max_burst_kbps,
-                "direction": direction
-            }
-        }
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        response = requests.put(put_bandwidth_limit_rule_url, data=json.dumps(bandwidth_limit_body), headers=headers)
-        print('update bandwidth limit rule: ' + str(response.status_code))
-        print(response.json())
-
-    def list_port(self):
-        get_port_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/ports'
-        token = self.get_token()
-        headers = {'X-Auth-Token': token}
-        get_port_list_response = requests.get(get_port_url, headers=headers)
-        print("Get OpenStack port status: " + str(get_port_list_response.status_code))
-        get_port_list_result = get_port_list_response.json()
-        #print(get_port_list_result)
-        return get_port_list_result
-
-    def get_port_id(self, port_ip):
-        port_list = self.list_port()
-        #print(network_list)
-        port_id = None
-        for port in port_list['ports']:
-	    #print port
-	    for fixed_ip in port['fixed_ips']:
-		#print fixed_ip['ip_address']
-                if fixed_ip['ip_address'] == port_ip:
-                    port_id = port['id']
-                    print port_id
-                pass
-	    pass
-        return port_id
-
-def parse_bandwidth(file_name):
-    output = {}
-    network_name = dict()
-    egress = dict()
-    ingress = dict()
-    fp = open(file_name, "r")
-    line = fp.readline()
-    while line:
-        #print(line)
-        line = fp.readline()
-	check = line.split()
-        if len(check) != 0 and check[0] == 'bandwidth:':
-            print("start parsing bandwidth")
-            while line:
-                line = fp.readline()
-                each_value = line.split()
-                if len(each_value) == 0:
-                    break
-                else:
-                    if each_value[0] == 'network_name:':
-                        network_name['network_name'] = each_value[1]
-                    elif each_value[0] == 'direction:':
-                        temp = dict()
-                        if each_value[1] == 'egress':
-                            for i in range(2):
-                                line = fp.readline()
-                                kbps_value = line.split()
-                                temp_kbps = dict()
-                                temp_kbps[kbps_value[0]] = kbps_value[1]
-                                temp.update(temp_kbps)
-                            egress['egress'] = temp
-                        elif each_value[1] == 'ingress':
-                            for i in range(2):
-                                line = fp.readline()
-                                kbps_value = line.split()
-                                temp_kbps = dict()
-                                temp_kbps[kbps_value[0]] = kbps_value[1]
-                                temp.update(temp_kbps)
-                            ingress['ingress'] = temp
-    output.update(network_name)
-    output.update(egress)
-    output.update(ingress)
-    #print(output)
-    fp.close()
-    return output
-###
-#  network_name: test
-#  direction: egress
-#  max_kbps: 10000
-#  max_burst_kbps: 10000
-###
 
 def initiate_ns(file_name, nsd_name, vim_name):
     output = parse_bandwidth(file_name)
@@ -677,7 +288,9 @@ def initiate_ns(file_name, nsd_name, vim_name):
 if __name__ == '__main__':
     print('start')
     test = TackerAPI()
-    test.smf_detect()
+    #test.smf_detect()
+    while 1:
+        test.smf_detect()
     #get_vnf_status()
     #initiate_ns("k8s_nsd.yaml","om2m_k8s_NS","Kubernetes_Site")
     #initiate_ns("iottalk_nsd.yaml","IoTtalk_NS","OpenStack_Site")
