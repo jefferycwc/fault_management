@@ -161,8 +161,8 @@ class TackerAPI():
         #print(nsd_body)
         response = requests.post(post_create_vnf_url, data=json.dumps(vnf_body), headers=headers)
         print('Create VNF status: ' + str(response.status_code))
-            result = response.json()
-            print(result)
+        result = response.json()
+        print(result)
 
     def parse_nsd_file(self, nsd_file_name):
         vnfd_num = 0
