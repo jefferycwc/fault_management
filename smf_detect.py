@@ -175,7 +175,7 @@ class TackerAPI():
         while line:
             #print(line)
             check = line.split()
-                if len(check) != 0 and check[0] == 'imports:':
+            if len(check) != 0 and check[0] == 'imports:':
                 tag = 1
                 if tag == 1:
                     line = fp.readline()
