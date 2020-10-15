@@ -315,7 +315,7 @@ class TackerAPI():
         get_vnf_list_response = requests.get(get_vnf_list_url, headers=headers)
         get_vnf_list_result = get_vnf_list_response.json()
         name = 'smf'
-        vnf_id = get_vnf_id(get_vnf_list_result,name)
+        vnf_id = self.get_vnf_id(get_vnf_list_result,name)
         print('id: {}'.format(vnf_id))
     def list_ns(self):
         get_ns_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nss'
