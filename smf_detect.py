@@ -105,6 +105,7 @@ class TackerAPI():
             time.sleep(1)
             count = count+1
             print('wait ' + str(count) + 's')
+        print('create smf successfully!!')
         #result = response.json()
         #print(result)
 
