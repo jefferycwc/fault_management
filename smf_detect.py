@@ -308,7 +308,7 @@ class TackerAPI():
             if get_vnf_list_result[i]['description'] == 'smf':
                 return get_vnf_list_result[i]['id']
         #return id
-    def get_smf_status(self,smf_id)
+    def get_smf_status(self,smf_id):
         get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs' + str(smf_id)
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -325,7 +325,7 @@ class TackerAPI():
         name = 'smf'
         vnf_id = self.get_vnf_id(get_vnf_list_result,name)
         print('id: {}'.format(vnf_id))
-        vnf_status = get_smf_status(vnf_id) 
+        vnf_status = self.get_smf_status(vnf_id) 
         print('smf status: {}'.format(vnf_status))
     def list_ns(self):
         get_ns_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nss'
