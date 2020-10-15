@@ -666,7 +666,7 @@ def initiate_ns(file_name, nsd_name, vim_name):
 if __name__ == '__main__':
     print('start')
     test = TackerAPI()
-    test.list_vnf()
+    test.smf_detect()
     #get_vnf_status()
     #initiate_ns("k8s_nsd.yaml","om2m_k8s_NS","Kubernetes_Site")
     #initiate_ns("iottalk_nsd.yaml","IoTtalk_NS","OpenStack_Site")
