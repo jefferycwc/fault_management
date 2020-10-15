@@ -80,7 +80,7 @@ class TackerAPI():
         headers = {'X-Auth-Token': token}
         tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
         vnfd_id = self.get_vnfd_id(vnfd_name)
-        vnf_description = 'smf'
+        vnf_description = 'udm'
         vim_id = self.get_vim_id(vim_name)
         vnf_body = {
                 'vnf': {
@@ -105,7 +105,7 @@ class TackerAPI():
             time.sleep(1)
             count = count+1
             print('wait ' + str(count) + 's')
-        print('create smf successfully!!')
+        print('create udm successfully!!')
         #result = response.json()
         #print(result)
 
@@ -201,36 +201,36 @@ class TackerAPI():
         id = 0
         get_vnf_list_result = get_vnf_list_result['vnfs']
         for i in range(len(get_vnf_list_result)):
-            if get_vnf_list_result[i]['description'] == 'smf':
+            if get_vnf_list_result[i]['description'] == 'udm':
                 return get_vnf_list_result[i]['id']
         return 0
         #return id
-    def get_smf_status(self,smf_id):
-        get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + str(smf_id)
+    def get_udm_status(self,udm_id):
+        get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + str(udm_id)
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_vnf_response = requests.get(get_vnf_url, headers=headers)
-        print("Get smf status: " + str(get_vnf_response.status_code))
+        print("Get udm status: " + str(get_vnf_response.status_code))
         return str(get_vnf_response.status_code)
         #get_vnf_result = get_vnf_response.json()['vnf']
         #return get_vnf_result['status']
         
-    def smf_detect(self):
+    def udm_detect(self):
         get_vnf_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_vnf_list_response = requests.get(get_vnf_list_url, headers=headers)
         get_vnf_list_result = get_vnf_list_response.json()
-        name = 'smf'
+        name = 'udm'
         vnf_id = self.get_vnf_id(get_vnf_list_result,name)
         if vnf_id==0:
-            self.create_vnf('smf','smf','jefferyvim')
+            self.create_vnf('udm','udm','jefferyvim')
         #print('id: {}'.format(vnf_id))
-        vnf_status = self.get_smf_status(vnf_id) 
+        vnf_status = self.get_udm_status(vnf_id) 
         if vnf_status!='200':
-            self.create_vnf('smf','smf','jefferyvim')
+            self.create_vnf('udm','udm','jefferyvim')
         return 
-        #print('smf status: {}'.format(vnf_status))
+        #print('udm status: {}'.format(vnf_status))
     def list_ns(self):
         get_ns_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nss'
         token = self.get_token()
@@ -292,9 +292,9 @@ def initiate_ns(file_name, nsd_name, vim_name):
 if __name__ == '__main__':
     print('start')
     test = TackerAPI()
-    #test.smf_detect()
+    #test.udm_detect()
     while 1:
-        test.smf_detect()
+        test.udm_detect()
     
 
 
