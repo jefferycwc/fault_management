@@ -243,50 +243,6 @@ class TackerAPI():
         #print(text)
         return get_ns_list_result
 
-
-
-def initiate_ns(file_name, nsd_name, vim_name):
-    output = parse_bandwidth(file_name)
-    print(output)
-    #print(len(output))
-    #print(output["network_name"])
-    #print(output["egress"]["max_kbps:"])
-    #print(output["ingress"])
-    #if "egress" in output:
-    #    print(output["egress"])
-    #if "ingress" in output:
-    #    print(output["ingress"])
-
-    if vim_name == "OpenStack_Site":
-        ### onboard NSD, create NS
-        test = TackerAPI()
-        test.create_nsd(nsd_name,file_name)
-        test.create_ns(nsd_name,nsd_name,vim_name)
-
-        if len(output)!=0:
-            test = OpenStackAPI()
-            qos_policy_id = test.create_qos_policy(output["network_name"],output["network_name"])
-            if len(output)==3:
-                test.create_bandwidth_limit_rule(qos_policy_id, output["egress"]["max_kbps:"], output["egress"]["max_burst_kbps:"], "egress")
-                test.create_bandwidth_limit_rule(qos_policy_id, output["ingress"]["max_kbps:"], output["ingress"]["max_burst_kbps:"], "ingress")
-            else:
-                if "egress" in output:
-                    test.create_bandwidth_limit_rule(qos_policy_id, output["egress"]["max_kbps:"], output["egress"]["max_burst_kbps:"], "egress")
-                if "ingress" in output:
-                    test.create_bandwidth_limit_rule(qos_policy_id, output["ingress"]["max_kbps:"], output["ingress"]["max_burst_kbps:"], "ingress")
-            test.update_network(output["network_name"],output["network_name"])
-            test.show_network_detail(output["network_name"])
-
-    elif vim_name == "Kubernetes_Site":
-        print("Kubernetes")
-        test = TackerAPI()
-        vnfd_name = test.parse_nsd_file(file_name)
-        print(vnfd_name)
-        for i in range(len(vnfd_name)):
-            #vnfd_id = test.get_vnfd_id(vnfd_name[i])
-            vnf_name = nsd_name + "_" + str(i+1)
-            #print(vnf_name)
-            test.create_vnf(vnf_name, vnfd_name[i], vim_name)
     
 
 if __name__ == '__main__':
