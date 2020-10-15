@@ -302,7 +302,7 @@ class TackerAPI():
         #print(text)
         return get_vnf_list_result
     def get_vnf_id(self,get_vnf_list_result,name):
-        var id = 0
+        var id = 0;
         get_vnf_list_result = get_vnf_list_result['vnfs']
         for i in range(len(get_vnf_list_result)):
             if get_vnf_list_result[i]['description'] == 'smf'
