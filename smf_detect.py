@@ -305,7 +305,7 @@ class TackerAPI():
         id = 0
         get_vnf_list_result = get_vnf_list_result['vnfs']
         for i in range(len(get_vnf_list_result)):
-            if get_vnf_list_result[i]['description'] == 'smf'
+            if get_vnf_list_result[i]['description'] == 'smf':
                 id = get_vnf_list_result[i]['id']
         return id
     def smf_detect(self):
