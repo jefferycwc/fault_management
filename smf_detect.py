@@ -123,7 +123,7 @@ class TackerAPI():
         tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
         nsd_id = self.get_nsd_id(nsd_name)
         ns_description = 'NS:' + ns_name
-            vim_id = self.get_vim_id(vim_name)
+        vim_id = self.get_vim_id(vim_name)
         ns_body = {
                 'ns': {
                     'name': ns_name,
