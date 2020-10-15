@@ -309,7 +309,7 @@ class TackerAPI():
                 return get_vnf_list_result[i]['id']
         #return id
     def get_smf_status(self,smf_id):
-        get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs' + str(smf_id)
+        get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + str(smf_id)
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_vnf_response = requests.get(get_vnf_url, headers=headers)
