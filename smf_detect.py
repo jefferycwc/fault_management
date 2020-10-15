@@ -202,6 +202,7 @@ class TackerAPI():
         for i in range(len(get_vnf_list_result)):
             if get_vnf_list_result[i]['description'] == 'smf':
                 return get_vnf_list_result[i]['id']
+        return 0
         #return id
     def get_smf_status(self,smf_id):
         get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + str(smf_id)
@@ -221,10 +222,12 @@ class TackerAPI():
         get_vnf_list_result = get_vnf_list_response.json()
         name = 'smf'
         vnf_id = self.get_vnf_id(get_vnf_list_result,name)
+        if vnf_id==0:
+            self.create_vnf('smf','smf','jefferyvim')
         #print('id: {}'.format(vnf_id))
         vnf_status = self.get_smf_status(vnf_id) 
         if vnf_status!='200':
-            create_vnf('smf','smf','jefferyvim')
+            self.create_vnf('smf','smf','jefferyvim')
         return 
         #print('smf status: {}'.format(vnf_status))
     def list_ns(self):
