@@ -339,7 +339,11 @@ class OpenStackAPI():
             print('An Error occurred: {e}')
         print('check1')
         
-        instance_list = get_instance_list_result['servers']
+        try:
+            instance_list = get_instance_list_result['servers']
+        except Exception as e:
+            print('An Error occurred: {e}')
+            
         #instance_list = self.list_instance()
         print('check2')
         print(instance_list)
