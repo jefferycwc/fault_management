@@ -328,7 +328,11 @@ class OpenStackAPI():
         headers = {'X-Auth-Token': token}
         get_instance_list_response = requests.get(list_instance_url, headers=headers)
         print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
-        get_instance_list_result = get_instance_list_response.json()
+        try:
+            get_instance_list_result = get_instance_list_response.json()
+        except Exception as e:
+            print('An Error occurred: {e}')
+            
         try:
             print(get_instance_list_result)
         except Exception as e:
