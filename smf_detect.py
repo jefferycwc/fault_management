@@ -323,6 +323,7 @@ class OpenStackAPI():
     
     def get_instance_id(self,ins_name):
         instance_list = self.list_instance()['servers']
+        print(instance_list)
         for i in range(len(instance_list)):
             print('ins name: {}'.format(ins[i]['name']))
             if ins[i]['name'] == ins_name:
