@@ -318,7 +318,7 @@ class OpenStackAPI():
         get_instance_list_response = requests.get(list_instance_url, headers=headers)
         print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
         get_instance_list_result = get_instance_list_response.json()
-        print(get_instance_list_result)
+        #print(get_instance_list_result)
         return get_instance_list_result
     
     def get_instance_id(self,ins_name):
