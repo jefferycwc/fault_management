@@ -316,7 +316,7 @@ class OpenStackAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_list_response = requests.get(list_instance_url, headers=headers)
-        print("Get OpenStack instance status: " + str(get_instance_list_response.status_code))
+        print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
         get_instance_list_result = get_instance_list_response.json()
         #print(get_instance_list_result)
         return get_instance_list_result
@@ -325,6 +325,7 @@ class OpenStackAPI():
         instance_list = self.list_instance()['servers']
         for ins in instance_list:
             if ins['name'] == ins_name:
+                print('match!!')
                 return ins['id']
                 
     def get_smf_status(self,instance_id):
@@ -340,6 +341,7 @@ class OpenStackAPI():
         
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
+        print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
         print("smf instance status: {}".format(smf_status))
         
