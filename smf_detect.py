@@ -315,7 +315,7 @@ class OpenStackAPI():
         list_instance_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/servers'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
-        get_instance_list_response = requests.get(get_port_url, headers=headers)
+        get_instance_list_response = requests.get(list_instance_url, headers=headers)
         print("Get OpenStack instance status: " + str(get_instance_list_response.status_code))
         get_instance_list_result = get_instance_list_response.json()
         print(get_instance_list_result)
