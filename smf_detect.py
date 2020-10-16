@@ -333,7 +333,7 @@ class OpenStackAPI():
         headers = {'X-Auth-Token': token}
         get_instance_status_response = requests.get(list_instance_url, headers=headers)
         print("Get smf instance status: " + str(get_instance_status_response.status_code))
-        status = get_instance_status_response.json()['status']
+        status = get_instance_status_response.json()['server']['status']
         return status
         
     def smf_detect(self):
