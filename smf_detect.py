@@ -312,7 +312,7 @@ class OpenStackAPI():
         return self.project_id
     
     def list_instance(self):
-        list_instance_url = 'http://' + self.OPENSTACK_IP + ':9696/v2.0/servers'
+        list_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_list_response = requests.get(list_instance_url, headers=headers)
