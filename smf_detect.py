@@ -318,10 +318,30 @@ class OpenStackAPI():
         get_instance_list_response = requests.get(list_instance_url, headers=headers)
         print("Get OpenStack instance status: " + str(get_instance_list_response.status_code))
         get_instance_list_result = get_instance_list_response.json()
-        print(get_instance_list_result)
+        #print(get_instance_list_result)
         return get_instance_list_result
     
-
+    def get_instance_id(self,ins_name):
+        instance_list = self.list_instance()['servers']
+        for ins in instance_list:
+            if ins['name'] == ins_name:
+                return ins['id']
+                
+    def get_smf_status:
+        get_smf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_instance_status_response = requests.get(list_instance_url, headers=headers)
+        print("Get smf instance status: " + str(get_instance_status_response.status_code))
+        status = get_instance_status_response.json()['status']
+        return status
+        
+    def smf_detect(self):
+        instance_id = self.get_instance_id('free5gc-smf-VNF')
+        smf_status = self.get_smf_status(instance_id)
+        print("smf instance status: {}".format(smf_status))
+        
+        
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
