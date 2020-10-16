@@ -323,7 +323,16 @@ class OpenStackAPI():
         return get_instance_list_result
     
     def get_instance_id(self,ins_name):
-        ins_list = self.list_instance()
+        list_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_instance_list_response = requests.get(list_instance_url, headers=headers)
+        print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
+        get_instance_list_result = get_instance_list_response.json()
+        print('check1')
+        #print(get_instance_list_result)
+        instance_list = get_instance_list_result['servers']
+        #instance_list = self.list_instance()
         print('check2')
         print(instance_list)
         print('check3')
