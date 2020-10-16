@@ -332,7 +332,7 @@ class OpenStackAPI():
         try:
             print(get_instance_list_result)
         except Exception as e:
-            print(f'An Error occurred: {e}')
+            print('An Error occurred: {e}')
         print('check1')
         
         instance_list = get_instance_list_result['servers']
