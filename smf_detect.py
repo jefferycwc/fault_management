@@ -324,6 +324,7 @@ class OpenStackAPI():
     def get_instance_id(self,ins_name):
         instance_list = self.list_instance()
         print(instance_list)
+        print("check1")
         for i in range(len(instance_list)):
             print('ins name: {}'.format(ins[i]['name']))
             if ins[i]['name'] == ins_name:
@@ -336,7 +337,6 @@ class OpenStackAPI():
         headers = {'X-Auth-Token': token}
         get_instance_status_response = requests.get(list_instance_url, headers=headers)
         print("Get smf instance status: " + str(get_instance_status_response.status_code))
-        print("check1")
         print("get instance result: {}".format(get_instance_status_response.json()))
         status = get_instance_status_response.json()['server']['status']
         return status
