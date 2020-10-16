@@ -324,15 +324,15 @@ class OpenStackAPI():
     
     def get_instance_id(self,ins_name):
         i#nstance_list = self.list_instance()['servers']
-        print('check2')
+        #print('check2')
         print(instance_list)
-        print('check3')
+        #print('check3')
         for i in range(len(instance_list)):
             print('ins name: {}'.format(ins[i]['name']))
             if ins[i]['name'] == ins_name:
                 print('match!!')
                 return ins[i]['id']
-        return 0        
+               
     def get_smf_status(self,instance_id):
         get_smf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         token = self.get_token()
@@ -357,7 +357,7 @@ if __name__ == '__main__':
     #while 1:
     #    test.smf_detect()
     test = OpenStackAPI()
-    test.list_instance()
+    test.smf_detect()
     
 
 
