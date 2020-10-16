@@ -330,7 +330,7 @@ class OpenStackAPI():
         print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
         get_instance_list_result = get_instance_list_response.json()
         print('check1')
-        #print(get_instance_list_result)
+        print(get_instance_list_result)
         instance_list = get_instance_list_result['servers']
         #instance_list = self.list_instance()
         print('check2')
