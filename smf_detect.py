@@ -327,7 +327,7 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 return ins['id']
                 
-    def get_smf_status:
+    def get_smf_status(self,instance_id):
         get_smf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         token = self.get_token()
         headers = {'X-Auth-Token': token}
