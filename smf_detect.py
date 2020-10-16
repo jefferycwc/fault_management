@@ -323,8 +323,9 @@ class OpenStackAPI():
     
     def get_instance_id(self,ins_name):
         instance_list = self.list_instance()
-        print(instance_list)
         print("check1")
+        print(instance_list)
+        print("check2")
         for i in range(len(instance_list)):
             print('ins name: {}'.format(ins[i]['name']))
             if ins[i]['name'] == ins_name:
