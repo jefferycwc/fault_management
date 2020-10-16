@@ -323,7 +323,7 @@ class OpenStackAPI():
         return get_instance_list_result
     
     def get_instance_id(self,ins_name):
-        instance_list = self.list_instance()['servers']
+        i#nstance_list = self.list_instance()['servers']
         print('check2')
         print(instance_list)
         print('check3')
