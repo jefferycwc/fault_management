@@ -332,7 +332,7 @@ class OpenStackAPI():
             if ins[i]['name'] == ins_name:
                 print('match!!')
                 return ins[i]['id']
-                
+        return 0        
     def get_smf_status(self,instance_id):
         get_smf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         token = self.get_token()
