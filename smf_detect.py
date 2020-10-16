@@ -323,11 +323,11 @@ class OpenStackAPI():
     
     def get_instance_id(self,ins_name):
         instance_list = self.list_instance()['servers']
-        for ins in instance_list:
-            print('ins name: {}'.format(ins['name']))
-            if ins['name'] == ins_name:
+        for i in range(len(instance_list)):
+            print('ins name: {}'.format(ins[i]['name']))
+            if ins[i]['name'] == ins_name:
                 print('match!!')
-                return ins['id']
+                return ins[i]['id']
                 
     def get_smf_status(self,instance_id):
         get_smf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
