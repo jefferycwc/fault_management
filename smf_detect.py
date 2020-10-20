@@ -382,7 +382,8 @@ def restart():
     #print('restart smf')
     time.sleep(3)
     client.close 
-   
+    return 
+    
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
