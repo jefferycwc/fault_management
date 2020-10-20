@@ -8,7 +8,7 @@ from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAM
 class TackerAPI():
     def __init__(self):
         self.TACKER_IP = TACKER_IP
-	    self.TACKER_OS_AUTH_URL = TACKER_OS_AUTH_URL
+        self.TACKER_OS_AUTH_URL = TACKER_OS_AUTH_URL
         self.TACKER_OS_USER_DOMAIN_NAME = TACKER_OS_USER_DOMAIN_NAME
         self.TACKER_OS_USERNAME = TACKER_OS_USERNAME
         self.TACKER_OS_PASSWORD = TACKER_OS_PASSWORD
@@ -242,15 +242,142 @@ class TackerAPI():
         print(get_ns_list_result)
         #print(text)
         return get_ns_list_result
+        
+class OpenStackAPI():
+    def __init__(self):
+        #super().__init__()
+        self.OPENSTACK_IP = OPENSTACK_IP
+        self.OS_AUTH_URL = OS_AUTH_URL
+        self.OS_USER_DOMAIN_NAME = OS_USER_DOMAIN_NAME
+        self.OS_USERNAME = OS_USERNAME
+        self.OS_PASSWORD = OS_PASSWORD
+        self.OS_PROJECT_DOMAIN_NAME = OS_PROJECT_DOMAIN_NAME
+        self.OS_PROJECT_NAME = OS_PROJECT_NAME
+        self.ary_data = []
+        self.nsd_id = ''
+        self.nsd_name = ''
+        self.get_token_result = ''
+        self.project_id = ''
 
+    def get_token(self):
+        # print("\nGet token:")
+        self.get_token_result = ''
+        get_token_url = self.OS_AUTH_URL + '/v3/auth/tokens'
+        get_token_body = {
+            'auth': {
+                'identity': {
+                    'methods': [
+                        'password'
+                    ],
+                    'password': {
+                        'user': {
+                            'domain': {
+                                'name': self.OS_USER_DOMAIN_NAME
+                            },
+                            'name': self.OS_USERNAME,
+                            'password': self.OS_PASSWORD
+                        }
+                    }
+                },
+                'scope': {
+                    'project': {
+                        'domain': {
+                            'name': self.OS_PROJECT_DOMAIN_NAME
+                        },
+                        'name': self.OS_PROJECT_NAME
+                    }
+                }
+            }
+        }
+        get_token_response = requests.post(get_token_url, data=json.dumps(get_token_body))
+        #print("Get OpenStack token status: " + str(get_token_response.status_code))
+        self.get_token_result = get_token_response.headers['X-Subject-Token']
+        return self.get_token_result
 
-
+    def get_project_id(self, project_name):
+        # print("\nGet Project ID:")
+        self.project_id = ''
+        get_project_list_url = self.OS_AUTH_URL + '/v3/projects'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_project_list_response = requests.get(get_project_list_url, headers=headers)
+        print("Get OpenStack project list status: " + str(get_project_list_response.status_code))
+        get_project_list_result = get_project_list_response.json()['projects']
+        #print(get_project_list_result)
+        for project in get_project_list_result:
+            if project['name'] == project_name:
+                self.project_id = project['id']
+            pass
+        print("Project ID:" + self.project_id)
+        return self.project_id
     
+    def list_instance(self):
+        list_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_instance_list_response = requests.get(list_instance_url, headers=headers)
+        #print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
+        get_instance_list_result = get_instance_list_response.json()
+        #print('check1')
+        #print(get_instance_list_result)
+        return get_instance_list_result
+    
+    def get_instance_id(self,ins_name):
+        instance_list = self.list_instance()['servers']
+        #print('check2')
+        #print(instance_list)
+        #print('check3')
+        for ins in instance_list:
+            #print('ins name: {}'.format(ins[i]['name']))
+            if ins['name'] == ins_name:
+                #print('match!!')
+                return ins['id']
+               
+    def get_nssf_status(self,instance_id):
+        get_nssf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_instance_status_response = requests.get(get_nssf_status_url, headers=headers)
+        #print("Get nssf instance status: " + str(get_instance_status_response.status_code))
+        #print("get instance result: {}".format(get_instance_status_response.json()))
+        status = get_instance_status_response.json()['server']['status']
+        return status
 
+    def resume_instance(self,instance_id):
+        resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'resume' : null
+        }
+        res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
+        #print("resume nssf instance status: "+ str(res.status_code))
+        #print(res)
+        count=0
+        while 1:
+            if self.get_nssf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('resume nssf successfully!!')
+
+    def nssf_detect(self):
+        instance_id = self.get_instance_id('free5gc-nssf-VNF')
+        #print('nssf instance id: {}'.format(instance_id))
+        nssf_status = self.get_nssf_status(instance_id)
+        print("nssf instance status: {}".format(nssf_status))
+        if nssf_status!='ACTIVE':
+            self.resume_instance(instance_id)
+        
 if __name__ == '__main__':
     print('start')
-    test = TackerAPI()
+    #test = TackerAPI()
     #test.nssf_detect()
+    #while 1:
+    #    test.nssf_detect()
+    test = OpenStackAPI()
     while 1:
         test.nssf_detect()
     
