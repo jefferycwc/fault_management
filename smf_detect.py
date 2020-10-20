@@ -365,7 +365,7 @@ class OpenStackAPI():
         print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
         print("smf instance status: {}".format(smf_status))
-        if smf_status!='ACTIVE'
+        if smf_status!='ACTIVE':
             self.resume_instance(instance_id)
         
 if __name__ == '__main__':
