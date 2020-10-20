@@ -414,7 +414,7 @@ def restart(instance_id):
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
     if stderr:
         print stderr.read()
-    else
+    else:
         print stdout.read()
     #print('restart smf')
     time.sleep(3)
