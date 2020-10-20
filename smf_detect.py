@@ -316,7 +316,7 @@ class OpenStackAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_list_response = requests.get(list_instance_url, headers=headers)
-        print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
+        #print("Get OpenStack instance list status: " + str(get_instance_list_response.status_code))
         get_instance_list_result = get_instance_list_response.json()
         #print('check1')
         #print(get_instance_list_result)
@@ -338,7 +338,7 @@ class OpenStackAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_status_response = requests.get(get_smf_status_url, headers=headers)
-        print("Get smf instance status: " + str(get_instance_status_response.status_code))
+        #print("Get smf instance status: " + str(get_instance_status_response.status_code))
         #print("get instance result: {}".format(get_instance_status_response.json()))
         status = get_instance_status_response.json()['server']['status']
         return status
