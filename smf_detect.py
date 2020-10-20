@@ -352,8 +352,8 @@ class OpenStackAPI():
             'resume' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
-        print("resume smf instance status: "+ str(res.status_code))
-        print(res)
+        #print("resume smf instance status: "+ str(res.status_code))
+        #print(res)
         count=0
         while 1:
             if self.get_smf_status(instance_id)=='ACTIVE':
@@ -365,7 +365,7 @@ class OpenStackAPI():
 
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
-        print('smf instance id: {}'.format(instance_id))
+        #print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
         print("smf instance status: {}".format(smf_status))
         if smf_status!='ACTIVE':
