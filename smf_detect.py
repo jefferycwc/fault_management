@@ -1,4 +1,4 @@
-import requests,time
+import requests,time,paramiko, base64,getpass,time
 import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
@@ -370,7 +370,18 @@ class OpenStackAPI():
         print("smf instance status: {}".format(smf_status))
         if smf_status!='ACTIVE':
             self.resume_instance(instance_id)
-        
+
+def restart():
+    ey=paramiko.RSAKey.from_private_key_file('./free5gc.key')
+    client=paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
+    stdin,stdout,stderr = client.exec_command('sudo ./bin/smf')
+    print('restart smf')
+    time.sleep(10)
+    client.close 
+
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
