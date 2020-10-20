@@ -404,14 +404,16 @@ def restart(instance_id):
     #time.sleep(3)
     test=OpenStackAPI()
     status=test.get_smf_status(instance_id)
-    while 1:
-        print("the status is: {}".format(status))
-        if status =='ACTIVE':
-            break
-        status=test.get_smf_status()
+    #while 1:
+    #    print("the status is: {}".format(status))
+    #    if status =='ACTIVE':
+    #        break
+    #    status=test.get_smf_status()
     time.sleep(5)
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
-    stdin,stdout,stderr = client.exec_command('ls')
+    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
+    if stderr:
+        print stderr.read()
     print stdout.read()
     #print('restart smf')
     time.sleep(3)
