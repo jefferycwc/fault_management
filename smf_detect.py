@@ -362,6 +362,7 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume smf successfully!!')
+        restart()
 
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
@@ -381,7 +382,7 @@ def restart():
     print('restart smf')
     time.sleep(10)
     client.close 
-
+   
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
