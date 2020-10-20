@@ -364,13 +364,36 @@ class OpenStackAPI():
         print('resume smf successfully!!')
         #restart()
 
+    def reboot_instance(self,instance_id):
+        reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'reboot' : {
+                'type' : 'HARD'
+            }
+        }
+        res = requests.post(reboot_instance_url, data=json.dumps(req_body), headers=headers)
+        count=0
+        while 1:
+            if self.get_smf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('reboot smf successfully!!')
+        restart()
+
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
         #print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
         print("smf instance status: {}".format(smf_status))
-        if smf_status!='ACTIVE':
+        if smf_status=='PAUSED':
             self.resume_instance(instance_id)
+        else if smf_status=='SHUTOFF'
+            self.reboot_instance(instance_id)
 
 def restart():
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
