@@ -1,4 +1,4 @@
-import requests,time
+import requests,time,paramiko, base64,getpass,time
 import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
@@ -80,7 +80,7 @@ class TackerAPI():
         headers = {'X-Auth-Token': token}
         tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
         vnfd_id = self.get_vnfd_id(vnfd_name)
-        vnf_description = 'nssf'
+        vnf_description = 'nrf'
         vim_id = self.get_vim_id(vim_name)
         vnf_body = {
                 'vnf': {
@@ -105,7 +105,7 @@ class TackerAPI():
             time.sleep(1)
             count = count+1
             print('wait ' + str(count) + 's')
-        print('create nssf successfully!!')
+        print('create nrf successfully!!')
         #result = response.json()
         #print(result)
 
@@ -201,36 +201,36 @@ class TackerAPI():
         id = 0
         get_vnf_list_result = get_vnf_list_result['vnfs']
         for i in range(len(get_vnf_list_result)):
-            if get_vnf_list_result[i]['description'] == 'nssf':
+            if get_vnf_list_result[i]['description'] == 'nrf':
                 return get_vnf_list_result[i]['id']
         return 0
         #return id
-    def get_nssf_status(self,nssf_id):
-        get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + str(nssf_id)
+    def get_nrf_status(self,nrf_id):
+        get_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + str(nrf_id)
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_vnf_response = requests.get(get_vnf_url, headers=headers)
-        print("Get nssf status: " + str(get_vnf_response.status_code))
+        print("Get nrf status: " + str(get_vnf_response.status_code))
         return str(get_vnf_response.status_code)
         #get_vnf_result = get_vnf_response.json()['vnf']
         #return get_vnf_result['status']
         
-    def nssf_detect(self):
+    def nrf_detect(self):
         get_vnf_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_vnf_list_response = requests.get(get_vnf_list_url, headers=headers)
         get_vnf_list_result = get_vnf_list_response.json()
-        name = 'nssf'
+        name = 'nrf'
         vnf_id = self.get_vnf_id(get_vnf_list_result,name)
         if vnf_id==0:
-            self.create_vnf('nssf','nssf','jefferyvim')
+            self.create_vnf('nrf','nrf','jefferyvim')
         #print('id: {}'.format(vnf_id))
-        vnf_status = self.get_nssf_status(vnf_id) 
+        vnf_status = self.get_nrf_status(vnf_id) 
         if vnf_status!='200':
-            self.create_vnf('nssf','nssf','jefferyvim')
+            self.create_vnf('nrf','nrf','jefferyvim')
         return 
-        #print('nssf status: {}'.format(vnf_status))
+        #print('nrf status: {}'.format(vnf_status))
     def list_ns(self):
         get_ns_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/nss'
         token = self.get_token()
@@ -333,12 +333,12 @@ class OpenStackAPI():
                 #print('match!!')
                 return ins['id']
                
-    def get_nssf_status(self,instance_id):
-        get_nssf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+    def get_nrf_status(self,instance_id):
+        get_nrf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         token = self.get_token()
         headers = {'X-Auth-Token': token}
-        get_instance_status_response = requests.get(get_nssf_status_url, headers=headers)
-        #print("Get nssf instance status: " + str(get_instance_status_response.status_code))
+        get_instance_status_response = requests.get(get_nrf_status_url, headers=headers)
+        #print("Get nrf instance status: " + str(get_instance_status_response.status_code))
         #print("get instance result: {}".format(get_instance_status_response.json()))
         status = get_instance_status_response.json()['server']['status']
         return status
@@ -352,34 +352,48 @@ class OpenStackAPI():
             'unpause' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
-        #print("resume nssf instance status: "+ str(res.status_code))
+        #print("resume nrf instance status: "+ str(res.status_code))
         #print(res)
         count=0
         while 1:
-            if self.get_nssf_status(instance_id)=='ACTIVE':
+            if self.get_nrf_status(instance_id)=='ACTIVE':
                 break
             time.sleep(1)
             count = count+1
             print('wait ' + str(count) + 's')
-        print('resume nssf successfully!!')
+        print('resume nrf successfully!!')
+        #restart()
 
-    def nssf_detect(self):
-        instance_id = self.get_instance_id('free5gc-nssf-VNF')
-        #print('nssf instance id: {}'.format(instance_id))
-        nssf_status = self.get_nssf_status(instance_id)
-        print("nssf instance status: {}".format(nssf_status))
-        if nssf_status!='ACTIVE':
+    def nrf_detect(self):
+        instance_id = self.get_instance_id('free5gc-nrf-VNF')
+        #print('nrf instance id: {}'.format(instance_id))
+        nrf_status = self.get_nrf_status(instance_id)
+        print("nrf instance status: {}".format(nrf_status))
+        if nrf_status!='ACTIVE':
             self.resume_instance(instance_id)
-        
+
+def restart():
+    key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
+    client=paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    print("ready to ssh")
+    client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
+    stdin,stdout,stderr = client.exec_command('sudo ./bin/nrf')
+    #print('restart nrf')
+    time.sleep(3)
+    client.close 
+    return 
+
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
-    #test.nssf_detect()
+    #test.nrf_detect()
     #while 1:
-    #    test.nssf_detect()
+    #    test.nrf_detect()
     test = OpenStackAPI()
     while 1:
-        test.nssf_detect()
+        test.nrf_detect()
     
 
 

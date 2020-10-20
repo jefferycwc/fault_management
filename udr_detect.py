@@ -349,7 +349,7 @@ class OpenStackAPI():
         headers = {'X-Auth-Token': token}
         null = None
         req_body = {
-            'resume' : null
+            'unpause' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         #print("resume udr instance status: "+ str(res.status_code))
