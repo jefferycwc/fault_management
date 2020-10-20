@@ -411,7 +411,7 @@ def restart(instance_id):
         status=test.get_smf_status()
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('ls')
-    print(stdout)
+    print stdout.read()
     #print('restart smf')
     time.sleep(3)
     client.close 
