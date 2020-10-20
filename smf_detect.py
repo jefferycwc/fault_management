@@ -405,6 +405,7 @@ def restart(instance_id):
     test=OpenStackAPI()
     status=test.get_smf_status(instance_id)
     while 1:
+        print("the status is: {}".format(status))
         if status =='ACTIVE':
             break
         status=test.get_smf_status()
