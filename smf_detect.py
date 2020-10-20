@@ -330,7 +330,7 @@ class OpenStackAPI():
         for ins in instance_list:
             #print('ins name: {}'.format(ins[i]['name']))
             if ins['name'] == ins_name:
-                print('match!!')
+                #print('match!!')
                 return ins['id']
                
     def get_smf_status(self,instance_id):
