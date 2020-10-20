@@ -7,7 +7,7 @@ import (
 )
 var wg sync.WaitGroup
 func main(){
-	cmd := exec.Command("nrf_detect.py")
+	cmd := exec.Command("./nrf_detect.py")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatalf("cmd.Run() failed with %s\n", err)
