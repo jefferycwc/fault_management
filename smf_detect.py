@@ -347,8 +347,9 @@ class OpenStackAPI():
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
+        null = None
         req_body = {
-            'resume' : 
+            'resume' : null
         }
         requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         count=0
