@@ -377,13 +377,14 @@ def restart():
     client=paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    print("ready to ssh")
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('sudo ./bin/smf')
     #print('restart smf')
     time.sleep(3)
     client.close 
     return 
-    
+
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
