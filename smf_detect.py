@@ -353,6 +353,7 @@ class OpenStackAPI():
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         print("resume smf instance status: "+ str(res.status_code))
+        print(res)
         count=0
         while 1:
             if self.get_smf_status(instance_id)=='ACTIVE':
