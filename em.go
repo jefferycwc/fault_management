@@ -16,7 +16,7 @@ func main(){
 }
 
 func nrf_detect(){
-	fmt.printf("nrf detect")
+	fmt.Printf("nrf detect")
 	cmd := exec.Command("python nrf_detect.py")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
@@ -25,10 +25,10 @@ func nrf_detect(){
 	fmt.Printf("combined out:\n%s\n", string(out))
 }
 func amf_detect(){
-	fmt.printf("amf detect")
+	fmt.Printf("amf detect")
 	exec.Command("python amf_detect.py")
 }
 func smf_detect(){
-	fmt.printf("smf detect")
+	fmt.Printf("smf detect")
 	exec.Command("python smf_detect.py")
 }
