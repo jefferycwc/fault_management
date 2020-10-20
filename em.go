@@ -14,7 +14,12 @@ func main(){
 }
 
 func nrf_detect(){
-	exec.Command("python nrf_detect.py")
+	cmd := exec.Command("python nrf_detect.py")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatalf("cmd.Run() failed with %s\n", err)
+	}
+	fmt.Printf("combined out:\n%s\n", string(out))
 }
 func amf_detect(){
 	exec.Command("python amf_detect.py")
