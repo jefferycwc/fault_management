@@ -402,7 +402,7 @@ def restart():
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("ready to ssh")
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
-    stdin,stdout,stderr = client.exec_command('sudo ./bin/smf')
+    stdin,stdout,stderr = client.exec_command('ls')
     if stderr:
         print(stderr)
     else:
