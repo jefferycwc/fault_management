@@ -343,7 +343,7 @@ class OpenStackAPI():
         status = get_instance_status_response.json()['server']['status']
         return status
 
-    def resume_instance(self,instance_id)
+    def resume_instance(self,instance_id):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
