@@ -1,5 +1,7 @@
 import multiprocessing
-
+import os
+def worker(arg):
+    os.system(arg)
 if __name__ == '__main__':
     files = ["./nrf_detect.py","./amf_detect.py","./smf_detect.py"]
     for i in files:
