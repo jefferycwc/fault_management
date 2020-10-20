@@ -349,7 +349,7 @@ class OpenStackAPI():
         headers = {'X-Auth-Token': token}
         null = None
         req_body = {
-            'resume' : null
+            'unpause' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         #print("resume smf instance status: "+ str(res.status_code))
@@ -362,7 +362,7 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume smf successfully!!')
-        restart()
+        #restart()
 
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
