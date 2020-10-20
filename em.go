@@ -2,6 +2,8 @@ package main
 import (
 	"sync"
 	"os/exec"
+	"log"
+	"fmt"
 )
 var wg sync.WaitGroup
 func main(){
