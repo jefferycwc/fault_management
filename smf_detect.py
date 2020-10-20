@@ -380,7 +380,7 @@ def restart():
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('sudo ./bin/smf')
     #print('restart smf')
-    time.sleep(10)
+    time.sleep(3)
     client.close 
    
 if __name__ == '__main__':
