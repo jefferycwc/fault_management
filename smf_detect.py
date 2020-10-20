@@ -423,9 +423,9 @@ if __name__ == '__main__':
     #test.smf_detect()
     #while 1:
     #    test.smf_detect()
-    test = OpenStackAPI()
-    while 1:
-        test.smf_detect()
+    #test = OpenStackAPI()
+    #while 1:
+    #    test.smf_detect()
     restart()
 
 
