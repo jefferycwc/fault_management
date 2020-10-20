@@ -1,15 +1,16 @@
 package main
 import (
 	"sync"
+	"os/exec"
 )
 var wg sync.WaitGroup
 func main(){
 	wg.Add(1)
 	go nrf_detect()
 	wg.Add(1)
-	go amf_detct()
+	go amf_detect()
 	wg.Add(1)
-	go smf_detct()
+	go smf_detect()
 }
 
 func nrf_detect(){
