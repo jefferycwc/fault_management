@@ -353,7 +353,7 @@ class OpenStackAPI():
         requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         count=0
         while 1:
-            if self.get_smf_status(instance_id)=='ACTIVE'
+            if self.get_smf_status(instance_id)=='ACTIVE':
                 break
             time.sleep(1)
             count = count+1
