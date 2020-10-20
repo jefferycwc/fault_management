@@ -401,7 +401,13 @@ def restart():
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("ready to ssh")
-    time.sleep(3)
+    #time.sleep(3)
+    test=OpenStackAPI()
+    status=test.get_smf_status()
+    while 1:
+        if status =='ACTIVE'
+            break
+        status=test.get_smf_status()
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('ls')
     print(stdout)
