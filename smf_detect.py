@@ -401,6 +401,7 @@ def restart():
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("ready to ssh")
+    time.sleep(3)
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('ls')
     print(stdout)
