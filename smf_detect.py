@@ -373,7 +373,7 @@ class OpenStackAPI():
             self.resume_instance(instance_id)
 
 def restart():
-    ey=paramiko.RSAKey.from_private_key_file('./free5gc.key')
+    key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
