@@ -405,7 +405,7 @@ def restart():
     test=OpenStackAPI()
     status=test.get_smf_status()
     while 1:
-        if status =='ACTIVE'
+        if status =='ACTIVE':
             break
         status=test.get_smf_status()
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
