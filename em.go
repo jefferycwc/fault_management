@@ -7,15 +7,16 @@ import (
 )
 var wg sync.WaitGroup
 func main(){
-	wg.Add(1)
+	cmd := exec.Command("python nrf_detect.py")
+	/*wg.Add(1)
 	go nrf_detect()
 	wg.Add(1)
 	go amf_detect()
 	wg.Add(1)
-	go smf_detect()
+	go smf_detect()*/
 }
 
-func nrf_detect(){
+/*func nrf_detect(){
 	fmt.Printf("nrf detect")
 	cmd := exec.Command("python nrf_detect.py")
 	out, err := cmd.CombinedOutput()
@@ -31,4 +32,4 @@ func amf_detect(){
 func smf_detect(){
 	fmt.Printf("smf detect")
 	exec.Command("python smf_detect.py")
-}
+}*/
