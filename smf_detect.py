@@ -383,7 +383,7 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('reboot smf successfully!!')
-        restart()
+        restart(instance_id)
 
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
@@ -395,7 +395,7 @@ class OpenStackAPI():
         elif smf_status=='SHUTOFF':
             self.reboot_instance(instance_id)
 
-def restart():
+def restart(instance_id):
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
@@ -403,7 +403,7 @@ def restart():
     print("ready to ssh")
     #time.sleep(3)
     test=OpenStackAPI()
-    status=test.get_smf_status()
+    status=test.get_smf_status(instance_id)
     while 1:
         if status =='ACTIVE':
             break
