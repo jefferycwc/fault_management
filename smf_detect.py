@@ -392,7 +392,7 @@ class OpenStackAPI():
         print("smf instance status: {}".format(smf_status))
         if smf_status=='PAUSED':
             self.resume_instance(instance_id)
-        else if smf_status=='SHUTOFF'
+        else if smf_status=='SHUTOFF':
             self.reboot_instance(instance_id)
 
 def restart():
