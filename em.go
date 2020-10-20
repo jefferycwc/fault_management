@@ -2,12 +2,17 @@ package main
 import (
 	"sync"
 	"os/exec"
-	//"log"
-	//"fmt"
+	"log"
+	"fmt"
 )
 var wg sync.WaitGroup
 func main(){
 	cmd := exec.Command("python nrf_detect.py")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatalf("cmd.Run() failed with %s\n", err)
+	}
+	fmt.Printf("combined out:\n%s\n", string(out))
 	/*wg.Add(1)
 	go nrf_detect()
 	wg.Add(1)
