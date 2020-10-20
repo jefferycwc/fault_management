@@ -342,13 +342,31 @@ class OpenStackAPI():
         #print("get instance result: {}".format(get_instance_status_response.json()))
         status = get_instance_status_response.json()['server']['status']
         return status
-        
+
+    def resume_instance(self,instance_id)
+        resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        req_body = {
+            'resume' : null
+        }
+        requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
+        count=0
+        while 1:
+            if self.get_smf_status(instance_id)=='ACTIVE'
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('resume smf successfully!!')
+
     def smf_detect(self):
         instance_id = self.get_instance_id('free5gc-smf-VNF')
         print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
         print("smf instance status: {}".format(smf_status))
-        
+        if smf_status!='ACTIVE'
+            self.resume_instance(instance_id)
         
 if __name__ == '__main__':
     print('start')
@@ -357,7 +375,8 @@ if __name__ == '__main__':
     #while 1:
     #    test.smf_detect()
     test = OpenStackAPI()
-    test.smf_detect()
+    while 1:
+        test.smf_detect()
     
 
 
