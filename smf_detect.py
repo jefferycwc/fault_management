@@ -409,6 +409,7 @@ def restart(instance_id):
         if status =='ACTIVE':
             break
         status=test.get_smf_status()
+    time.sleep(5)
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('ls')
     print stdout.read()
