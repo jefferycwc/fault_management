@@ -423,12 +423,12 @@ if __name__ == '__main__':
     #test.smf_detect()
     #while 1:
     #    test.smf_detect()
-    #test = OpenStackAPI()
-    #while 1:
-    #    test.smf_detect()
     test = OpenStackAPI()
-    instance_id = test.get_instance_id('free5gc-smf-VNF')
-    restart(instance_id)
+    while 1:
+        test.smf_detect()
+    #test = OpenStackAPI()
+    #instance_id = test.get_instance_id('free5gc-smf-VNF')
+    #restart(instance_id)
 
 
 
