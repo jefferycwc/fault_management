@@ -1,4 +1,4 @@
-package em
+package main
 var wg sync.WaitGroup
 func main(){
 	wg.Add(1)
