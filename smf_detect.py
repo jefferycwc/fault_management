@@ -402,8 +402,8 @@ def restart(instance_id):
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("ready to ssh")
     #time.sleep(3)
-    test=OpenStackAPI()
-    status=test.get_smf_status(instance_id)
+    #test=OpenStackAPI()
+    #status=test.get_smf_status(instance_id)
     #while 1:
     #    print("the status is: {}".format(status))
     #    if status =='ACTIVE':
@@ -417,7 +417,7 @@ def restart(instance_id):
     #else:
     #    print stdout.read()
     #print('restart smf')
-    #time.sleep(3)
+    time.sleep(3)
     client.close 
     return 
 
