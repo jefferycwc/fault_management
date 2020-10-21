@@ -415,7 +415,7 @@ def restart(instance_id):
         time.sleep(1)
         count = count+1
         print('wait ' + str(count) + 's')
-        if count==10:
+        if count==15:
             break
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
