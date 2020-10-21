@@ -409,17 +409,22 @@ def restart(instance_id):
     #    if status =='ACTIVE':
     #        break
     #    status=test.get_smf_status()
-    time.sleep(10)
+    #time.sleep(10)
+    count=0
+        while 1:
+            count = count+1
+            print('wait ' + str(count) + 's')
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
     #if stderr:
     #    print stderr.read()
     #else:
     #    print stdout.read()
-    print stdout.read()
+    #print stdout.read()
     #print('restart smf')
     #time.sleep(3)
     client.close 
+    print("ssh connection close")
     return 
 
 if __name__ == '__main__':
