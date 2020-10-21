@@ -417,7 +417,7 @@ def restart(instance_id):
     #else:
     #    print stdout.read()
     #print('restart smf')
-    time.sleep(3)
+    #time.sleep(3)
     client.close 
     return 
 
