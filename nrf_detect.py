@@ -343,13 +343,34 @@ class OpenStackAPI():
         status = get_instance_status_response.json()['server']['status']
         return status
 
+    def unpause_instance(self,instance_id):
+        unpause_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'unpause' : null
+        }
+        res = requests.post(unpause_instance_url, data=json.dumps(req_body), headers=headers)
+        #print("resume nrf instance status: "+ str(res.status_code))
+        #print(res)
+        count=0
+        while 1:
+            if self.get_nrf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('unpause nrf successfully!!')
+        #restart()
+
     def resume_instance(self,instance_id):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         null = None
         req_body = {
-            'unpause' : null
+            'resume' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         #print("resume nrf instance status: "+ str(res.status_code))
@@ -362,27 +383,78 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume nrf successfully!!')
-        #restart()
+        restart(instance_id)
+    
+    def reboot_instance(self,instance_id):
+        reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'reboot' : {
+                'type' : 'HARD'
+            }
+        }
+        res = requests.post(reboot_instance_url, data=json.dumps(req_body), headers=headers)
+        count=0
+        while 1:
+            if self.get_nrf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('reboot nrf successfully!!')
+        restart(instance_id)
 
     def nrf_detect(self):
         instance_id = self.get_instance_id('free5gc-nrf-VNF')
         #print('nrf instance id: {}'.format(instance_id))
         nrf_status = self.get_nrf_status(instance_id)
         print("nrf instance status: {}".format(nrf_status))
-        if nrf_status!='ACTIVE':
+        if nrf_status=='PAUSED':
+            self.unpause_instance(instance_id)
+        elif nrf_status=='SHUTOFF':
+            self.reboot_instance(instance_id)
+        elif nrf_status=='SUSPENDED':
             self.resume_instance(instance_id)
-
-def restart():
+def restart(instance_id):
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print("ready to ssh")
+    #time.sleep(3)
+    #test=OpenStackAPI()
+    #status=test.get_nrf_status(instance_id)
+    #while 1:
+    #    print("the status is: {}".format(status))
+    #    if status =='ACTIVE':
+    #        break
+    #    status=test.get_nrf_status()
+    #time.sleep(10)
+    count=0
+    while 1:
+        time.sleep(1)
+        count = count+1
+        print('wait ' + str(count) + 's')
+        if count==20:
+            break
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
-    stdin,stdout,stderr = client.exec_command('sudo ./bin/nrf')
-    #print('restart nrf')
-    time.sleep(3)
+    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/nrf')
+    #if stderr:
+    #    print stderr.read()
+    #else:
+    #    print stdout.read()
+    #print stdout.read()
+    count=0
+    while 1:
+        time.sleep(1)
+        count = count+1
+        print('wait ' + str(count) + 's')
+        if count==10:
+            break
     client.close 
+    print("ssh connection close")
     return 
 
 if __name__ == '__main__':
@@ -394,7 +466,9 @@ if __name__ == '__main__':
     test = OpenStackAPI()
     while 1:
         test.nrf_detect()
-    
+    #test = OpenStackAPI()
+    #instance_id = test.get_instance_id('free5gc-nrf-VNF')
+    #restart(instance_id)
 
 
 

@@ -1,4 +1,4 @@
-import requests,time
+import requests,time,paramiko, base64,getpass,time
 import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
@@ -343,13 +343,34 @@ class OpenStackAPI():
         status = get_instance_status_response.json()['server']['status']
         return status
 
+    def unpause_instance(self,instance_id):
+        unpause_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'unpause' : null
+        }
+        res = requests.post(unpause_instance_url, data=json.dumps(req_body), headers=headers)
+        #print("resume nssf instance status: "+ str(res.status_code))
+        #print(res)
+        count=0
+        while 1:
+            if self.get_nssf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('unpause nssf successfully!!')
+        #restart()
+
     def resume_instance(self,instance_id):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         null = None
         req_body = {
-            'unpause' : null
+            'resume' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         #print("resume nssf instance status: "+ str(res.status_code))
@@ -362,15 +383,80 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume nssf successfully!!')
+        restart(instance_id)
+    
+    def reboot_instance(self,instance_id):
+        reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'reboot' : {
+                'type' : 'HARD'
+            }
+        }
+        res = requests.post(reboot_instance_url, data=json.dumps(req_body), headers=headers)
+        count=0
+        while 1:
+            if self.get_nssf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('reboot nssf successfully!!')
+        restart(instance_id)
 
     def nssf_detect(self):
         instance_id = self.get_instance_id('free5gc-nssf-VNF')
         #print('nssf instance id: {}'.format(instance_id))
         nssf_status = self.get_nssf_status(instance_id)
         print("nssf instance status: {}".format(nssf_status))
-        if nssf_status!='ACTIVE':
+        if nssf_status=='PAUSED':
+            self.unpause_instance(instance_id)
+        elif nssf_status=='SHUTOFF':
+            self.reboot_instance(instance_id)
+        elif nssf_status=='SUSPENDED':
             self.resume_instance(instance_id)
-        
+def restart(instance_id):
+    key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
+    client=paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    print("ready to ssh")
+    #time.sleep(3)
+    #test=OpenStackAPI()
+    #status=test.get_nssf_status(instance_id)
+    #while 1:
+    #    print("the status is: {}".format(status))
+    #    if status =='ACTIVE':
+    #        break
+    #    status=test.get_nssf_status()
+    #time.sleep(10)
+    count=0
+    while 1:
+        time.sleep(1)
+        count = count+1
+        print('wait ' + str(count) + 's')
+        if count==20:
+            break
+    client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
+    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/nssf')
+    #if stderr:
+    #    print stderr.read()
+    #else:
+    #    print stdout.read()
+    #print stdout.read()
+    count=0
+    while 1:
+        time.sleep(1)
+        count = count+1
+        print('wait ' + str(count) + 's')
+        if count==10:
+            break
+    client.close 
+    print("ssh connection close")
+    return 
+
 if __name__ == '__main__':
     print('start')
     #test = TackerAPI()
@@ -380,7 +466,9 @@ if __name__ == '__main__':
     test = OpenStackAPI()
     while 1:
         test.nssf_detect()
-    
+    #test = OpenStackAPI()
+    #instance_id = test.get_instance_id('free5gc-nssf-VNF')
+    #restart(instance_id)
 
 
 
