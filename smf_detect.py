@@ -409,7 +409,7 @@ def restart(instance_id):
     #    if status =='ACTIVE':
     #        break
     #    status=test.get_smf_status()
-    time.sleep(8)
+    time.sleep(10)
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
     #if stderr:
