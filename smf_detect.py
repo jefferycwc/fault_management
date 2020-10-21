@@ -383,7 +383,7 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume smf successfully!!')
-
+        restart(instance_id)
     
     def reboot_instance(self,instance_id):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
