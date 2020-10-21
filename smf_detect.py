@@ -411,9 +411,9 @@ def restart(instance_id):
     #    status=test.get_smf_status()
     #time.sleep(10)
     count=0
-        while 1:
-            count = count+1
-            print('wait ' + str(count) + 's')
+    while 1:
+        count = count+1
+        print('wait ' + str(count) + 's')
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
     #if stderr:
