@@ -343,13 +343,34 @@ class OpenStackAPI():
         status = get_instance_status_response.json()['server']['status']
         return status
 
+    def unpause_instance(self,instance_id):
+        unpause_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        null = None
+        req_body = {
+            'unpause' : null
+        }
+        res = requests.post(unpause_instance_url, data=json.dumps(req_body), headers=headers)
+        #print("resume smf instance status: "+ str(res.status_code))
+        #print(res)
+        count=0
+        while 1:
+            if self.get_smf_status(instance_id)=='ACTIVE':
+                break
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+        print('unpause smf successfully!!')
+        #restart()
+
     def resume_instance(self,instance_id):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         null = None
         req_body = {
-            'unpause' : null
+            'resume' : null
         }
         res = requests.post(resume_instance_url, data=json.dumps(req_body), headers=headers)
         #print("resume smf instance status: "+ str(res.status_code))
@@ -362,8 +383,8 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume smf successfully!!')
-        #restart()
 
+    
     def reboot_instance(self,instance_id):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
@@ -391,10 +412,11 @@ class OpenStackAPI():
         smf_status = self.get_smf_status(instance_id)
         print("smf instance status: {}".format(smf_status))
         if smf_status=='PAUSED':
-            self.resume_instance(instance_id)
+            self.unpause_instance(instance_id)
         elif smf_status=='SHUTOFF':
             self.reboot_instance(instance_id)
-
+        elif smf_status=='SUSPENDED':
+            self.resume_instance(instance_id)
 def restart(instance_id):
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
