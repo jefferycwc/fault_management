@@ -412,10 +412,10 @@ def restart(instance_id):
     time.sleep(10)
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
-    #if stderr:
-    #    print stderr.read()
-    #else:
-    #    print stdout.read()
+    if stderr:
+        print stderr.read()
+    else:
+        print stdout.read()
     #print('restart smf')
     #time.sleep(3)
     client.close 
