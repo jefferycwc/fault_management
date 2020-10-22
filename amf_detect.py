@@ -441,19 +441,27 @@ def restart(instance_id):
         if count==25:
             break
     client.connect('172.24.4.102', 22,username='ubuntu',password='',pkey=key,compress=True)
-    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/amf')
-    if stderr:
-        print stderr.read()
-    else:
-        print stdout.read()
-    #print stdout.read()
-    count=0
-    while 1:
+    #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/amf & \n;exit')
+    cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/amf & \n','exit\n']
+    ssh=client.invoke_shell()
+    for cmd in cmds:
         time.sleep(1)
-        count = count+1
-        print('wait ' + str(count) + 's')
-        if count==10:
-            break
+        ssh.send(cmd)
+        out=ssh.recv(1024)
+        print out
+    time.sleep(1)
+    #if stderr:
+    #    print stderr.read()
+    #else:
+    #    print stdout.read()
+    #print stdout.read()
+    #count=0
+    #while 1:
+    #    time.sleep(1)
+    #    count = count+1
+    #    print('wait ' + str(count) + 's')
+    #    if count==10:
+    #        break
     client.close 
     print("ssh connection close")
     return 

@@ -449,18 +449,19 @@ def restart(instance_id):
         ssh.send(cmd)
         out=ssh.recv(1024)
         print out
+    time.sleep(1)
     #if stderr:
     #    print stderr.read()
     #else:
     #    print stdout.read()
     #print stdout.read()
-    count=0
-    while 1:
-        time.sleep(1)
-        count = count+1
-        print('wait ' + str(count) + 's')
-        if count==10:
-            break
+    #count=0
+    #while 1:
+    #    time.sleep(1)
+    #    count = count+1
+    #    print('wait ' + str(count) + 's')
+    #    if count==10:
+    #        break
     client.close 
     print("ssh connection close")
     return 

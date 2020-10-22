@@ -438,10 +438,18 @@ def restart(instance_id):
         time.sleep(1)
         count = count+1
         print('wait ' + str(count) + 's')
-        if count==20:
+        if count==25:
             break
     client.connect('172.24.4.106', 22,username='ubuntu',password='',pkey=key,compress=True)
-    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/udm')
+    #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/udm & \n;exit')
+    cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/udm & \n','exit\n']
+    ssh=client.invoke_shell()
+    for cmd in cmds:
+        time.sleep(1)
+        ssh.send(cmd)
+        out=ssh.recv(1024)
+        print out
+    time.sleep(1)
     #if stderr:
     #    print stderr.read()
     #else:
