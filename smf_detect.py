@@ -447,13 +447,13 @@ def restart(instance_id):
     #else:
     #    print stdout.read()
     #print stdout.read()
-    count=0
-    while 1:
-        time.sleep(1)
-        count = count+1
-        print('wait ' + str(count) + 's')
-        if count==10:
-            break
+    #count=0
+    #while 1:
+    #    time.sleep(1)
+    #    count = count+1
+    #    print('wait ' + str(count) + 's')
+    #    if count==10:
+    #        break
     client.close 
     print("ssh connection close")
     return 
