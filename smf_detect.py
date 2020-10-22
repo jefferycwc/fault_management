@@ -442,18 +442,18 @@ def restart(instance_id):
             break
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/smf')
-    if stderr:
-        print stderr.read()
-    else:
-        print stdout.read()
+    #if stderr:
+    #    print stderr.read()
+    #else:
+    #    print stdout.read()
     #print stdout.read()
-    #count=0
-    #while 1:
-    #    time.sleep(1)
-    #    count = count+1
-    #    print('wait ' + str(count) + 's')
-    #    if count==10:
-    #        break
+    count=0
+    while 1:
+        time.sleep(1)
+        count = count+1
+        print('wait ' + str(count) + 's')
+        if count==20:
+            break
     client.close 
     print("ssh connection close")
     return 
