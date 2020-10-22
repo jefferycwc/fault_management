@@ -6,6 +6,7 @@ def reset(ip):
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect(ip, 22,username='ubuntu',password='',pkey=key,compress=True)
     if ip=='192.168.2.111':
+        print('reset upf')
         stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/free5gc-upfd);cd /home/ubuntu/stage3/src/upf/build;sudo ./bin/free5gc-upfd')
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;ls')
     #print stdout.read()
