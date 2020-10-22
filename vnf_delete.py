@@ -247,7 +247,14 @@ class TackerAPI():
         delete_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + id
         token = self.get_token()
         headers = {'X-Auth-Token': token}
-        res =  requests.get(delete_vnf_url, headers=headers)
+        body = {
+            'vnf':{
+                'attributes':{
+                    'force':true
+                }
+            }
+        }
+        res =  requests.get(delete_vnf_url,data=json.dumps(body) ,headers=headers)
         print("Delete vnf status: " + str(res.status_code))
 
 if __name__ == '__main__':
