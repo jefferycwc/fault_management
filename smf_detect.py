@@ -447,6 +447,8 @@ def restart(instance_id):
     for cmd in cmds:
         time.sleep(1)
         ssh.send(cmd)
+        out=ssh.recv(1024)
+        print out
     #if stderr:
     #    print stderr.read()
     #else:
