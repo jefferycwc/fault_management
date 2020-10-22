@@ -410,7 +410,8 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-udm-VNF')
         #print('udm instance id: {}'.format(instance_id))
         udm_status = self.get_udm_status(instance_id)
-        print("udm instance status: {}".format(udm_status))
+        if udm_status!='ACTIVE':
+            print("udm instance status: {}".format(udm_status))
         if udm_status=='PAUSED':
             self.unpause_instance(instance_id)
         elif udm_status=='SHUTOFF':

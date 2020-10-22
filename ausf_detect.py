@@ -410,7 +410,8 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-ausf-VNF')
         #print('ausf instance id: {}'.format(instance_id))
         ausf_status = self.get_ausf_status(instance_id)
-        print("ausf instance status: {}".format(ausf_status))
+        if ausf_status!='ACTIVE':
+            print("ausf instance status: {}".format(ausf_status))
         if ausf_status=='PAUSED':
             self.unpause_instance(instance_id)
         elif ausf_status=='SHUTOFF':

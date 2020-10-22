@@ -410,7 +410,8 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-pcf-VNF')
         #print('pcf instance id: {}'.format(instance_id))
         pcf_status = self.get_pcf_status(instance_id)
-        print("pcf instance status: {}".format(pcf_status))
+        if pcf_status!='ACTIVE':
+            print("pcf instance status: {}".format(pcf_status))
         if pcf_status=='PAUSED':
             self.unpause_instance(instance_id)
         elif pcf_status=='SHUTOFF':

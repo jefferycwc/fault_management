@@ -410,7 +410,8 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-smf-VNF')
         #print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
-        print("smf instance status: {}".format(smf_status))
+        if smf_status!='ACTIVE':
+            print("smf instance status: {}".format(smf_status))
         if smf_status=='PAUSED':
             self.unpause_instance(instance_id)
         elif smf_status=='SHUTOFF':

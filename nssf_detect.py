@@ -410,7 +410,8 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-nssf-VNF')
         #print('nssf instance id: {}'.format(instance_id))
         nssf_status = self.get_nssf_status(instance_id)
-        print("nssf instance status: {}".format(nssf_status))
+        if nssf_status!='ACTIVE':
+            print("nssf instance status: {}".format(nssf_status))
         if nssf_status=='PAUSED':
             self.unpause_instance(instance_id)
         elif nssf_status=='SHUTOFF':
