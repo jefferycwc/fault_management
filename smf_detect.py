@@ -441,7 +441,7 @@ def restart(instance_id):
         if count==25:
             break
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
-    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/smf &;exit')
+    stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/smf & \n;exit')
     #if stderr:
     #    print stderr.read()
     #else:
