@@ -247,6 +247,7 @@ class TackerAPI():
         delete_vnf_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + id
         token = self.get_token()
         headers = {'X-Auth-Token': token}
+        true=True
         body = {
             'vnf':{
                 'attributes':{
