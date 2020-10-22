@@ -248,7 +248,7 @@ class TackerAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         res =  requests.get(delete_vnf_url, headers=headers)
-        print("Delete vnf status: " + str(get_ns_list_response.status_code))
+        print("Delete vnf status: " + str(res.status_code))
 
 if __name__ == '__main__':
     test = TackerAPI()
