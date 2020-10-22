@@ -459,7 +459,7 @@ def restart(instance_id):
     return 
 
 if __name__ == '__main__':
-    print('start')
+    print('EM_nrf start')
     #test = TackerAPI()
     #test.nrf_detect()
     #while 1:

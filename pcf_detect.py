@@ -459,7 +459,7 @@ def restart(instance_id):
     return 
 
 if __name__ == '__main__':
-    print('start')
+    print('EM_pcf start')
     #test = TackerAPI()
     #test.pcf_detect()
     #while 1:

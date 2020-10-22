@@ -459,7 +459,7 @@ def restart(instance_id):
     return 
 
 if __name__ == '__main__':
-    print('start')
+    print('EM_nssf start')
     #test = TackerAPI()
     #test.nssf_detect()
     #while 1:
