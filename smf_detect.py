@@ -442,7 +442,7 @@ def restart(instance_id):
             break
     client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/smf & \n;exit')
-    cmds=['cd /home/ubuntu/stage3','sudo nohup ./bin/smf & \n','exit']
+    cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/smf & \n','exit\n']
     ssh=client.invoke_shell()
     for cmd in cmds:
         time.sleep(1)
