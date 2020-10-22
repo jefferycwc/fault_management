@@ -419,7 +419,7 @@ class OpenStackAPI():
         elif smf_status=='SUSPENDED':
             self.resume_instance(instance_id)
 def restart(instance_id):
-    upf_ip = '172.24.2.111'
+    upf_ip = '172.24.4.111'
     reset(upf_ip)
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
