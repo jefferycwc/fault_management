@@ -440,7 +440,7 @@ def restart(instance_id):
         print('wait ' + str(count) + 's')
         if count==25:
             break
-    client.connect('172.24.4.103', 22,username='ubuntu',password='',pkey=key,compress=True)
+    client.connect('172.24.4.102', 22,username='ubuntu',password='',pkey=key,compress=True)
     stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo ./bin/amf')
     if stderr:
         print stderr.read()
