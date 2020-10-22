@@ -2,7 +2,7 @@ import requests,time,paramiko, base64,getpass,time
 import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
-
+from function_reset import reset as reset
 #response = requests.get("http://192.168.1.134/identity/v3/auth/tokens")
 
 class TackerAPI():
@@ -419,6 +419,8 @@ class OpenStackAPI():
         elif smf_status=='SUSPENDED':
             self.resume_instance(instance_id)
 def restart(instance_id):
+    upf_ip = '172.24.2.111'
+    reset(upf_ip)
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
