@@ -1,10 +1,10 @@
 import paramiko, base64,getpass,time
-def reset(ip):
+if __name__ == '__main__':
     key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(ip, 22,username='ubuntu',password='',pkey=key,compress=True)
+    client.connect('172.24.4.111', 22,username='ubuntu',password='',pkey=key,compress=True)
     cmds = ['cd stage3/src/upf/build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
     ssh=client.invoke_shell()
     for cmd in cmds:
