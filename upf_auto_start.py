@@ -10,6 +10,8 @@ def reset(ip):
     for cmd in cmds:
         time.sleep(1)
         ssh.send(cmd)
+        out = ssh.recv(1024)
+        print ('output: {}'.format(out))
     time.sleep(1)
    
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;ls')
