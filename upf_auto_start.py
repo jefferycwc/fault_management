@@ -33,5 +33,5 @@ if __name__ == '__main__':
     #if stderr:
     #    print stderr.read()
     client.close
-    print('reset finish')
-    return 
+    #print('reset finish')
+    #return 
