@@ -7,7 +7,7 @@ def reset(ip):
     client.connect(ip, 22,username='ubuntu',password='',pkey=key,compress=True)
     if ip=='172.24.4.111':
         print('reset upf')
-        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/free5gc-upfd);cd /home/ubuntu/stage3/src/upf/build;sudo ./bin/free5gc-upfd')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/free5gc-upfd);cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools;sudo ./gtp5g-link del upfgtp0;sudo rm /dev/mqueue/*;cd /home/ubuntu/stage3/src/upf/build;sudo ./bin/free5gc-upfd')
     elif ip=='172.24.4.102':
         print('reset amf')
         stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/amf);cd /home/ubuntu/stage3;sudo ./bin/amf')
