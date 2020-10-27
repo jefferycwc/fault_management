@@ -8,6 +8,27 @@ def reset(ip):
     if ip=='172.24.4.111':
         print('reset upf')
         stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/free5gc-upfd);cd /home/ubuntu/stage3/src/upf/build;sudo ./bin/free5gc-upfd')
+    elif ip=='172.24.4.102':
+        print('reset amf')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/amf);cd /home/ubuntu/stage3;sudo ./bin/amf')
+    elif ip=='172.24.4.103':
+        print('reset smf')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/smf);cd /home/ubuntu/stage3;sudo ./bin/smf')
+    elif ip=='172.24.4.104':
+        print('reset udr')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/udr);cd /home/ubuntu/stage3;sudo ./bin/udr')
+    elif ip=='172.24.4.105':
+        print('reset pcf')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/pcf);cd /home/ubuntu/stage3;sudo ./bin/pcf')
+    elif ip=='172.24.4.106':
+        print('reset udm')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/udm);cd /home/ubuntu/stage3;sudo ./bin/udm')
+    elif ip=='172.24.4.107':
+        print('reset nssf')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/nssf);cd /home/ubuntu/stage3;sudo ./bin/nssf')
+    elif ip=='172.24.4.108':
+        print('reset ausf')
+        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/ausf);cd /home/ubuntu/stage3;sudo ./bin/ausf')
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;ls')
     #print stdout.read()
     #ssh=client.invoke_shell()

@@ -2,7 +2,7 @@ import requests,time,paramiko, base64,getpass,time
 import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
-
+from function_reset import reset 
 #response = requests.get("http://192.168.1.134/identity/v3/auth/tokens")
 
 class TackerAPI():
@@ -464,6 +464,9 @@ def restart(instance_id):
     #        break
     client.close 
     print("ssh connection close")
+    IP = ['172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.24.4.108']
+    for ip in IP:
+        reset(ip)
     return 
 
 if __name__ == '__main__':
