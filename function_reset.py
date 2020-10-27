@@ -62,4 +62,5 @@ def reset(ip):
     #if stderr:
     #    print stderr.read()
     client.close
+    print('reset finish')
     return 
