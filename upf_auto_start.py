@@ -7,8 +7,11 @@ if __name__ == '__main__':
     client.connect('172.24.4.111', 22,username='ubuntu',password='',pkey=key,compress=True)
     cmds = ['cd stage3/src/upf\n','mkdir build\n','cd build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
     ssh=client.invoke_shell()
-    for cmd in cmds:
-        time.sleep(1)
+    for cmd in cmds:   
+        if cmd=='sudo nohup ./bin/free5gc-upfd\n':
+            time.sleep(15)       
+        else:  
+            time.sleep(1)
         ssh.send(cmd)
         out = ssh.recv(1024)
         print ('output: {}'.format(out))
