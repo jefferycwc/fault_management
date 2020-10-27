@@ -5,7 +5,7 @@ if __name__ == '__main__':
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect('172.24.4.111', 22,username='ubuntu',password='',pkey=key,compress=True)
-    cmds = ['cd stage3/src/upf/build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
+    cmds = ['sudo su','cd stage3/src/upf/build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
     ssh=client.invoke_shell()
     for cmd in cmds:
         time.sleep(1)
