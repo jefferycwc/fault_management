@@ -9,6 +9,7 @@ def reset(ip):
         print('reset upf')
         cmds = ['sudo kill $(pidof ./bin/free5gc-upfd)\n','cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools\n','sudo ./gtp5g-link del upfgtp0\n','sudo rm /dev/mqueue/*\n','cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
         #stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/free5gc-upfd);cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools;sudo ./gtp5g-link del upfgtp0;sudo rm /dev/mqueue/*;cd /home/ubuntu/stage3/src/upf/build;sudo ./bin/free5gc-upfd')
+        ssh=client.invoke_shell()
         for cmd in cmds:
             time.sleep(1)
             ssh.send(cmd)
