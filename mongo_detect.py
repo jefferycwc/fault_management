@@ -444,7 +444,7 @@ def restart(instance_id):
             break
     client.connect('172.24.4.110', 22,username='ubuntu',password='',pkey=key,compress=True)
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/mongo & \n;exit')
-    cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/mongo & \n','exit\n']
+    cmds=['sudo nohup systemctl restart mongod & \n','exit\n']
     ssh=client.invoke_shell()
     for cmd in cmds:
         time.sleep(1)
