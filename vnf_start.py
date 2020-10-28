@@ -1,5 +1,5 @@
 import paramiko, base64,getpass,time
-from ssh_jump.py import ssh_jump 
+from ssh_jump import ssh_jump 
 class VNF_Start():
     def __init__(self):
         self.upf_instance_ip='172.24.4.111'
