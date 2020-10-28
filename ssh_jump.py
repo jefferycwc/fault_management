@@ -19,11 +19,14 @@ jumpbox_channel = jumpbox_transport.open_channel("direct-tcpip", dest_addr, src_
 target=paramiko.SSHClient()
 target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
-
-stdin, stdout, stderr = target.exec_command("ls")
-print stdout.read()
-'''for line in stdout.read().split(b'\n'):
-  print(str(line))'''
+ssh = target.invoke_shell()
+cmds = ['ls\n']
+for cmd in cmds:
+    time.sleep(1)
+    ssh.send(cmd)
+    out=ssh.recv(1024)
+    print out
+time.sleep(1)
 
 target.close()
 jumpbox.close()
