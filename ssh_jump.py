@@ -20,9 +20,10 @@ target=paramiko.SSHClient()
 target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
 
-stdin, stdout, stderr = target.exec_command("ifconfig")
-for line in stdout.read().split(b'\n'):
-  print(str(line))
+stdin, stdout, stderr = target.exec_command("ls")
+print stdout.read()
+'''for line in stdout.read().split(b'\n'):
+  print(str(line))'''
 
 target.close()
 jumpbox.close()
