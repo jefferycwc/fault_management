@@ -1,6 +1,6 @@
 import os
 import paramiko
-
+import time
 key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
 
 jumpbox_addr = '192.168.1.77'
