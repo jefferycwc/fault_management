@@ -51,5 +51,6 @@ class VNF_Start():
     
 if __name__ == '__main__':
     test=VNF_Start()
+    test.upf_start()
     
     
