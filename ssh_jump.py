@@ -19,7 +19,7 @@ def ssh_jump(target_addr,cmds):
     ssh = target.invoke_shell()
     for cmd in cmds:
         if cmd=='sudo nohup ./bin/free5gc-upfd\n':
-            time.sleep()
+            time.sleep(15)
         else:
             time.sleep(1)
         ssh.send(cmd)
