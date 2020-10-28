@@ -20,7 +20,7 @@ target=paramiko.SSHClient()
 target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
 ssh = target.invoke_shell()
-cmds = ['ls\n']
+cmds = ['cd stage3\n','ls\n','exit\n']
 for cmd in cmds:
     time.sleep(1)
     ssh.send(cmd)
