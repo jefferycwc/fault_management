@@ -3,6 +3,7 @@ import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
 from function_reset import reset 
+from ssh_jump import ssh_jump 
 #response = requests.get("http://192.168.1.134/identity/v3/auth/tokens")
 
 class TackerAPI():
@@ -419,11 +420,12 @@ class OpenStackAPI():
         elif nrf_status=='SUSPENDED':
             self.resume_instance(instance_id)
 def restart(instance_id):
-    key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
+    '''key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    print("ready to ssh")
+    print("ready to ssh")'''
+    print('restart nrf')
     #time.sleep(3)
     #test=OpenStackAPI()
     #status=test.get_nrf_status(instance_id)
@@ -440,16 +442,17 @@ def restart(instance_id):
         print('wait ' + str(count) + 's')
         if count==25:
             break
-    client.connect('172.24.4.101', 22,username='ubuntu',password='',pkey=key,compress=True)
+    #client.connect('172.24.4.101', 22,username='ubuntu',password='',pkey=key,compress=True)
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/nrf & \n;exit')
     cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/nrf & \n','exit\n']
-    ssh=client.invoke_shell()
+    ssh_jump('172.24.4.101',cmds)
+    '''ssh=client.invoke_shell()
     for cmd in cmds:
         time.sleep(1)
         ssh.send(cmd)
         #out=ssh.recv(1024)
         #print out
-    time.sleep(1)
+    time.sleep(1)'''
     #if stderr:
     #    print stderr.read()
     #else:
@@ -463,7 +466,8 @@ def restart(instance_id):
     #    if count==10:
     #        break
     client.close 
-    print("ssh connection close")
+    #print("ssh connection close")
+    print('restart nrf successfully')
     IP = ['172.24.4.111','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.24.4.108']
     for ip in IP:
         reset(ip)

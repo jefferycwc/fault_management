@@ -443,7 +443,7 @@ def restart(instance_id):
             break
     #client.connect('172.24.4.110', 22,username='ubuntu',password='',pkey=key,compress=True)
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/mongo & \n;exit')
-    cmds=['sudo systemctl restart mongod','exit\n']
+    cmds=['sudo systemctl start mongod','exit\n']
     ssh_jump('172.24.4.110',cmds)
     '''ssh=client.invoke_shell()
     for cmd in cmds:
