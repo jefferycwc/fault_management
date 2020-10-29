@@ -130,7 +130,7 @@ class TackerAPI():
         for vim in vim_list['vims']:
             if vim['name'] == vim_name:
                 vim_id = vim['id']
-                print vim_id
+                #print vim_id
             pass
         return vim_id
 
