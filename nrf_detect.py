@@ -467,10 +467,10 @@ def restart(instance_id):
     #        break
     #client.close 
     #print("ssh connection close")
-    print('restart nrf successfully')
     IP = ['172.24.4.111','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.24.4.108']
     for ip in IP:
         reset(ip)
+    print('restart nrf successfully')
     return 
 
 if __name__ == '__main__':
