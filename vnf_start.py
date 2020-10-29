@@ -52,5 +52,14 @@ class VNF_Start():
 if __name__ == '__main__':
     test=VNF_Start()
     test.upf_start()
+    test.nrf_start()
+    test.amf_start()
+    test.smf_start()
+    test.udr_start()
+    test.pcf_start()
+    test.udm_start()
+    test.nssf_start()
+    test.ausf_start()
+
     
     
