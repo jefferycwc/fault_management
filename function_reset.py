@@ -32,7 +32,7 @@ def reset(ip):
     elif ip=='172.24.4.107':
         print('reset nssf')
         cmds = ['sudo kill $(pidof ./bin/nssf)\n','cd /home/ubuntu/stage3\n','sudo nohup ./bin/nssf\n','exit\n']
-        stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/nssf);cd /home/ubuntu/stage3;sudo ./bin/nssf')
+        #stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/nssf);cd /home/ubuntu/stage3;sudo ./bin/nssf')
     elif ip=='172.24.4.108':
         print('reset ausf')
         cmds = ['sudo kill $(pidof ./bin/ausf)\n','cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf\n','exit\n']
