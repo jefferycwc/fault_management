@@ -465,7 +465,7 @@ def restart(instance_id):
     #    print('wait ' + str(count) + 's')
     #    if count==10:
     #        break
-    client.close 
+    #client.close 
     #print("ssh connection close")
     print('restart nrf successfully')
     IP = ['172.24.4.111','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.24.4.108']
