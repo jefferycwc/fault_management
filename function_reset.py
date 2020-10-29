@@ -1,10 +1,11 @@
 import paramiko, base64,getpass,time
+from ssh_jump import ssh_jump 
 def reset(ip):
-    key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
+    '''key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(ip, 22,username='ubuntu',password='',pkey=key,compress=True)
+    client.connect(ip, 22,username='ubuntu',password='',pkey=key,compress=True)'''
     if ip=='172.24.4.111':
         print('reset upf')
         cmds = ['sudo kill $(pidof ./bin/free5gc-upfd)\n','cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools\n','sudo ./gtp5g-link del upfgtp0\n','sudo rm /dev/mqueue/*\n','cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
@@ -37,12 +38,12 @@ def reset(ip):
         cmds = ['sudo kill $(pidof ./bin/ausf)\n','cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf\n','exit\n']
         #stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/ausf);cd /home/ubuntu/stage3;sudo ./bin/ausf')
 
-    ssh=client.invoke_shell()
+    '''ssh=client.invoke_shell()
     for cmd in cmds:
         time.sleep(1)
         ssh.send(cmd)
-    time.sleep(1)
-   
+    time.sleep(1)'''
+    ssh_jump(ip,cmds)
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;ls')
     #print stdout.read()
     #ssh=client.invoke_shell()
@@ -61,6 +62,6 @@ def reset(ip):
     #print stdout.read()
     #if stderr:
     #    print stderr.read()
-    client.close
+    #client.close
     print('reset finish')
     return 
