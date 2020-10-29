@@ -155,7 +155,7 @@ class TackerAPI():
         for vnfd in vnfd_list['vnfds']:
             if vnfd['name'] == vnfd_name:
                 vnfd_id = vnfd['id']
-                print vnfd_id
+                #print vnfd_id
             pass
         return vnfd_id
 
