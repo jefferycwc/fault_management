@@ -444,7 +444,7 @@ def restart(instance_id):
             break
     #client.connect('172.24.4.111', 22,username='ubuntu',password='',pkey=key,compress=True)
     #stdin,stdout,stderr = client.exec_command('cd /home/ubuntu/stage3;sudo nohup ./bin/upf & \n;exit')
-    cmds=['cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
+    cmds=['cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools\n','sudo ./gtp5g-link del upfgtp0\n','sudo rm /dev/mqueue/*\n','cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
     ssh_jump('172.24.4.111',cmds)
     '''ssh=client.invoke_shell()
     for cmd in cmds:
