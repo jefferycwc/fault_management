@@ -19,7 +19,9 @@ if __name__ == "__main__":
     try:
         pool.map_async(worker,cmds)
     except KeyboardInterrupt:
+        print("Caught KeyboardInterrupt, terminating workers")
         pool.terminate()
     else:
+        print("Normal termination")
         pool.close()
     pool.join()
