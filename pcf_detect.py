@@ -420,6 +420,7 @@ class OpenStackAPI():
         elif pcf_status=='SUSPENDED':
             self.resume_instance(instance_id)
 def restart(instance_id):
+    print('pid:{}'.format(os.getpid()))
     '''key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
     client=paramiko.SSHClient()
     client.load_system_host_keys()
@@ -472,7 +473,6 @@ def restart(instance_id):
 
 if __name__ == '__main__':
     print('EM_pcf start')
-    print('pid:{}'.format(os.getpid()))
     #test = TackerAPI()
     #test.pcf_detect()
     #while 1:
