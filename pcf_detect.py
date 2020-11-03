@@ -3,6 +3,7 @@ import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
+import os
 #response = requests.get("http://192.168.1.134/identity/v3/auth/tokens")
 
 class TackerAPI():
@@ -471,6 +472,7 @@ def restart(instance_id):
 
 if __name__ == '__main__':
     print('EM_pcf start')
+    print('pid:{}'.format(os.getpid()))
     #test = TackerAPI()
     #test.pcf_detect()
     #while 1:
