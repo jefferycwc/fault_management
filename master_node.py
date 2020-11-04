@@ -15,13 +15,13 @@ def HandleHealvnf():
     data = request.get_json()
     id = data['id']
     status = data['status']
+    print('id = {id} status = {status}'.format(id=id,status=status))
     if status == 'paused':
         unpause(id)
     elif status == 'suspend':
         resume(id)
     elif status == 'shutoff':
         reboot(id)
-    print('id = {id} status = {status}'.format(id=id,status=status))
     result = 'yes'
     return result
 app.run(host='192.168.1.219',port=5010)
