@@ -428,7 +428,7 @@ def HealVnfRequest(id,status):
         'status' : status
     }
     url = 'http://192.168.1.219:5010/healvnf'
-    response = request.post(url,json=body)
+    response = requests.post(url,json=body)
     print(response.text)
 def restart(instance_id):
     print('pid:{}'.format(os.getpid()))
