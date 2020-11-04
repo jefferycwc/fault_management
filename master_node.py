@@ -1,7 +1,6 @@
 from flask import Flask,render_template,request,jsonify
 import requests
-from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
-from HandleHealVnf import unpause,resume,reboot
+from HandleHealVnf import OpenStackAPI
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -16,13 +15,13 @@ def ReceiveHealVnfRequest():
     id = data['id']
     status = data['status']
     print('id = {id} status = {status}'.format(id=id,status=status))
+    new_item = OpenStackAPI()
     if status == 'paused':
-        unpause(id)
+        result = new_item.unpause(id)
     elif status == 'suspended':
-        resume(id)
+        result = new_item.resume(id)
     elif status == 'shutoff':
-        reboot(id)
-    result = 'yes'
+        result = new_item.reboot(id)
     return result
 app.run(host='192.168.1.219',port=5010)
 
