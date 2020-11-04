@@ -417,10 +417,10 @@ class OpenStackAPI():
             HealVnfRequest(instance_id,'paused')
             #self.unpause_instance(instance_id)
         elif pcf_status=='SHUTOFF':
-            HealVnfRequest(instance_id,'suspend')
+            HealVnfRequest(instance_id,'shutoff')
             #self.reboot_instance(instance_id)
         elif pcf_status=='SUSPENDED':
-            HealVnfRequest(instance_id,'shutoff')
+            HealVnfRequest(instance_id,'suspended')
             #self.resume_instance(instance_id)
 def HealVnfRequest(id,status):
     body = {
