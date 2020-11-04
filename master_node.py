@@ -17,9 +17,9 @@ def HandleHealvnf():
     status = data['status']
     if status == 'paused':
         unpause(id)
-    elif status == 'suspend'
+    elif status == 'suspend':
         resume(id)
-    elif status == 'shutoff'
+    elif status == 'shutoff':
         reboot(id)
     print('id = {id} status = {status}'.format(id=id,status=status))
     result = 'yes'
