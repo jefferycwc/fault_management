@@ -8,5 +8,6 @@ app.config["DEBUG"] = True
 def home():
     return "<h1>Hello Flask!</h1>"
 
-
+@app.route('/name', methods=['GET'])
+    return "<h1>jeffery!</h1>"
 app.run(host='192.168.1.219',port=5010)
