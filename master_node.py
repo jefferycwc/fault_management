@@ -13,5 +13,6 @@ def home():
 @app.route('/healvnf', methods=['GET'])
 def healvnf():
     id = request.args.get('id')
+    print('id = {}'.format(id))
     return "<h1>heal vnf successfully!</h1>"
 app.run(host='192.168.1.219',port=5010)
