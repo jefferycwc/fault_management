@@ -14,14 +14,15 @@ def ReceiveHealVnfRequest():
     data = request.get_json()
     id = data['id']
     status = data['status']
+    name = data['name']
     print('id = {id} status = {status}'.format(id=id,status=status))
     new_item = OpenStackAPI()
     if status == 'paused':
         result = new_item.unpause(id)
     elif status == 'suspended':
-        result = new_item.resume(id)
+        result = new_item.resume(id,name)
     elif status == 'shutoff':
-        result = new_item.reboot(id)
+        result = new_item.reboot(id,name)
     if result:
         return 'successful'
     else:

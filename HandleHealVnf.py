@@ -111,7 +111,7 @@ class OpenStackAPI():
         print('unpause instance successfully!!')
         return True
 
-    def resume(self,instance_id):
+    def resume(self,instance_id,name):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -128,9 +128,9 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume instance successfully!!')
-        return restart(instance_id)
+        return restart(instance_id,name)
 
-    def reboot(self,instance_id):
+    def reboot(self,instance_id,name):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -149,9 +149,9 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('reboot instance successfully!!')
-        return restart(instance_id)
+        return restart(instance_id,name)
 
-def restart(instance_id):
+def restart(instance_id,name):
     print('resart instance')
     count=0
     while 1:
@@ -160,7 +160,36 @@ def restart(instance_id):
         print('wait ' + str(count) + 's')
         if count==25:
             break
-    cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/instance & \n','exit\n']
-    ssh_jump('172.24.4.105',cmds)
+    if name == 'mongo':
+        cmds=['sudo systemctl start mongod','exit\n']
+        ip = '172.24.4.110'
+    elif name == 'upf':
+        cmds=['cd /home/ubuntu/stage3/gtp5g\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools\n','sudo ./gtp5g-link del upfgtp0\n','sudo rm /dev/mqueue/*\n','cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
+        ip = '172.24.4.111'
+    elif name == 'nrf':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/nrf & \n','exit\n']
+        ip = '172.24.4.101'
+    elif name == 'amf':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/amf & \n','exit\n']
+        ip = '172.24.4.102'
+    elif name == 'smf':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/smf & \n','exit\n']
+        ip = '172.24.4.103'
+    elif name == 'udr':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/udr & \n','exit\n']
+        ip = '172.24.4.104'
+    elif name == 'pcf':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/pcf & \n','exit\n']
+        ip = '172.24.4.105'
+    elif name == 'udm':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/udm & \n','exit\n']
+        ip = '172.24.4.106'
+    elif name == 'nssf':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/nssf & \n','exit\n']
+        ip = '172.24.4.107'
+    elif name == 'ausf':
+        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf & \n','exit\n']
+        ip = '172.24.4.108'
+    ssh_jump(ip,cmds)
     print('resart instance successfully')
     return True

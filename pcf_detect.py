@@ -414,18 +414,19 @@ class OpenStackAPI():
         if pcf_status!='ACTIVE':
             print("pcf instance status: {}".format(pcf_status))
         if pcf_status=='PAUSED':
-            HealVnfRequest(instance_id,'paused')
+            HealVnfRequest(instance_id,'paused','pcf')
             #self.unpause_instance(instance_id)
         elif pcf_status=='SHUTOFF':
-            HealVnfRequest(instance_id,'shutoff')
+            HealVnfRequest(instance_id,'shutoff','pcf')
             #self.reboot_instance(instance_id)
         elif pcf_status=='SUSPENDED':
-            HealVnfRequest(instance_id,'suspended')
+            HealVnfRequest(instance_id,'suspended','pcf')
             #self.resume_instance(instance_id)
-def HealVnfRequest(id,status):
+def HealVnfRequest(id,status,name):
     body = {
         'id' : id,
-        'status' : status
+        'status' : status,
+        'name' : name
     }
     url = 'http://192.168.1.219:5010/healvnf'
     response = requests.post(url,json=body)
