@@ -22,6 +22,9 @@ def ReceiveHealVnfRequest():
         result = new_item.resume(id)
     elif status == 'shutoff':
         result = new_item.reboot(id)
-    return result
+    if result:
+        return 'successful'
+    else:
+        return 'failed'
 app.run(host='192.168.1.219',port=5010)
 
