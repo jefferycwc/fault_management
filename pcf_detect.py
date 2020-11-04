@@ -424,7 +424,7 @@ class OpenStackAPI():
             #self.resume_instance(instance_id)
 def HealVnfRequest(id,status):
     body = {
-        'id' : id
+        'id' : id,
         'status' : status
     }
     url = 'http://192.168.1.219:5010/healvnf'
