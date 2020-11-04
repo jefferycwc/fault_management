@@ -123,7 +123,7 @@ class OpenStackAPI():
             #self.resume_instance(instance_id)
             
 def HealVnfRequest(id,status,name):
-    ip = '172.24.4.110'
+    ip = '172.24.4.111'
     reset(ip)
     body = {
         'id' : id,
