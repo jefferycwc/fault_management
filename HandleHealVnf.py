@@ -84,7 +84,7 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 return ins['id']
 
-    def unpause(self,id):
+    def unpause(self,instance_id):
         unpause_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -103,7 +103,7 @@ class OpenStackAPI():
         print('unpause instance successfully!!')
         return True
 
-    def resume(self,id):
+    def resume(self,instance_id):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -122,7 +122,7 @@ class OpenStackAPI():
         print('resume instance successfully!!')
         return restart(instance_id)
 
-    def reboot(self,id):
+    def reboot(self,instance_id):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
