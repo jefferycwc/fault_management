@@ -1,8 +1,8 @@
-def unpause():
+def unpause(id):
     pass
 
-def resume():
+def resume(id):
     pass
 
-def reboot():
+def reboot(id):
     pass
