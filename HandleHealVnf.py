@@ -84,6 +84,14 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 return ins['id']
 
+    def get_instance_status(self,instance_id):
+        get_pcf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_instance_status_response = requests.get(get_pcf_status_url, headers=headers)
+        status = get_instance_status_response.json()['server']['status']
+        return status
+
     def unpause(self,instance_id):
         unpause_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
