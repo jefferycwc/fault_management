@@ -16,7 +16,7 @@ def ReceiveHealVnfRequest():
     id = data['id']
     cause = data['cause']
     name = data['name']
-    print('id = {id} cause = {cause}'.format(id=id,cause=cause))
+    print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
     new_item = OpenStackAPI()
     if cause == 'paused':
         result = new_item.unpause(id)
