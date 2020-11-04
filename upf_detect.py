@@ -107,7 +107,7 @@ class OpenStackAPI():
         return status
 
     def upf_detect(self):
-        instance_id = self.get_instance_id('free5gc-upf-VNF')
+        instance_id = self.get_instance_id('free5gc-upf1-VNF')
         #print('upf instance id: {}'.format(instance_id))
         upf_status = self.get_upf_status(instance_id)
         if upf_status!='ACTIVE':
