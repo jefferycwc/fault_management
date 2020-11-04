@@ -414,11 +414,22 @@ class OpenStackAPI():
         if pcf_status!='ACTIVE':
             print("pcf instance status: {}".format(pcf_status))
         if pcf_status=='PAUSED':
-            self.unpause_instance(instance_id)
+            HealVnfRequest(instance_id,'paused')
+            #self.unpause_instance(instance_id)
         elif pcf_status=='SHUTOFF':
-            self.reboot_instance(instance_id)
+            HealVnfRequest(instance_id,'suspend')
+            #self.reboot_instance(instance_id)
         elif pcf_status=='SUSPENDED':
-            self.resume_instance(instance_id)
+            HealVnfRequest(instance_id,'shutoff')
+            #self.resume_instance(instance_id)
+def HealVnfRequest(id,status):
+    body = {
+        'id' : id
+        'status' : status
+    }
+    url = 'http://192.168.1.219:5010/healvnf'
+    response = request.post(url,json=body)
+    print(response.text)
 def restart(instance_id):
     print('pid:{}'.format(os.getpid()))
     '''key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
