@@ -4,6 +4,7 @@ from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_P
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
 from function_reset import reset
+from HealVnfRequest import SendHealVnfRequest
 import os
 
 class OpenStackAPI():
@@ -110,30 +111,24 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-nrf-VNF')
         #print('nrf instance id: {}'.format(instance_id))
         nrf_status = self.get_nrf_status(instance_id)
+        IP = ['172.24.4.110','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
         if nrf_status!='ACTIVE':
             print("nrf instance status: {}".format(nrf_status))
         if nrf_status=='PAUSED':
-            HealVnfRequest(instance_id,'paused','nrf')
+            SendHealVnfRequest(instance_id,'paused','nrf')
             #self.unpause_instance(instance_id)
         elif nrf_status=='SHUTOFF':
-            HealVnfRequest(instance_id,'shutoff','nrf')
+            SendHealVnfRequest(instance_id,'shutoff','nrf')
+            for ip in IP:
+                reset(ip)
             #self.reboot_instance(instance_id)
         elif nrf_status=='SUSPENDED':
-            HealVnfRequest(instance_id,'suspended','nrf')
+            SendHealVnfRequest(instance_id,'suspended','nrf')
+            for ip in IP:
+                reset(ip)
             #self.resume_instance(instance_id)
             
-def HealVnfRequest(id,status,name):
-    body = {
-        'id' : id,
-        'status' : status,
-        'name' : name
-    }
-    url = 'http://192.168.1.219:5010/healvnf'
-    response = requests.post(url,json=body)
-    print(response.text)
-    IP = ['172.24.4.110','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
-    for ip in IP:
-        reset(ip)
+
 
 if __name__ == '__main__':
     print('EM_nrf start')

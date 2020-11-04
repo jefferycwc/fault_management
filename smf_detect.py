@@ -4,6 +4,7 @@ from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_P
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
 from function_reset import reset
+from HealVnfRequest import SendHealVnfRequest
 import os
 
 class OpenStackAPI():
@@ -110,29 +111,20 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-smf-VNF')
         #print('smf instance id: {}'.format(instance_id))
         smf_status = self.get_smf_status(instance_id)
+        ip = '172.24.4.111'
         if smf_status!='ACTIVE':
             print("smf instance status: {}".format(smf_status))
         if smf_status=='PAUSED':
-            HealVnfRequest(instance_id,'paused','smf')
+            SendHealVnfRequest(instance_id,'paused','smf')
             #self.unpause_instance(instance_id)
         elif smf_status=='SHUTOFF':
-            HealVnfRequest(instance_id,'shutoff','smf')
+            reset(ip)
+            SendHealVnfRequest(instance_id,'shutoff','smf')
             #self.reboot_instance(instance_id)
         elif smf_status=='SUSPENDED':
-            HealVnfRequest(instance_id,'suspended','smf')
+            reset(ip)
+            SendHealVnfRequest(instance_id,'suspended','smf')
             #self.resume_instance(instance_id)
-            
-def HealVnfRequest(id,status,name):
-    ip = '172.24.4.111'
-    reset(ip)
-    body = {
-        'id' : id,
-        'status' : status,
-        'name' : name
-    }
-    url = 'http://192.168.1.219:5010/healvnf'
-    response = requests.post(url,json=body)
-    print(response.text)
 
 if __name__ == '__main__':
     print('EM_smf start')

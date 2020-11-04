@@ -3,6 +3,7 @@ import json
 from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
+from HealVnfRequest import SendHealVnfRequest
 import os
 
 class OpenStackAPI():
@@ -112,24 +113,15 @@ class OpenStackAPI():
         if amf_status!='ACTIVE':
             print("amf instance status: {}".format(amf_status))
         if amf_status=='PAUSED':
-            HealVnfRequest(instance_id,'paused','amf')
+            SendHealVnfRequest(instance_id,'paused','amf')
             #self.unpause_instance(instance_id)
         elif amf_status=='SHUTOFF':
-            HealVnfRequest(instance_id,'shutoff','amf')
+            SendHealVnfRequest(instance_id,'shutoff','amf')
             #self.reboot_instance(instance_id)
         elif amf_status=='SUSPENDED':
-            HealVnfRequest(instance_id,'suspended','amf')
+            SendHealVnfRequest(instance_id,'suspended','amf')
             #self.resume_instance(instance_id)
             
-def HealVnfRequest(id,status,name):
-    body = {
-        'id' : id,
-        'status' : status,
-        'name' : name
-    }
-    url = 'http://192.168.1.219:5010/healvnf'
-    response = requests.post(url,json=body)
-    print(response.text)
 
 if __name__ == '__main__':
     print('EM_amf start')
