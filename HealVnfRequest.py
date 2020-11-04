@@ -1,8 +1,8 @@
 import requests,json
-def SendHealVnfRequest(id,status,name):
+def SendHealVnfRequest(id,cause,name):
     body = {
         'id' : id,
-        'status' : status,
+        'cause' : cause,
         'name' : name
     }
     url = 'http://192.168.1.219:5010/healvnf'

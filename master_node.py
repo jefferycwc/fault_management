@@ -11,18 +11,20 @@ def home():
 
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
+    print('Receive HealVnfResponse')
     data = request.get_json()
     id = data['id']
-    status = data['status']
+    cause = data['cause']
     name = data['name']
-    print('id = {id} status = {status}'.format(id=id,status=status))
+    print('id = {id} cause = {cause}'.format(id=id,cause=cause))
     new_item = OpenStackAPI()
-    if status == 'paused':
+    if cause == 'paused':
         result = new_item.unpause(id)
-    elif status == 'suspended':
+    elif cause == 'suspended':
         result = new_item.resume(id,name)
-    elif status == 'shutoff':
+    elif cause == 'shutoff':
         result = new_item.reboot(id,name)
+    print('Send HealVnfResponse')
     if result:
         return 'successful'
     else:
