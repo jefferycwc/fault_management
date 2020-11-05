@@ -112,7 +112,7 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-nrf-VNF')
         #print('nrf instance id: {}'.format(instance_id))
         nrf_status = self.get_nrf_status(instance_id)
-        IP = ['172.24.4.110','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
+        #IP = ['172.24.4.110','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
         if nrf_status!='ACTIVE':
             print("nrf instance status: {}".format(nrf_status))
         if nrf_status=='PAUSED':
@@ -125,8 +125,8 @@ class OpenStackAPI():
             #self.reboot_instance(instance_id)
         elif nrf_status=='SUSPENDED':
             SendHealVnfRequest(instance_id,'suspended','nrf')
-            for ip in IP:
-                reset(ip)
+            #for ip in IP:
+            #    reset(ip)
             #self.resume_instance(instance_id)
             
 
