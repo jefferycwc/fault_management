@@ -1,6 +1,6 @@
 import requests,json,time
 from ssh_jump import ssh_jump
-from params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
+from ..params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 class OpenStackAPI():
     def __init__(self):
         self.OPENSTACK_IP = OPENSTACK_IP
