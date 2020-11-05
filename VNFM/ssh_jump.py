@@ -2,7 +2,7 @@ import os
 import paramiko
 import time
 def ssh_jump(target_addr,cmds):
-    key=paramiko.RSAKey.from_private_key_file('../free5gc.key')
+    key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
 
     jumpbox=paramiko.SSHClient()
     jumpbox.set_missing_host_key_policy(paramiko.AutoAddPolicy())
