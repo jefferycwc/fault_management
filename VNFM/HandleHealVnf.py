@@ -1,6 +1,7 @@
 import requests,json,time
 import sys
 sys.path.append("..")
+sys.path
 from ssh_jump import ssh_jump
 
 class OpenStackAPI():
