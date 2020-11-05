@@ -5,11 +5,11 @@ from ssh_jump import ssh_jump
 
 class OpenStackAPI():
     def __init__(self):
-        self.OPENSTACK_IP = '192.168.1.219'
-        self.OS_AUTH_URL = 'http://192.168.1.219:5000/v3/'
+        self.OPENSTACK_IP = '192.168.1.77'
+        self.OS_AUTH_URL = 'http://192.168.1.77/identity'
         self.OS_USER_DOMAIN_NAME = 'Default'
         self.OS_USERNAME = 'admin'
-        self.OS_PASSWORD = '0000'
+        self.OS_PASSWORD = 'secret'
         self.OS_PROJECT_DOMAIN_NAME = 'Default'
         self.OS_PROJECT_NAME = 'admin'
         self.ary_data = []
