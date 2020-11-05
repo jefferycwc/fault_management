@@ -1,7 +1,8 @@
 import requests,json,time
 import sys
 sys.path.append("..")
-from ssh_jump import ssh_jump 
+#from ssh_jump import ssh_jump
+import ssh_jump 
 class OpenStackAPI():
     def __init__(self):
         self.OPENSTACK_IP = '192.168.1.219'
