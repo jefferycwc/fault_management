@@ -111,7 +111,7 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-upf1-VNF')
         #print('upf instance id: {}'.format(instance_id))
         upf_status = self.get_upf_status(instance_id)
-        ip = '172.24.4.103'
+        #ip = '172.24.4.103'
         if upf_status!='ACTIVE':
             print("upf instance status: {}".format(upf_status))
         if upf_status=='PAUSED':
@@ -119,11 +119,11 @@ class OpenStackAPI():
             #self.unpause_instance(instance_id)
         elif upf_status=='SHUTOFF':
             SendHealVnfRequest(instance_id,'shutoff','upf')
-            reset(ip)
+            #reset(ip)
             #self.reboot_instance(instance_id)
         elif upf_status=='SUSPENDED':
             SendHealVnfRequest(instance_id,'suspended','upf')
-            reset(ip)
+            #reset(ip)
             #self.resume_instance(instance_id)
             
 

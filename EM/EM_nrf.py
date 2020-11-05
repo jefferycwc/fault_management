@@ -120,8 +120,8 @@ class OpenStackAPI():
             #self.unpause_instance(instance_id)
         elif nrf_status=='SHUTOFF':
             SendHealVnfRequest(instance_id,'shutoff','nrf')
-            for ip in IP:
-                reset(ip)
+            #for ip in IP:
+            #    reset(ip)
             #self.reboot_instance(instance_id)
         elif nrf_status=='SUSPENDED':
             SendHealVnfRequest(instance_id,'suspended','nrf')
