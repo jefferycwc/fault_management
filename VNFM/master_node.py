@@ -1,7 +1,6 @@
 from flask import Flask,render_template,request,jsonify
 import requests
 from HandleHealVnf import OpenStackAPI
-sys.path.append("..")
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
