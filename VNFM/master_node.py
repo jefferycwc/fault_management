@@ -11,7 +11,7 @@ def home():
 
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
-    print('Receive HealVnfResponse')
+    print('Receive HealVnfRequest')
     data = request.get_json()
     id = data['id']
     cause = data['cause']
