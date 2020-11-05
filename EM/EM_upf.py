@@ -1,13 +1,14 @@
 import requests,time,paramiko, base64,getpass,time
 import json
-from .. import params.openstack_params
 #from ..params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 #from tacker_params import TACKER_IP,TACKER_OS_AUTH_URL,TACKER_OS_USER_DOMAIN_NAME,TACKER_OS_USERNAME,TACKER_OS_PASSWORD,TACKER_OS_PROJECT_DOMAIN_NAME,TACKER_OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
 from function_reset import reset
 from HealVnfRequest import SendHealVnfRequest
 import os
-
+import sys
+sys.path.append("..")
+from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 class OpenStackAPI():
     def __init__(self):
         #super().__init__()
