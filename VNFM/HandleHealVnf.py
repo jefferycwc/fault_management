@@ -1,17 +1,16 @@
 import requests,json,time
 import sys
 sys.path.append("..")
-from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
 class OpenStackAPI():
     def __init__(self):
-        self.OPENSTACK_IP = OPENSTACK_IP
-        self.OS_AUTH_URL = OS_AUTH_URL
-        self.OS_USER_DOMAIN_NAME = OS_USER_DOMAIN_NAME
-        self.OS_USERNAME = OS_USERNAME
-        self.OS_PASSWORD = OS_PASSWORD
-        self.OS_PROJECT_DOMAIN_NAME = OS_PROJECT_DOMAIN_NAME
-        self.OS_PROJECT_NAME = OS_PROJECT_NAME
+        self.OPENSTACK_IP = '192.168.1.219'
+        self.OS_AUTH_URL = 'http://192.168.1.219:5000/v3/'
+        self.OS_USER_DOMAIN_NAME = 'Default'
+        self.OS_USERNAME = 'admin'
+        self.OS_PASSWORD = '0000'
+        self.OS_PROJECT_DOMAIN_NAME = 'Default'
+        self.OS_PROJECT_NAME = 'admin'
         self.ary_data = []
         self.nsd_id = ''
         self.nsd_name = ''
