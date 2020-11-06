@@ -7,7 +7,7 @@ def subscriber():
     for message in sub.listen():
         if message['type'] == 'subscribe':
             if message['data'] == 1:
-                print('subscribed to VNFM')
+                print('EM subscribed to Master Node')
         elif message['type'] == 'message':   
             #print(json.loads(message['data']))
             data = json.loads(message['data'])
