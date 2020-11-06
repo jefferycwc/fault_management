@@ -3,8 +3,8 @@ import json
 from HealVnfRequest import SendHealVnfRequest
 import os
 import sys
-sys.path.append("..")
-from .. params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
+#sys.path.append("..")
+from ..params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from ssh_jump import ssh_jump 
 from function_reset import reset
 
