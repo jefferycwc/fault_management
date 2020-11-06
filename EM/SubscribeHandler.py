@@ -6,7 +6,7 @@ sub.subscribe('pcf_channel')
 for message in sub.listen():
     if message['type'] == 'subscribe':
         if message['data'] == 1:
-            log.info('subscribed to: %s' % (message['channel']))
+            print('subscribed to {}'.format(message['channel']))
     elif message['type'] == 'message':   
         print(json.loads(message['data']))
     
