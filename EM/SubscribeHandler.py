@@ -1,4 +1,4 @@
-import redis
+import redis,json
 from HealVnfRequest import SendHealVnfRequest
 r = redis.Redis(host='192.168.1.219', port=6379, db=0)
 sub = r.pubsub()

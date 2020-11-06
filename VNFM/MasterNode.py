@@ -19,7 +19,7 @@ def kill_process():
 if __name__ == "__main__":
     original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
     pool =Pool(10)
-    cmds = ["python Detection/mongo_detect.py","python Detection/upf_detect.py","python Detection/nrf_detect.py","python Detection/amf_detect.py","python Detection/smf_detect.py","python Detection/udr_detect.py","python Detection/pcf_detect.py","python Detection/udm_detect.py","python Detection/nssf_detect.py","python Detection/ausf_detect.py","python ReceiveHandler.py"]
+    cmds = ["python mongo_detect.py","python upf_detect.py","python nrf_detect.py","python amf_detect.py","python smf_detect.py","python udr_detect.py","python pcf_detect.py","python udm_detect.py","python nssf_detect.py","python ausf_detect.py","python ReceiveHandler.py"]
     signal.signal(signal.SIGINT, original_sigint_handler)
     try:
         result=pool.map_async(worker,cmds).get(2000)
