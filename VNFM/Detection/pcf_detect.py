@@ -1,6 +1,5 @@
 import requests,time,paramiko, base64,getpass,time
 import json
-from HealVnfRequest import SendHealVnfRequest
 import os
 import sys
 sys.path.append("..")
