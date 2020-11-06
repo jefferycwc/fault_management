@@ -110,9 +110,7 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-mongo-VNF')
         #print('mongo instance id: {}'.format(instance_id))
         mongo_status = self.get_mongo_status(instance_id)
-        if mongo_status!='ACTIVE':
-            #print("mongo instance status: {}".format(mongo_status))
-        else:
+        if mongo_status=='ACTIVE':
             self.lock=0
 
         if mongo_status=='PAUSED' and self.lock==0:

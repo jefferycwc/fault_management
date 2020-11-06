@@ -110,9 +110,7 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-nrf-VNF')
         #print('nrf instance id: {}'.format(instance_id))
         nrf_status = self.get_nrf_status(instance_id)
-        if nrf_status!='ACTIVE':
-            #print("nrf instance status: {}".format(nrf_status))
-        else:
+        if nrf_status=='ACTIVE':
             self.lock=0
 
         if nrf_status=='PAUSED' and self.lock==0:

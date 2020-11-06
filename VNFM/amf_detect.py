@@ -110,9 +110,7 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-amf-VNF')
         #print('amf instance id: {}'.format(instance_id))
         amf_status = self.get_amf_status(instance_id)
-        if amf_status!='ACTIVE':
-            #print("amf instance status: {}".format(amf_status))
-        else:
+        if amf_status=='ACTIVE':
             self.lock=0
 
         if amf_status=='PAUSED' and self.lock==0:

@@ -110,9 +110,7 @@ class OpenStackAPI():
         instance_id = self.get_instance_id('free5gc-udr-VNF')
         #print('udr instance id: {}'.format(instance_id))
         udr_status = self.get_udr_status(instance_id)
-        if udr_status!='ACTIVE':
-            #print("udr instance status: {}".format(udr_status))
-        else:
+        if udr_status=='ACTIVE':
             self.lock=0
 
         if udr_status=='PAUSED' and self.lock==0:
