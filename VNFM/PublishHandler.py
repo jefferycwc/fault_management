@@ -1,6 +1,6 @@
 import redis
 import json
-def publisher(instance_id,cause,name);
+def publisher(instance_id,cause,name):
     r = redis.Redis(host='192.168.1.219', port=6379, db=0)
     payload = {}
     payload['instance_id'] = instance_id
