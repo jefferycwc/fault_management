@@ -7,7 +7,7 @@ app.config["DEBUG"] = True
 
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
-    print('Receive HealVnfRequest')
+    print('Receive HealVnfRequest from EM')
     data = request.get_json()
     id = data['id']
     cause = data['cause']
@@ -20,7 +20,7 @@ def ReceiveHealVnfRequest():
         result = new_item.resume(id,name)
     elif cause == 'shutoff':
         result = new_item.reboot(id,name)
-    print('Send HealVnfResponse')
+    print('Send HealVnfResponse to EM')
     if result:
         return 'successful'
     else:
