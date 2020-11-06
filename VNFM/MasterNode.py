@@ -30,7 +30,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Caught KeyboardInterrupt, terminating workers")
         pool.terminate()
-        #kill_process()
+        kill_process()
     else:
         print("Normal termination")
         pool.close()
