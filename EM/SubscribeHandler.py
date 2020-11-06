@@ -16,3 +16,5 @@ def subscriber(channel_name):
             name = data['name']
             print('Got vnf instance error notification : {name} {cause}'.format(name=name,cause=cause))
             SendHealVnfRequest(instance_id,cause,name)
+if __name__ == '__main__':
+    subscriber()
