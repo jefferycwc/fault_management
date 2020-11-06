@@ -3,7 +3,7 @@ from HealVnfRequest import SendHealVnfRequest
 def subscriber():
     r = redis.Redis(host='192.168.1.219', port=6379, db=0)
     sub = r.pubsub()
-    sub.subscribe('pcf_channel','amf_channel')
+    sub.psubscribe('pcf_channel','amf_channel')
     for message in sub.listen():
         if message['type'] == 'subscribe':
             if message['data'] == 1:
