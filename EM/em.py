@@ -6,12 +6,13 @@ from HealVnfRequest import SendHealVnfRequest
 def subscriber():
     r = redis.Redis(host='192.168.1.219', port=6379, db=0)
     sub = r.pubsub()
-    sub.subscribe('error_report')
+    #sub.subscribe('error_report')
+    sub.psubscribe('__keyspace@0__:*')
     for message in sub.listen():
         if message['type'] == 'subscribe':
             if message['data'] == 1:
                 print('EM subscribed to Master Node')
-        elif message['type'] == 'message':   
+        elif message['type'] == 'message':
             #print(json.loads(message['data']))
             data = json.loads(message['data'])
             instance_id = data['instance_id']
@@ -21,10 +22,10 @@ def subscriber():
             SendHealVnfRequest(instance_id,cause,name)
 def kill_process():
    for line in os.popen("ps ax | grep em.py | grep -v grep"):
-        fields = line.split() 
+        fields = line.split()
         pid = fields[0]
         #print(pid)
-        os.kill(int(pid), signal.SIGKILL)     
+        os.kill(int(pid), signal.SIGKILL)
 
 if __name__ == '__main__':
     original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
