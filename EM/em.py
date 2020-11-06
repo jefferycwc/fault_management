@@ -23,7 +23,7 @@ def kill_process():
    for line in os.popen("ps ax | grep em.py | grep -v grep"):
         fields = line.split() 
         pid = fields[0]
-        print(pid)
+        #print(pid)
         os.kill(int(pid), signal.SIGKILL)     
 
 if __name__ == '__main__':
