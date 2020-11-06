@@ -17,7 +17,6 @@ def kill_process():
             os.kill(int(pid), signal.SIGKILL)     
             
 if __name__ == "__main__":
-    os.chdir("~/fault_management/VNFM")
     original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
     pool =Pool(10)
     cmds = ["python EM_mongo.py","python EM_upf.py","python EM_nrf.py","python EM_amf.py","python EM_smf.py","python EM_udr.py","python EM_pcf.py","python EM_udm.py","python EM_nssf.py","python EM_ausf.py"]
