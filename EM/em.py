@@ -1,4 +1,7 @@
-import redis,json
+import redis
+import json
+import signal
+import os
 from HealVnfRequest import SendHealVnfRequest
 def subscriber():
     r = redis.Redis(host='192.168.1.219', port=6379, db=0)
@@ -16,5 +19,18 @@ def subscriber():
             name = data['name']
             print('Got vnf instance error notification : {name} {cause}'.format(name=name,cause=cause))
             SendHealVnfRequest(instance_id,cause,name)
+def kill_process():
+   for line in os.popen("ps ax | grep em.py | grep -v grep"):
+        fields = line.split() 
+        pid = fields[0]
+        print(pid)
+        os.kill(int(pid), signal.SIGKILL)     
+
 if __name__ == '__main__':
-    subscriber()
+    original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
+    signal.signal(signal.SIGINT, original_sigint_handler)
+    try:
+        subscriber()
+     except KeyboardInterrupt:
+        print("Caught KeyboardInterrupt, terminating workers")
+        kill_process()
