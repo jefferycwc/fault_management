@@ -32,5 +32,5 @@ if __name__ == '__main__':
     try:
         subscriber()
     except KeyboardInterrupt:
-        print("Caught KeyboardInterrupt, terminating workers")
+        print("Terminate EM")
         kill_process()
