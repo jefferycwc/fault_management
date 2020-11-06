@@ -21,7 +21,7 @@ class OpenStackAPI():
         self.get_token_result = ''
         self.project_id = ''
         self.lock = 0 
-        self.channel_name = 'amf_channel'
+    
     def get_token(self):
         # print("\nGet token:")
         self.get_token_result = ''
@@ -114,13 +114,13 @@ class OpenStackAPI():
             self.lock=0
 
         if amf_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','amf',self.channel_name)
+            publisher(instance_id,'paused','amf')
             self.lock=1
         elif amf_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','amf',self.channel_name)
+            publisher(instance_id,'shutoff','amf')
             self.lock=1
         elif amf_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','amf',self.channel_name)
+            publisher(instance_id,'suspended','amf')
             self.lock=1
 
 

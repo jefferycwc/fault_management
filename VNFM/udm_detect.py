@@ -21,7 +21,7 @@ class OpenStackAPI():
         self.get_token_result = ''
         self.project_id = ''
         self.lock = 0 
-        self.channel_name = 'udm_channel'
+        
     def get_token(self):
         # print("\nGet token:")
         self.get_token_result = ''
@@ -114,13 +114,13 @@ class OpenStackAPI():
             self.lock=0
 
         if udm_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','udm',self.channel_name)
+            publisher(instance_id,'paused','udm')
             self.lock=1
         elif udm_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','udm',self.channel_name)
+            publisher(instance_id,'shutoff','udm')
             self.lock=1
         elif udm_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','udm',self.channel_name)
+            publisher(instance_id,'suspended','udm')
             self.lock=1
 
 

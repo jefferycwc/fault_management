@@ -21,7 +21,7 @@ class OpenStackAPI():
         self.get_token_result = ''
         self.project_id = ''
         self.lock = 0 
-        self.channel_name = 'mongo_channel'
+        
     def get_token(self):
         # print("\nGet token:")
         self.get_token_result = ''
@@ -114,13 +114,13 @@ class OpenStackAPI():
             self.lock=0
 
         if mongo_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','mongo',self.channel_name)
+            publisher(instance_id,'paused','mongo')
             self.lock=1
         elif mongo_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','mongo',self.channel_name)
+            publisher(instance_id,'shutoff','mongo')
             self.lock=1
         elif mongo_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','mongo',self.channel_name)
+            publisher(instance_id,'suspended','mongo')
             self.lock=1
 
 

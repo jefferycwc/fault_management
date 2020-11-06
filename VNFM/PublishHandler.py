@@ -1,6 +1,6 @@
 import redis
 import json
-def publisher(instance_id,cause,name,channel_name):
+def publisher(instance_id,cause,name):
     r = redis.Redis(host='192.168.1.219', port=6379, db=0)
     payload = {}
     payload['instance_id'] = instance_id
@@ -9,6 +9,6 @@ def publisher(instance_id,cause,name,channel_name):
     payload_values = json.dumps(payload)
     print('Send vnf instance error notification')
     r.publish(
-        channel_name,
+        'error_report',
         payload_values
     )

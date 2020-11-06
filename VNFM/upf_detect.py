@@ -114,13 +114,13 @@ class OpenStackAPI():
             self.lock=0
 
         if upf_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','upf',self.channel_name)
+            publisher(instance_id,'paused','upf')
             self.lock=1
         elif upf_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','upf',self.channel_name)
+            publisher(instance_id,'shutoff','upf')
             self.lock=1
         elif upf_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','upf',self.channel_name)
+            publisher(instance_id,'suspended','upf')
             self.lock=1
 
 
