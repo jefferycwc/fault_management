@@ -9,3 +9,4 @@ def SendHealVnfRequest(id,cause,name):
     print('Send HealVnfRequest')
     response = requests.post(url,json=body)
     print('Receive HealVnfResponse, result is {}'.format(response.text))
+    return 

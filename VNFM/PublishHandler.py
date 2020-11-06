@@ -7,6 +7,7 @@ def publisher(instance_id,cause,name,channel_name):
     payload['cause'] = cause
     payload['name'] = name 
     payload_values = json.dumps(payload)
+    print('Send vnf instance error notification')
     r.publish(
         channel_name,
         payload_values
