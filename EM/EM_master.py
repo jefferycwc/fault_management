@@ -3,6 +3,7 @@ from multiprocessing import Process, Pool
 import os
 import signal
 import sys
+import redis
 def worker(arg):
     os.system(arg)
 
