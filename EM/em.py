@@ -31,6 +31,6 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, original_sigint_handler)
     try:
         subscriber()
-     except KeyboardInterrupt:
+    except KeyboardInterrupt:
         print("Caught KeyboardInterrupt, terminating workers")
         kill_process()
