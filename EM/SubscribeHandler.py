@@ -5,8 +5,8 @@ sub = r.pubsub()
 sub.subscribe('pcf_channel')
 for message in sub.listen():
     if message['type'] == 'subscribe':
-        if m['data'] == 1:
-            log.info('subscribed to: %s' % (m['channel']))
+        if message['data'] == 1:
+            log.info('subscribed to: %s' % (message['channel']))
     elif message['type'] == 'message':   
         print(json.loads(message['data']))
     
