@@ -3,7 +3,7 @@ import json
 import os
 import sys
 from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
-from ..import PublishHandler.publisher
+from .. import PublishHandler.publisher
 
 class OpenStackAPI():
     def __init__(self):
