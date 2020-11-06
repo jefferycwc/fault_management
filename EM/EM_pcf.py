@@ -1,14 +1,15 @@
-import requests,time,paramiko, base64,getpass,time
-import json
-from HealVnfRequest import SendHealVnfRequest
-import os
-import sys
-sys.path.append("..")
-from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
-from ssh_jump import ssh_jump 
-from function_reset import reset
+#import requests,time,paramiko, base64,getpass,time
+#import json
+#from HealVnfRequest import SendHealVnfRequest
+#import os
+#import sys
+#sys.path.append("..")
+#from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
+from SubscribeHandler import subscriber
+'''from ssh_jump import ssh_jump 
+from function_reset import reset'''
 
-class OpenStackAPI():
+'''class OpenStackAPI():
     def __init__(self):
         #super().__init__()
         self.OPENSTACK_IP = OPENSTACK_IP
@@ -122,19 +123,20 @@ class OpenStackAPI():
             #self.reboot_instance(instance_id)
         elif pcf_status=='SUSPENDED':
             SendHealVnfRequest(instance_id,'suspended','pcf')
-            #self.resume_instance(instance_id)
+            #self.resume_instance(instance_id)'''
 
 
 
 if __name__ == '__main__':
     print('EM_pcf start')
+    subscriber('pcf_channel')
     #test = TackerAPI()
     #test.pcf_detect()
     #while 1:
     #    test.pcf_detect()
-    test = OpenStackAPI()
+    '''test = OpenStackAPI()
     while 1:
-        test.pcf_detect()
+        test.pcf_detect()'''
     #test = OpenStackAPI()
     #instance_id = test.get_instance_id('free5gc-pcf-VNF')
     #restart(instance_id)

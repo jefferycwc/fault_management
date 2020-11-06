@@ -21,6 +21,7 @@ class OpenStackAPI():
         self.get_token_result = ''
         self.project_id = ''
         self.lock = 0 
+        self.channel_name = 'pcf_channel'
     def get_token(self):
         # print("\nGet token:")
         self.get_token_result = ''
@@ -115,28 +116,21 @@ class OpenStackAPI():
             self.lock=0
 
         if pcf_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','pcf')
+            publisher(instance_id,'paused','pcf',self.channel_name)
             self.lock=1
         elif pcf_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','pcf')
+            publisher(instance_id,'shutoff','pcf',self.channel_name)
             self.lock=1
         elif pcf_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','pcf')
+            publisher(instance_id,'suspended','pcf',self.channel_name)
             self.lock=1
 
 
 if __name__ == '__main__':
-    #print('EM_pcf start')
-    #test = TackerAPI()
-    #test.pcf_detect()
-    #while 1:
-    #    test.pcf_detect()
     test = OpenStackAPI()
     while 1:
         test.pcf_detect()
-    #test = OpenStackAPI()
-    #instance_id = test.get_instance_id('free5gc-pcf-VNF')
-    #restart(instance_id)
+
 
 
 
