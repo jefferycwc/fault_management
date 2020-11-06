@@ -111,7 +111,7 @@ class OpenStackAPI():
         #print('pcf instance id: {}'.format(instance_id))
         pcf_status = self.get_pcf_status(instance_id)
         if pcf_status!='ACTIVE':
-            print("pcf instance status: {}".format(pcf_status))
+            #print("pcf instance status: {}".format(pcf_status))
         else:
             self.lock=0
 
