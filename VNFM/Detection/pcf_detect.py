@@ -5,7 +5,7 @@ import sys
 #sys.path.append("..")
 #sys.path.append("../..")
 from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
-from VNFM.PublishHandler import publisher
+from fault_management.VNFM.PublishHandler import publisher
 
 class OpenStackAPI():
     def __init__(self):
