@@ -112,17 +112,17 @@ class OpenStackAPI():
         if pcf_status!='ACTIVE':
             print("pcf instance status: {}".format(pcf_status))
         else:
-            lock=0
+            self.lock=0
 
-        if pcf_status=='PAUSED' and lock==0:
+        if pcf_status=='PAUSED' and self.lock==0:
             publisher(instance_id,'paused','pcf')
-            lock=1
-        elif pcf_status=='SHUTOFF' and lock==0:
+            self.lock=1
+        elif pcf_status=='SHUTOFF' and self.lock==0:
             publisher(instance_id,'shutoff','pcf')
-            lock=1
-        elif pcf_status=='SUSPENDED' and lock==0:
+            self.lock=1
+        elif pcf_status=='SUSPENDED' and self.lock==0:
             publisher(instance_id,'suspended','pcf')
-            lock=1
+            self.lock=1
 
 
 if __name__ == '__main__':
