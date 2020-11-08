@@ -3,7 +3,7 @@ import requests
 import os
 import time
 from HandleHealVnf import OpenStackAPI
-form PublishHandler import publisher
+from PublishHandler import publisher
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
