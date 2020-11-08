@@ -2,7 +2,7 @@ from flask import Flask,render_template,request,jsonify
 import requests
 #import os
 import time
-from HandleHealVnf import OpenStackAPI
+from HealVnfHandler import OpenStackAPI
 from PublishHandler import publisher
 from threading import Thread
 app = Flask(__name__)
