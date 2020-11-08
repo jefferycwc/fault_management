@@ -19,7 +19,7 @@ def ReceiveHealVnfRequest():
     #print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
     #pid = os.fork()
     #if pid==0:
-    def HealVnfProcessStart():
+    def HealVnfProcessStart(id,cause,name):
         #print('child id : {}'.format(os.getpid()))
         time.wait(2)
         publish(id,cause,name,'notification1')
