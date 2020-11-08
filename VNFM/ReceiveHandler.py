@@ -32,7 +32,7 @@ def ReceiveHealVnfRequest():
             result = new_item.reboot(id,name)
         publish(id,cause,name,'notification2')
         #os.kill(os.getpid())
-    thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name)
+    thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name})
     thread.start()
     print('Send HealVnfResponse to EM')
     return
