@@ -20,8 +20,8 @@ class OpenStackAPI():
         self.nsd_name = ''
         self.get_token_result = ''
         self.project_id = ''
-        self.lock = 0 
-        
+        self.lock = 0
+
     def get_token(self):
         # print("\nGet token:")
         self.get_token_result = ''
@@ -73,7 +73,7 @@ class OpenStackAPI():
             pass
         print("Project ID:" + self.project_id)
         return self.project_id
-    
+
     def list_instance(self):
         list_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers'
         token = self.get_token()
@@ -84,7 +84,7 @@ class OpenStackAPI():
         #print('check1')
         #print(get_instance_list_result)
         return get_instance_list_result
-    
+
     def get_instance_id(self,ins_name):
         instance_list = self.list_instance()['servers']
         #print('check2')
@@ -95,7 +95,7 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 #print('match!!')
                 return ins['id']
-               
+
     def get_udm_status(self,instance_id):
         get_udm_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         token = self.get_token()
@@ -114,13 +114,13 @@ class OpenStackAPI():
             self.lock=0
 
         if udm_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','udm')
+            publisher(instance_id,'paused','udm','report')
             self.lock=1
         elif udm_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','udm')
+            publisher(instance_id,'shutoff','udm','report')
             self.lock=1
         elif udm_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','udm')
+            publisher(instance_id,'suspended','udm','report')
             self.lock=1
 
 
@@ -128,7 +128,3 @@ if __name__ == '__main__':
     test = OpenStackAPI()
     while 1:
         test.udm_detect()
-
-
-
-
