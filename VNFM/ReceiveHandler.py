@@ -30,6 +30,6 @@ def ReceiveHealVnfRequest():
         publish(id,cause,name,'notification2')
         os.kill(os.getpid())
     else:
-    print('Send HealVnfResponse to EM')
+        print('Send HealVnfResponse to EM')
         return
 app.run(host='192.168.1.219',port=5010)
