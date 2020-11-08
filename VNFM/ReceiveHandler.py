@@ -19,7 +19,7 @@ def ReceiveHealVnfRequest():
     #print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
     #pid = os.fork()
     #if pid==0:
-    def HealVnfProcessStart()
+    def HealVnfProcessStart():
         #print('child id : {}'.format(os.getpid()))
         time.wait(2)
         publish(id,cause,name,'notification1')
@@ -35,5 +35,5 @@ def ReceiveHealVnfRequest():
     thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name)
     thread.start()
     print('Send HealVnfResponse to EM')
-    return 
+    return
 app.run(host='192.168.1.219',port=5010)
