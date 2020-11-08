@@ -35,5 +35,5 @@ def ReceiveHealVnfRequest():
     thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name)
     thread.start()
     print('Send HealVnfResponse to EM')
-    return ß
+    return 
 app.run(host='192.168.1.219',port=5010)
