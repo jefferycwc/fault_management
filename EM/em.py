@@ -24,7 +24,7 @@ def subscriber():
                 SendHealVnfRequest(instance_id,cause,name)
             elif type=='notification1':
                 print('Got notification from VNFM, heal process start')
-            elif type=='notification2'
+            elif type=='notification2':
                 print('Got notification from VNFM, heal process finish')
 def kill_process():
    for line in os.popen("ps ax | grep em.py | grep -v grep"):
