@@ -31,5 +31,5 @@ def ReceiveHealVnfRequest():
         os.kill(os.getpid())
     else:
         print('Send HealVnfResponse to EM')
-        return
+        return 'successful'
 app.run(host='192.168.1.219',port=5010)
