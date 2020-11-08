@@ -21,7 +21,7 @@ def ReceiveHealVnfRequest():
     #if pid==0:
     def HealVnfProcessStart(id,cause,name):
         #print('child id : {}'.format(os.getpid()))
-        time.wait(2)
+        time.sleep(2)
         publish(id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
