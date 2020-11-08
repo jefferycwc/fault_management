@@ -18,6 +18,7 @@ def ReceiveHealVnfRequest():
     #print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
     pid = os.fork()
     if pid==0:
+        print('child id : {}'.format(os.getpid()))
         time.wait(2)
         publish(id,cause,name,'notification1')
         new_item = OpenStackAPI()
