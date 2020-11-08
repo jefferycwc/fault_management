@@ -1,9 +1,10 @@
 from flask import Flask,render_template,request,jsonify
 import requests
-import os
+#import os
 import time
 from HandleHealVnf import OpenStackAPI
 from PublishHandler import publisher
+from threading import Thread
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -16,9 +17,10 @@ def ReceiveHealVnfRequest():
     cause = data['cause']
     name = data['name']
     #print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
-    pid = os.fork()
-    if pid==0:
-        print('child id : {}'.format(os.getpid()))
+    #pid = os.fork()
+    #if pid==0:
+    def HealVnfProcessStart()
+        #print('child id : {}'.format(os.getpid()))
         time.wait(2)
         publish(id,cause,name,'notification1')
         new_item = OpenStackAPI()
@@ -29,8 +31,9 @@ def ReceiveHealVnfRequest():
         elif cause == 'shutoff':
             result = new_item.reboot(id,name)
         publish(id,cause,name,'notification2')
-        os.kill(os.getpid())
-    else:
-        print('Send HealVnfResponse to EM')
-        return 'successful'
+        #os.kill(os.getpid())
+    thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name)
+    thread.start()
+    print('Send HealVnfResponse to EM')
+    return ß
 app.run(host='192.168.1.219',port=5010)
