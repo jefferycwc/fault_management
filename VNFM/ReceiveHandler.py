@@ -22,7 +22,7 @@ def ReceiveHealVnfRequest():
     def HealVnfProcessStart(id,cause,name):
         #print('child id : {}'.format(os.getpid()))
         time.sleep(2)
-        publish(id,cause,name,'notification1')
+        publisher(id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
             result = new_item.unpause(id)
@@ -30,7 +30,7 @@ def ReceiveHealVnfRequest():
             result = new_item.resume(id,name)
         elif cause == 'shutoff':
             result = new_item.reboot(id,name)
-        publish(id,cause,name,'notification2')
+        publisher(id,cause,name,'notification2')
         #os.kill(os.getpid())
     thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name})
     thread.start()
