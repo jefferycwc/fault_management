@@ -10,11 +10,11 @@ def kill_process():
     process_name = ['mongo_detect.py','upf_detect.py','nrf_detect.py','amf_detect.py','smf_detect.py','udr_detect.py','pcf_detect.py','udm_detect.py','nssf_detect.py','ausf_detect.py','ReceiveHandler.py']
     #process_name = ['pcf_detect.py','ReceiveHandler.py']
     for process in process_name:
-        print(process)
+        #print(process)
         for line in os.popen("ps ax | grep " + process + " | grep -v grep"):
             fields = line.split()
             pid = fields[0]
-            print(pid)
+            #print(pid)
             os.kill(int(pid), signal.SIGKILL)
 
 if __name__ == "__main__":

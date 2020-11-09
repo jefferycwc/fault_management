@@ -20,7 +20,7 @@ def subscriber():
             name = data['name']
             type = data['type']
             if type=='report':
-                print('Receive vnf instance error report : {name} {cause}'.format(name=name,cause=cause))
+                print('Receive vnf instance fault report : {name} {cause}'.format(name=name,cause=cause))
                 SendHealVnfRequest(instance_id,cause,name)
             elif type=='notification1':
                 print('Got notification from VNFM, heal VNF process start')
