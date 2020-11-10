@@ -6,7 +6,7 @@ def ssh_jump(target_addr,cmds):
 
     jumpbox=paramiko.SSHClient()
     jumpbox.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    jumpbox.connect('192.168.1.77', username='openstack', password='0000')
+    jumpbox.connect('192.168.1.77', username='jeffery', password='jeffery71')
 
     jumpbox_transport = jumpbox.get_transport()
     src_addr = ('192.168.1.77', 22)
