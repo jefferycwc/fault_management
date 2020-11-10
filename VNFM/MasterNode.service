@@ -4,7 +4,7 @@ Description=MasterNode Service
 [Service]
 User=root
 WorkingDirectory=/root/fault_management
-ExecStart=python /VNFM/MasterNode.py
+ExecStart=/usr/bin/python /VNFM/MasterNode.py
 
 [Install]
 WantedBy=multi-user.target
