@@ -18,7 +18,7 @@ def kill_process():
             os.kill(int(pid), signal.SIGKILL)
 
 if __name__ == "__main__":
-    os.chdir("/root/fault_management/VNFM")
+    os.chdir("/root/fault_management/master_node")
     original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
     pool =Pool(11)
     #pool = Pool(2)
