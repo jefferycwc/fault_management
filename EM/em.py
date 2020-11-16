@@ -4,7 +4,7 @@ import signal
 import os
 from HealVnfRequest import SendHealVnfRequest
 def subscriber():
-    r = redis.Redis(host='192.168.1.219', port=6379, db=0)
+    r = redis.Redis(host='192.168.1.103', port=6379, db=0)
     sub = r.pubsub()
     sub.subscribe('error_report')
     #sub.psubscribe('__keyspace@0__:*')

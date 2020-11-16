@@ -36,4 +36,4 @@ def ReceiveHealVnfRequest():
     thread.start()
     print('Send HealVnfResponse to EM')
     return 'succesful'
-app.run(host='192.168.1.219',port=5010)
+app.run(host='192.168.1.103',port=5010)
