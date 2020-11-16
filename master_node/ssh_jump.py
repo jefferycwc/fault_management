@@ -21,12 +21,12 @@ def ssh_jump(target_addr,cmds):
         if cmd=='sudo nohup ./bin/free5gc-upfd\n':
             time.sleep(20)
         elif cmd=='make\n':
-            time.sleep(10)
+            time.sleep(15)
         else:
             time.sleep(1)
         ssh.send(cmd)
-        #out=ssh.recv(1024)
-        #print out
+        out=ssh.recv(1024)
+        print out
     time.sleep(1)
 
     target.close()
