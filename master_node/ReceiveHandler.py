@@ -8,7 +8,9 @@ from threading import Thread
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-
+@app.route('/addmonitor', methods=['POST'])
+    print('addmonitor')
+    return 'succesful'
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
     print('Receive HealVnfRequest from EM')
