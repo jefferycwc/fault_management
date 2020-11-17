@@ -21,7 +21,7 @@ def ssh_jump(target_addr,cmds):
         if cmd=='sudo nohup ./bin/free5gc-upfd\n':
             time.sleep(20)
         elif cmd=='sudo make install\n':
-            time.sleep(15)
+            time.sleep(20)
         else:
             time.sleep(1)
         ssh.send(cmd)
