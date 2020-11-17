@@ -10,7 +10,9 @@ app.config["DEBUG"] = True
 
 @app.route('/addmonitor', methods=['POST'])
 def AddMonitor():
-    print('addmonitor')
+    data = request.get_json()
+    description = data['description']
+    print('description: {}'.format(description))
     return 'succesful'
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
