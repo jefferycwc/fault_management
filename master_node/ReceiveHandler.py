@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 @app.route('/addmonitor', methods=['POST'])
+def AddMonitor():
     print('addmonitor')
     return 'succesful'
 @app.route('/healvnf', methods=['POST'])
