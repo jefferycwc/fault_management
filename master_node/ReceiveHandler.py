@@ -14,7 +14,7 @@ app.config["DEBUG"] = True
 def AddMonitor():
     data = request.get_json()
     description = data['description']
-    print('description:{}'.fromat(description))
+    print('description:{}'.format(description))
     if description == 'description':
         amf_proc =  multiprocessing.Process(target=amf_detect.start(), args=())
         amf_proc.start()
