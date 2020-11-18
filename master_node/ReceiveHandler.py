@@ -5,6 +5,8 @@ import time
 from HealVnfHandler import OpenStackAPI
 from PublishHandler import publisher
 from threading import Thread
+import multiprocessing
+import amf_detect
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -12,7 +14,9 @@ app.config["DEBUG"] = True
 def AddMonitor():
     data = request.get_json()
     description = data['description']
-    print('description: {}'.format(description))
+    if description == 'description':
+        amf_proc =  multiprocessing.Process(target=amf_detect.start(), args=())
+        amf_proc.start()
     return 'succesful'
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
@@ -41,4 +45,6 @@ def ReceiveHealVnfRequest():
     thread.start()
     print('Send HealVnfResponse to EM')
     return 'succesful'
-app.run(host='192.168.1.103',port=5010)
+
+if __name__ == "__main__":
+    app.run(host='192.168.1.103',port=5010)
