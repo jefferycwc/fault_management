@@ -17,8 +17,8 @@ def AddMonitor():
     description = data['description']
     print('description:{}'.format(description))
     if description == 'VNFD:amfd':
-        amf_proc =  multiprocessing.Process(target=amf_detect.start(), kwargs={'vnf_id':vnf_id})
-        amf_proc.start(vnf_id)
+        amf_proc =  multiprocessing.Process(target=amf_detect.start, kwargs={'vnf_id':vnf_id})
+        amf_proc.start()
     return 'succesful'
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
