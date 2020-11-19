@@ -19,7 +19,7 @@ def AddMonitor():
     print('description: {}'.format(description))
     vnf_name = description.split(':')[1]
     print('vnf name: {}'.format(vnf_name))
-    if name == 'amf':
+    if vnf_name == 'amf':
         amf_proc =  multiprocessing.Process(target=amf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
         amf_proc.start()
     return 'succesful'
