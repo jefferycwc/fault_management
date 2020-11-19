@@ -178,31 +178,28 @@ class OpenStackAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_status_response = requests.get(get_amf_status_url, headers=headers)
-        #print("Get amf instance status: " + str(get_instance_status_response.status_code))
-        #print("get instance result: {}".format(get_instance_status_response.json()))
         status = get_instance_status_response.json()['server']['status']
         return status
 
-    def amf_detect(self):
-        instance_id = self.get_instance_id('free5gc-amf-VNF')
-        #print('amf instance id: {}'.format(instance_id))
+    def amf_detect(self,vnf_name):
+        instance_id = self.get_instance_id(vnf_name)
         amf_status = self.get_amf_status(instance_id)
         if amf_status=='ACTIVE':
             self.lock=0
 
         if amf_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused','amf','report')
+            publisher(instance_id,'paused',vnf_name,'report')
             self.lock=1
         elif amf_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff','amf','report')
+            publisher(instance_id,'shutoff',vnf_name,'report')
             self.lock=1
         elif amf_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended','amf','report')
+            publisher(instance_id,'suspended',vnf_name,'report')
             self.lock=1
 
 
 #if __name__ == '__main__':
-def start(vnf_id):
+def start(vnf_name,vnf_id):
     tacker = TackerAPI()
     vnf_status = tacker.get_vnf_status(vnf_id)
     while(vnf_status!='ACTIVE'):
@@ -212,4 +209,4 @@ def start(vnf_id):
     print('start detecting AMF')
     openstack = OpenStackAPI()
     while 1:
-        openstack.amf_detect()
+        openstack.amf_detect(vnf_name)
