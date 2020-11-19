@@ -1,16 +1,17 @@
 from flask import Flask,render_template,request,jsonify
 import requests
-#import os
+import os
 import time
 from HealVnfHandler import OpenStackAPI
 from PublishHandler import publisher
 from threading import Thread
 import multiprocessing
-import amf_detect
+#import amf_detect
+import vnf_detect
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-
+pid_dict = {}
 @app.route('/addmonitor', methods=['POST'])
 def AddMonitor():
     data = request.get_json()
@@ -19,10 +20,20 @@ def AddMonitor():
     print('description: {}'.format(description))
     vnf_name = description.split(':')[1]
     print('vnf name: {}'.format(vnf_name))
-    if vnf_name == 'amf':
-        amf_proc =  multiprocessing.Process(target=amf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
-        amf_proc.start()
-    return 'succesful'
+    '''if vnf_name == 'mongodb':
+        mongodb_proc =  multiprocessing.Process(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
+        mongodb_proc.start()
+    elif vnf_name == 'amf':
+        amf_proc =  multiprocessing.Process(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
+        amf_proc.start()'''
+    pid = os.fork()
+    if pid == 0:
+        vnf_detect.start(vnf_name,vnf_id)
+    else
+        print('{} process pid: {}'.format(vnf_name,os.getppid()))
+        pid_dict[vnf_name] = os.getppid()
+        return 'succesful'
+    
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
     print('Receive HealVnfRequest from EM')
