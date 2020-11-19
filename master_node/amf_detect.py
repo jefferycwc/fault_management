@@ -73,7 +73,7 @@ class TackerAPI():
         #print("Project ID:" + self.project_id)
         return self.project_id
 
-    def get_vnf_status(vnf_id)
+    def get_vnf_status(vnf_id):
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
