@@ -78,7 +78,7 @@ class TackerAPI():
         headers = {'X-Auth-Token': token}
         tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
         get_vnf_status_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + vnf_id
-        respone = requests.get(get_vnf_status_url,headers=headers)
+        response = requests.get(get_vnf_status_url,headers=headers)
         status = response.json()['vnf']['status']
         return status
     
