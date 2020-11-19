@@ -29,7 +29,7 @@ def AddMonitor():
     pid = os.fork()
     if pid == 0:
         vnf_detect.start(vnf_name,vnf_id)
-    else
+    else:
         print('{} process pid: {}'.format(vnf_name,os.getppid()))
         pid_dict[vnf_name] = os.getppid()
         return 'succesful'
