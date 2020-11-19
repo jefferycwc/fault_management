@@ -13,11 +13,12 @@ app.config["DEBUG"] = True
 @app.route('/addmonitor', methods=['POST'])
 def AddMonitor():
     data = request.get_json()
+    id = data['id']
     description = data['description']
     print('description:{}'.format(description))
-    if description == 'description':
+    if description == 'VNFD:amfd':
         amf_proc =  multiprocessing.Process(target=amf_detect.start(), args=())
-        amf_proc.start()
+        amf_proc.start(id)
     return 'succesful'
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():

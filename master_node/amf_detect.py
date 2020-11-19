@@ -1,10 +1,87 @@
-import requests,time,paramiko, base64,getpass,time
+import requests,time,paramiko, base64,getpass
 import json
 import os
 import sys
 from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
+from params.tacker_params import *
 from PublishHandler import publisher
 
+class TackerAPI():
+    def __init__(self):
+        self.TACKER_IP = TACKER_IP
+	    self.TACKER_OS_AUTH_URL = TACKER_OS_AUTH_URL
+        self.TACKER_OS_USER_DOMAIN_NAME = TACKER_OS_USER_DOMAIN_NAME
+        self.TACKER_OS_USERNAME = TACKER_OS_USERNAME
+        self.TACKER_OS_PASSWORD = TACKER_OS_PASSWORD
+        self.TACKER_OS_PROJECT_DOMAIN_NAME = TACKER_OS_PROJECT_DOMAIN_NAME
+        self.TACKER_OS_PROJECT_NAME = TACKER_OS_PROJECT_NAME
+        self.ary_data = []
+        self.nsd_id = ''
+        self.nsd_name = ''
+        self.get_token_result = ''
+        self.project_id = ''
+
+    def get_token(self):
+        # print("\nGet token:")
+        self.get_token_result = ''
+        get_token_url = self.TACKER_OS_AUTH_URL + 'auth/tokens'
+        get_token_body = {
+            'auth': {
+                'identity': {
+                    'methods': [
+                        'password'
+                    ],
+                    'password': {
+                        'user': {
+                            'domain': {
+                                'name': self.TACKER_OS_USER_DOMAIN_NAME
+                            },
+                            'name': self.TACKER_OS_USERNAME,
+                            'password': self.TACKER_OS_PASSWORD
+                        }
+                    }
+                },
+                'scope': {
+                    'project': {
+                        'domain': {
+                            'name': self.TACKER_OS_PROJECT_DOMAIN_NAME
+                        },
+                        'name': self.TACKER_OS_PROJECT_NAME
+                    }
+                }
+            }
+        }
+        get_token_response = requests.post(get_token_url, data=json.dumps(get_token_body))
+        #print("Get Tacker token status: " + str(get_token_response.status_code))
+        self.get_token_result = get_token_response.headers['X-Subject-Token']
+        return self.get_token_result
+
+    def get_project_id(self, project_name):
+        # print("\nGet Project ID:")
+        self.project_id = ''
+        get_project_list_url = self.TACKER_OS_AUTH_URL + 'projects'
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_project_list_response = requests.get(get_project_list_url, headers=headers)
+        #print("Get Tacker project list status: " + str(get_project_list_response.status_code))
+        get_project_list_result = get_project_list_response.json()['projects']
+        #print(get_project_list_result)
+        for project in get_project_list_result:
+            if project['name'] == project_name:
+                self.project_id = project['id']
+            pass
+        #print("Project ID:" + self.project_id)
+        return self.project_id
+
+    def get_vnf_status(vnf_id)
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        tenant_id = self.get_project_id(self.TACKER_OS_PROJECT_NAME)
+        get_vnf_status_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/' + vnf_id
+        respone = requests.get(get_vnf_status_url,headers=headers)
+        status = response.json()['vnf']['status']
+        return status
+    
 class OpenStackAPI():
     def __init__(self):
         #super().__init__()
@@ -125,8 +202,14 @@ class OpenStackAPI():
 
 
 #if __name__ == '__main__':
-def start():
+def start(id):
+    tacker = TackerAPI()
+    vnf_status = tacker.get_vnf_status()
+    while(vnf_status!='ACTIVE')
+        print('vnf status{}'.format(vnf_status))
+        time.sleep(1)
+        vnf_status = tacker.get_vnf_status()
     print('start detecting AMF')
-    test = OpenStackAPI()
+    openstack = OpenStackAPI()
     while 1:
-        test.amf_detect()
+        openstack.amf_detect()
