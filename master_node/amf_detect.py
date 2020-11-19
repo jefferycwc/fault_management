@@ -206,7 +206,7 @@ def start(vnf_id):
     tacker = TackerAPI()
     vnf_status = tacker.get_vnf_status(vnf_id)
     while(vnf_status!='ACTIVE'):
-        print('vnf status{}'.format(vnf_status))
+        print('vnf status: {}'.format(vnf_status))
         time.sleep(1)
         vnf_status = tacker.get_vnf_status(vnf_id)
     print('start detecting AMF')
