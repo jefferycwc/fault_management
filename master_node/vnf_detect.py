@@ -2,6 +2,7 @@ import requests,time,paramiko, base64,getpass
 import json
 import os
 import sys
+import threading
 from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from params.tacker_params import *
 from PublishHandler import publisher
@@ -202,6 +203,7 @@ class OpenStackAPI():
 
 #if __name__ == '__main__':
 def start(vnf_name,vnf_id):
+    print('thread id:{}'.format(threading.get_ident()))
     tacker = TackerAPI()
     vnf_status = tacker.get_vnf_status(vnf_id)
     while(vnf_status!='ACTIVE'):
