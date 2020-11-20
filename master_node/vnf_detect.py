@@ -179,29 +179,33 @@ class OpenStackAPI():
                 #print('match!!')
                 return ins['id']
         #print('thread exit, id:{}'.format(threading.get_ident()))
-        os._exit(0)
+        #os._exit(0)
 
-    def get_vnf_status(self,instance_id):
-        get_vnf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+    def get_instance_status(self,instance_id):
+        get_instance_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         token = self.get_token()
         headers = {'X-Auth-Token': token}
-        get_instance_status_response = requests.get(get_vnf_status_url, headers=headers)
-        status = get_instance_status_response.json()['server']['status']
+        get_instance_status_response = requests.get(get_instance_status_url, headers=headers)
+        try
+            status = get_instance_status_response.json()['server']['status']
+        except Exception, e:
+            print >> sys.stderr, "Exception: %s" % str(e)
+            sys.exit(1)
         return status
 
-    def vnf_detect(self,vnf_name,vnf_id):
+    def instance_detect(self,vnf_name,vnf_id):
         instance_id = self.get_instance_id(vnf_name)
-        vnf_status = self.get_vnf_status(instance_id)
-        if vnf_status=='ACTIVE':
+        instance_status = self.get_instance_status(instance_id)
+        if instance_status=='ACTIVE':
             self.lock=0
 
-        if vnf_status=='PAUSED' and self.lock==0:
+        if instance_status=='PAUSED' and self.lock==0:
             publisher(vnf_id,instance_id,'paused',vnf_name,'report')
             self.lock=1
-        elif vnf_status=='SHUTOFF' and self.lock==0:
+        elif instance_status=='SHUTOFF' and self.lock==0:
             publisher(vnf_id,instance_id,'shutoff',vnf_name,'report')
             self.lock=1
-        elif vnf_status=='SUSPENDED' and self.lock==0:
+        elif instance_status=='SUSPENDED' and self.lock==0:
             publisher(vnf_id,instance_id,'suspended',vnf_name,'report')
             self.lock=1
 
@@ -219,4 +223,4 @@ def start(vnf_name,vnf_id):
     print('start detecting {}'.format(vnf_name))
     openstack = OpenStackAPI()
     while 1:
-        openstack.vnf_detect(vnf_name,vnf_id)
+        openstack.instance_detect(vnf_name,vnf_id)
