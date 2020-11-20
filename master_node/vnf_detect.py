@@ -206,7 +206,7 @@ def start(vnf_name,vnf_id):
         print('vnf status: {}'.format(vnf_status))
         time.sleep(1)
         vnf_status = tacker.get_vnf_status(vnf_id)
-    print('start detecting vnf')
+    print('start detecting {}'.format(vnf_name))
     openstack = OpenStackAPI()
     while 1:
         openstack.vnf_detect(vnf_name)
