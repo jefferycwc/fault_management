@@ -2,7 +2,7 @@ import requests,json
 def SendHealVnfRequest(vnf_id,instance_id,cause,name):
     body = {
         'vnf_id' : vnf_id,
-        'instance_id' : instnace_id,
+        'instance_id' : instance_id,
         'cause' : cause,
         'name' : name
     }
