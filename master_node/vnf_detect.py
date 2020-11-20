@@ -186,7 +186,7 @@ class OpenStackAPI():
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_status_response = requests.get(get_instance_status_url, headers=headers)
-        try
+        try:
             status = get_instance_status_response.json()['server']['status']
         except Exception, e:
             print >> sys.stderr, "Exception: %s" % str(e)
