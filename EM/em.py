@@ -15,6 +15,7 @@ def subscriber():
         elif message['type'] == 'message':
             #print(json.loads(message['data']))
             data = json.loads(message['data'])
+            vnf_id =  data['vnf_id']
             instance_id = data['instance_id']
             cause = data['cause']
             name = data['name']
@@ -23,7 +24,7 @@ def subscriber():
                 #print('Receive vnf instance fault report : {name} {cause}'.format(name=name,cause=cause))
                 print('Receive vnf instance fault report : \n')
                 print(data)
-                SendHealVnfRequest(instance_id,cause,name)
+                SendHealVnfRequest(vnf_id,instance_id,cause,name)
             elif type=='notification1':
                 print('Got notification from VNFM, heal VNF ({}) process start'.format(name))
             elif type=='notification2':

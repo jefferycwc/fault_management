@@ -181,20 +181,20 @@ class OpenStackAPI():
         status = get_instance_status_response.json()['server']['status']
         return status
 
-    def vnf_detect(self,vnf_name):
+    def vnf_detect(self,vnf_name,vnf_id):
         instance_id = self.get_instance_id(vnf_name)
         vnf_status = self.get_vnf_status(instance_id)
         if vnf_status=='ACTIVE':
             self.lock=0
 
         if vnf_status=='PAUSED' and self.lock==0:
-            publisher(instance_id,'paused',vnf_name,'report')
+            publisher(vnf_id,instance_id,'paused',vnf_name,'report')
             self.lock=1
         elif vnf_status=='SHUTOFF' and self.lock==0:
-            publisher(instance_id,'shutoff',vnf_name,'report')
+            publisher(vnf_id,instance_id,'shutoff',vnf_name,'report')
             self.lock=1
         elif vnf_status=='SUSPENDED' and self.lock==0:
-            publisher(instance_id,'suspended',vnf_name,'report')
+            publisher(vnf_id,instance_id,'suspended',vnf_name,'report')
             self.lock=1
 
 
@@ -209,4 +209,4 @@ def start(vnf_name,vnf_id):
     print('start detecting {}'.format(vnf_name))
     openstack = OpenStackAPI()
     while 1:
-        openstack.vnf_detect(vnf_name)
+        openstack.vnf_detect(vnf_name,vnf_id)

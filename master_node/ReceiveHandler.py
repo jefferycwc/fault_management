@@ -40,16 +40,17 @@ def AddMonitor():
 def ReceiveHealVnfRequest():
     print('Receive HealVnfRequest from EM')
     data = request.get_json()
-    id = data['id']
+    vnf_id = data['vnf_id']
+    instnace_id = data['instnace_id']
     cause = data['cause']
     name = data['name']
     #print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
     #pid = os.fork()
     #if pid==0:
-    def HealVnfProcessStart(id,cause,name):
+    def HealVnfProcessStart(instnace_id,cause,name):
         #print('child id : {}'.format(os.getpid()))
         time.sleep(2)
-        publisher(id,cause,name,'notification1')
+        publisher(vnf_id,instance_id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
             result = new_item.unpause(id)
@@ -57,9 +58,9 @@ def ReceiveHealVnfRequest():
             result = new_item.resume(id,name)
         elif cause == 'shutoff':
             result = new_item.reboot(id,name)
-        publisher(id,cause,name,'notification2')
+        publisher(vnf_id,instance_id,cause,name,'notification2')
         #os.kill(os.getpid())
-    thread = Thread(target=HealVnfProcessStart, kwargs={'id':id,'cause':cause,'name':name})
+    thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name})
     thread.start()
     print('Send HealVnfResponse to EM')
     return 'succesful'
