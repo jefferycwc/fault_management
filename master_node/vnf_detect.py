@@ -213,8 +213,6 @@ class OpenStackAPI():
             publisher(vnf_id,instance_id,'suspended',vnf_name,'report')
             self.lock=1
 
-
-#if __name__ == '__main__':
 def start(vnf_name,vnf_id):
     tid = libc.syscall(SYS_gettid)
     print('thread id: {}'.format(tid))
