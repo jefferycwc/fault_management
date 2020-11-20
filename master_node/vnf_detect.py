@@ -182,7 +182,11 @@ class OpenStackAPI():
         #os._exit(0)
 
     def get_instance_status(self,instance_id):
-        get_instance_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+        try:
+            get_instance_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
+        except Exception, e:
+            print >> sys.stderr, "Exception: %s" % str(e)
+            sys.exit(1)
         token = self.get_token()
         headers = {'X-Auth-Token': token}
         get_instance_status_response = requests.get(get_instance_status_url, headers=headers)
