@@ -173,7 +173,7 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 #print('match!!')
                 return ins['id']
-        
+        print('thread exit, id:{}'.format(threading.get_ident()))
         os._exit(0)
 
     def get_vnf_status(self,instance_id):
