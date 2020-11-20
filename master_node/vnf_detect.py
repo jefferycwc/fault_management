@@ -172,6 +172,8 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 #print('match!!')
                 return ins['id']
+        
+        os._exit()
 
     def get_vnf_status(self,instance_id):
         get_vnf_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
