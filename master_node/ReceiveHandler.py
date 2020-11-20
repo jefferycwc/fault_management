@@ -20,19 +20,21 @@ def AddMonitor():
     print('description: {}'.format(description))
     vnf_name = description.split(':')[1]
     print('vnf name: {}'.format(vnf_name))
+    thread = Thread(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
+    thread.start()
     '''if vnf_name == 'mongodb':
         mongodb_proc =  multiprocessing.Process(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
         mongodb_proc.start()
     elif vnf_name == 'amf':
         amf_proc =  multiprocessing.Process(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
         amf_proc.start()'''
-    pid = os.fork()
+    '''pid = os.fork()
     if pid == 0:
         vnf_detect.start(vnf_name,vnf_id)
     else:
         print('{} process pid: {}'.format(vnf_name,os.getppid()))
-        pid_dict[vnf_name] = os.getppid()
-        return 'succesful'
+        pid_dict[vnf_name] = os.getppid()'''
+    return 'succesful'
     
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
