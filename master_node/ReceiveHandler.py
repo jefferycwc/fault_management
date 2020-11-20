@@ -5,7 +5,7 @@ import time
 from HealVnfHandler import OpenStackAPI
 from PublishHandler import publisher
 from threading import Thread
-import multiprocessing
+#import multiprocessing
 #import amf_detect
 import vnf_detect
 app = Flask(__name__)
