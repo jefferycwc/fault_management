@@ -7,6 +7,11 @@ from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME
 from params.tacker_params import *
 from PublishHandler import publisher
 
+import ctypes
+
+SYS_gettid = 186
+libc = ctypes.cdll.LoadLibrary('libc.so.6')
+
 class TackerAPI():
     def __init__(self):
         self.TACKER_IP = TACKER_IP
@@ -173,7 +178,7 @@ class OpenStackAPI():
             if ins['name'] == ins_name:
                 #print('match!!')
                 return ins['id']
-        print('thread exit, id:{}'.format(threading.get_ident()))
+        #print('thread exit, id:{}'.format(threading.get_ident()))
         os._exit(0)
 
     def get_vnf_status(self,instance_id):
@@ -203,7 +208,8 @@ class OpenStackAPI():
 
 #if __name__ == '__main__':
 def start(vnf_name,vnf_id):
-    print('thread id:{}'.format(threading.get_ident()))
+    tid = libc.syscall(SYS_gettid)
+    print('thread id: {}'.format(tid))
     tacker = TackerAPI()
     vnf_status = tacker.get_vnf_status(vnf_id)
     while(vnf_status!='ACTIVE'):
