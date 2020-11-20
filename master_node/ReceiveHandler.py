@@ -41,13 +41,13 @@ def ReceiveHealVnfRequest():
     print('Receive HealVnfRequest from EM')
     data = request.get_json()
     vnf_id = data['vnf_id']
-    instnace_id = data['instance_id']
+    instance_id = data['instance_id']
     cause = data['cause']
     name = data['name']
     #print('vnf instance id = {id} cause = {cause}'.format(id=id,cause=cause))
     #pid = os.fork()
     #if pid==0:
-    def HealVnfProcessStart(instance_id,cause,name):
+    def HealVnfProcessStart(vnf_id,instance_id,cause,name):
         #print('child id : {}'.format(os.getpid()))
         time.sleep(2)
         publisher(vnf_id,instance_id,cause,name,'notification1')
