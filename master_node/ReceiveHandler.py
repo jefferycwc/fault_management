@@ -53,11 +53,11 @@ def ReceiveHealVnfRequest():
         publisher(vnf_id,instance_id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
-            result = new_item.unpause(id)
+            result = new_item.unpause(instance_id,name)
         elif cause == 'suspended':
-            result = new_item.resume(id,name)
+            result = new_item.resume(instance_id,name)
         elif cause == 'shutoff':
-            result = new_item.reboot(id,name)
+            result = new_item.reboot(instance_id,name)
         publisher(vnf_id,instance_id,cause,name,'notification2')
         #os.kill(os.getpid())
     thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name})
