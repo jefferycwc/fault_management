@@ -61,7 +61,7 @@ def ReceiveHealVnfRequest():
 if __name__ == "__main__":
     app.debug = True
     handler = logging.FileHandler('/var/log/tacker/tacker-monitor.log', encoding='UTF-8')
-    handler.setLevel(logging.DEBUG)
+    handler.setLevel(logging.INFO)
     logging_format = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     handler.setFormatter(logging_format)
     app.logger.addHandler(handler)
