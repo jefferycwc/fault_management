@@ -19,8 +19,8 @@ def AddMonitor():
     description = data['description']
     #print('description: {}'.format(description))
     vnf_name = description.split(':')[1]
-    #print('vnf name: {}'.format(vnf_name))
-    LOG.debug('Start monitoring %s',vnf_name)
+    print('vnf name: {}'.format(vnf_name))
+    #LOG.debug('Start monitoring %s',vnf_name)
     thread = Thread(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
     thread.start()
     return 'succesful'
@@ -35,7 +35,8 @@ def ReceiveHealVnfRequest():
     name = data['name']
     def HealVnfProcessStart(vnf_id,instance_id,cause,name):
         time.sleep(2)
-        LOG.debug('Start healing %s vnf',name)
+        #LOG.debug('Start healing %s vnf',name)
+        print('Start healing {} vnf',name)
         publisher(vnf_id,instance_id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
@@ -44,7 +45,8 @@ def ReceiveHealVnfRequest():
             result = new_item.resume(instance_id,name)
         elif cause == 'shutoff':
             result = new_item.reboot(instance_id,name)
-        LOG.debug('Finish healing %s vnf',name)
+        #LOG.debug('Finish healing %s vnf',name)
+        print('Finish healing {} vnf',name)
         publisher(vnf_id,instance_id,cause,name,'notification2')
     thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name})
     thread.start()
