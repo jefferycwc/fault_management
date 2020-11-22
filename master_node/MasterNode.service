@@ -5,8 +5,6 @@ Description=MasterNode Service
 User=root
 WorkingDirectory=/root/fault_management
 ExecStart=/usr/bin/python /root/fault_management/master_node/ReceiveHandler.py
-StandardOutput=file:/var/log/tacker/tacker-monitor.log
-StandardError=file:/var/log/tacker/tacker-monitor.log
 
 [Install]
 WantedBy=multi-user.target
