@@ -9,4 +9,4 @@ udm_list = ['cd /home/ubuntu/stage3\n','sudo nohup ./bin/udm & \n','exit\n']
 nssf_list = ['cd /home/ubuntu/stage3\n','sudo nohup ./bin/nssf & \n','exit\n']
 ausf_list = ['cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf & \n','exit\n']
 cmds_dict = {'mongodb':mongodb_list,'upf':upf_list,'amf':amf_list,'smf':smf_list,'udr':udr_list,'pcf':pcf_list,'udm':udm_list,'nssf':nssf_list,'ausf':ausf_list}
-ip_dict = ['mongodb': '172.24.4.110','upf': '172.24.4.111','nrf': '172.24.4.101','amf': '172.24.4.102', 'smf': '172.24.4.103','udr': '172.24.4.104','pcf': '172.24.4.105','udm': '172.24.4.106','nssf': '172.24.4.107','ausf': '172.24.4.108']
+ip_dict = ['mongodb': '172.24.4.110', 'upf': '172.24.4.111', 'nrf': '172.24.4.101', 'amf': '172.24.4.102', 'smf': '172.24.4.103', 'udr': '172.24.4.104', 'pcf': '172.24.4.105', 'udm': '172.24.4.106', 'nssf': '172.24.4.107', 'ausf': '172.24.4.108']
