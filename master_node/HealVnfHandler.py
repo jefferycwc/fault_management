@@ -195,7 +195,8 @@ def restart(instance_id,name,cmds,ip):
         ip = '172.24.4.107'
     elif name == 'ausf':
         cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf & \n','exit\n']
-        ip = '172.24.4.108''''
+        ip = '172.24.4.108'
+    '''
     if name == 'smf':
         Reset_for_SMF()
     ssh_jump(ip,cmds)
