@@ -3,6 +3,7 @@ import json
 import signal
 import os
 from HealVnfRequest import SendHealVnfRequest
+from cmds import cmds_dict,ip_dict
 def subscriber():
     r = redis.Redis(host='192.168.1.103', port=6379, db=0)
     sub = r.pubsub()
@@ -24,7 +25,9 @@ def subscriber():
                 #print('Receive vnf instance fault report : {name} {cause}'.format(name=name,cause=cause))
                 print('Receive vnf instance fault report: ')
                 print(data)
-                SendHealVnfRequest(vnf_id,instance_id,cause,name)
+                cmds = cmds_dict[name]
+                ip = ip_dict[name]
+                SendHealVnfRequest(vnf_id,instance_id,cause,name,cmds,ip)
             elif type=='notification1':
                 print('Got notification from VNFM, heal VNF ({}) process start'.format(name))
             elif type=='notification2':
