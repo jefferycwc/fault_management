@@ -162,41 +162,7 @@ def restart(instance_id,name,cmds,ip):
         print('wait ' + str(count) + 's')
         if count==25:
             break
-    '''flag = 0
-    if name == 'mongo':
-        cmds=['sudo systemctl start mongod','exit\n']
-        ip = '172.24.4.110'
-    elif name == 'upf':
-        cmds=['cd /home/ubuntu/stage3/gtp5g\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf/lib/libgtp5gnl/tools\n','sudo ./gtp5g-link del upfgtp0\n','sudo rm /dev/mqueue/*\n','cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
-        ip = '172.24.4.111'
-        flag = 1
-    elif name == 'nrf':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/nrf & \n','exit\n']
-        ip = '172.24.4.101'
-        flag = 2
-    elif name == 'amf':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/amf & \n','exit\n']
-        ip = '172.24.4.102'
-    elif name == 'smf':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/smf & \n','exit\n']
-        ip = '172.24.4.103'
-        Reset_for_SMF()
-    elif name == 'udr':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/udr & \n','exit\n']
-        ip = '172.24.4.104'
-    elif name == 'pcf':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/pcf & \n','exit\n']
-        ip = '172.24.4.105'
-    elif name == 'udm':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/udm & \n','exit\n']
-        ip = '172.24.4.106'
-    elif name == 'nssf':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/nssf & \n','exit\n']
-        ip = '172.24.4.107'
-    elif name == 'ausf':
-        cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf & \n','exit\n']
-        ip = '172.24.4.108'
-    '''
+
     if name == 'smf':
         Reset_for_SMF()
     ssh_jump(ip,cmds)
@@ -205,10 +171,6 @@ def restart(instance_id,name,cmds,ip):
         Reset_for_UPF()
     elif name == 'nrf':
         Reset_for_NRF()
-    '''if flag ==1:
-        Reset_for_UPF()
-    elif flag ==2:
-        Reset_for_NRF()'''
     return True
 
 def Reset_for_UPF():
