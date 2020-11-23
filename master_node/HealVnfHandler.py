@@ -113,7 +113,7 @@ class OpenStackAPI():
         print('unpause instance successfully!!')
         return True
 
-    def resume(self,instance_id,name):
+    def resume(self,instance_id,name,cmds,ip):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -130,9 +130,9 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume instance successfully!!')
-        return restart(instance_id,name)
+        return restart(instance_id,name,cmds,ip)
 
-    def reboot(self,instance_id,name):
+    def reboot(self,instance_id,name,cmds,ip):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -151,9 +151,9 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('reboot instance successfully!!')
-        return restart(instance_id,name)
+        return restart(instance_id,name,cmds,ip)
 
-def restart(instance_id,name):
+def restart(instance_id,name,cmds,ip):
     print('resart instance')
     count=0
     while 1:
@@ -162,7 +162,7 @@ def restart(instance_id,name):
         print('wait ' + str(count) + 's')
         if count==25:
             break
-    flag = 0
+    '''flag = 0
     if name == 'mongo':
         cmds=['sudo systemctl start mongod','exit\n']
         ip = '172.24.4.110'
@@ -195,14 +195,19 @@ def restart(instance_id,name):
         ip = '172.24.4.107'
     elif name == 'ausf':
         cmds=['cd /home/ubuntu/stage3\n','sudo nohup ./bin/ausf & \n','exit\n']
-        ip = '172.24.4.108'
-    
+        ip = '172.24.4.108''''
+    if name == 'smf':
+        Reset_for_SMF()
     ssh_jump(ip,cmds)
-    print('resart instance successfully')
-    if flag ==1:
+    #print('resart instance successfully')
+    if name == 'upf':
+        Reset_for_UPF()
+    elif name == 'nrf':
+        Reset_for_NRF()
+    '''if flag ==1:
         Reset_for_UPF()
     elif flag ==2:
-        Reset_for_NRF()
+        Reset_for_NRF()'''
     return True
 
 def Reset_for_UPF():
@@ -214,6 +219,6 @@ def Reset_for_SMF():
     reset(ip)
 
 def Reset_for_NRF():
-    IP = ['172.24.4.110','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
+    IP = ['172.24.4.111','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
     for ip in IP:
         reset(ip)

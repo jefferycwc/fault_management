@@ -40,18 +40,18 @@ def ReceiveHealVnfRequest():
     print(cmds)
     print(ip)
     app.logger.info('VNFM healed %s vnf, cause was %s',name,cause)
-    def HealVnfProcessStart(vnf_id,instance_id,cause,name):
+    def HealVnfProcessStart(vnf_id,instance_id,cause,name,cmds,ip):
         time.sleep(2)
         publisher(vnf_id,instance_id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
             result = new_item.unpause(instance_id,name)
         elif cause == 'suspended':
-            result = new_item.resume(instance_id,name)
+            result = new_item.resume(instance_id,name,cmds,ip)
         elif cause == 'shutoff':
-            result = new_item.reboot(instance_id,name)
+            result = new_item.reboot(instance_id,name,cmds,ip)
         publisher(vnf_id,instance_id,cause,name,'notification2')
-    thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name})
+    thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name,'cmds':cmds,'ip':ip})
     thread.start()
     print('Send HealVnfResponse to EM')
     return 'succesful'
