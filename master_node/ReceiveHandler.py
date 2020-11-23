@@ -37,8 +37,8 @@ def ReceiveHealVnfRequest():
     name = data['name']
     cmds = data['cmds']
     ip = data['ip']
-    print(cmds)
-    print(ip)
+    #print(cmds)
+    #print(ip)
     app.logger.info('VNFM healed %s vnf, cause was %s',name,cause)
     def HealVnfProcessStart(vnf_id,instance_id,cause,name,cmds,ip):
         time.sleep(2)
@@ -53,7 +53,7 @@ def ReceiveHealVnfRequest():
         publisher(vnf_id,instance_id,cause,name,'notification2')
     thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name,'cmds':cmds,'ip':ip})
     thread.start()
-    print('Send HealVnfResponse to EM')
+    #print('Send HealVnfResponse to EM')
     return 'succesful'
 
 if __name__ == "__main__":
