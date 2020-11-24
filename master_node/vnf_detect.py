@@ -25,4 +25,4 @@ def ssh_jump(target_addr):
     jumpbox.close()
 
 if __name__ == "__main__":
-    ssh_jump('172.24.4.111')
+    ssh_jump('172.24.4.105')
