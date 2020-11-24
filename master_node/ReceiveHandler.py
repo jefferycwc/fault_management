@@ -29,7 +29,7 @@ def AddMonitor():
     
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
-    print('Receive HealVnfRequest from EM')
+    #print('Receive HealVnfRequest from EM')
     data = request.get_json()
     vnf_id = data['vnf_id']
     instance_id = data['instance_id']
