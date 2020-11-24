@@ -7,13 +7,13 @@ def findProcessIdByName(processName):
     listOfProcessObjects = []
     #Iterate over the all the running process
     for proc in psutil.process_iter():
-        try:
+        #try:
             pinfo = proc.as_dict(attrs=['pid', 'name'])
             # Check if process name contains the given name string.
             if processName.lower() in pinfo['name'].lower() :
                 listOfProcessObjects.append(pinfo)
-        except (psutil.NoSuchProcess, psutil.AccessDenied , psutil.ZombieProcess) :
-            pass
+        #except (psutil.NoSuchProcess, psutil.AccessDenied , psutil.ZombieProcess) :
+        #    pass
     return listOfProcessObjects
 
 if __name__ == "__main__":
