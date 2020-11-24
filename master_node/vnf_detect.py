@@ -43,4 +43,4 @@ if __name__ == "__main__":
             print('No Running Process found with given text')
             if lock==0:
                 response = requests.post(url,json=body)
-                lock=1:
+                lock=1
