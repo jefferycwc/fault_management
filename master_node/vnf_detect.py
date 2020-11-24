@@ -40,7 +40,7 @@ if __name__ == "__main__":
                 print(processID ,processName)'''
             lock=0
         else :
-            print('No Running Process found with given text')
             if lock==0:
+                print('No Running Process found with given text')
                 response = requests.post(url,json=body)
                 lock=1

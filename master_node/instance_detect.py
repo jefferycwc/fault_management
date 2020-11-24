@@ -88,6 +88,23 @@ class TackerAPI():
         status = response.json()['vnf']['status']
         return status
     
+    def list_vnf(self):
+        token = self.get_token()
+        headers = {'X-Auth-Token': token}
+        get_vnf_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/'
+        get_vnf_list_response = requests.get(get_vnf_list_url,headers=headers)
+        get_vnfd_list_result = get_vnf_list_response.json()
+        return get_instance_list_result
+
+    def get_vnf_id(self,vnf_name):
+        vnf_list = self.list_vnf()
+        vnf_id = None
+        for vnf in vnf_list['vnfs']:
+            if vnf['name']==vnf_name:
+                vnf_id=vnf['id']
+            pass
+        return vnf_id
+
 class OpenStackAPI():
     def __init__(self):
         #super().__init__()
@@ -204,13 +221,13 @@ class OpenStackAPI():
             self.lock=0
 
         if instance_status=='PAUSED' and self.lock==0:
-            publisher(vnf_id,instance_id,'paused',vnf_name,'report')
+            publisher(vnf_id,instance_id,'paused',vnf_name,'instance')
             self.lock=1
         elif instance_status=='SHUTOFF' and self.lock==0:
-            publisher(vnf_id,instance_id,'shutoff',vnf_name,'report')
+            publisher(vnf_id,instance_id,'shutoff',vnf_name,'instance')
             self.lock=1
         elif instance_status=='SUSPENDED' and self.lock==0:
-            publisher(vnf_id,instance_id,'suspended',vnf_name,'report')
+            publisher(vnf_id,instance_id,'suspended',vnf_name,'instance')
             self.lock=1
 
 def start(vnf_name,vnf_id):

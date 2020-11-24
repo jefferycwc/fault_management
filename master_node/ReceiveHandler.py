@@ -4,6 +4,8 @@ import os
 import time
 import logging
 from HealVnfHandler import OpenStackAPI
+from instance_detect import OpenStackAPI as OpenStack
+from instance_detect import TackerAPI as Tacker
 from PublishHandler import publisher
 from threading import Thread
 import instance_detect
@@ -59,6 +61,13 @@ def ReceiveHealVnfRequest():
 def ReceiveVnfAlarm():
     data = request.get_json()
     vnf_name = data['vnf_name']
+    app.logger.info('{} stop running'.format(vnf_name))
+    openstack = OpenStack()
+    tacker = Tacker()
+    instance_id = openstack.get_instance_id(vnf_name)
+    vnf_id = tacker.get_vnf_id(vnf_name)
+    cause = 'vnf stop running'
+    publisher(vnf_id,instance_id,cause,vnf_name,'vnf')
     return 'succesful'
 
 if __name__ == "__main__":
