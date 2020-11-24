@@ -99,8 +99,9 @@ class TackerAPI():
     def get_vnf_id(self,vnf_name):
         vnf_list = self.list_vnf()
         vnf_id = None
+        vnf_description = 'VNFD:'+ vnf_name
         for vnf in vnf_list['vnfs']:
-            if vnf['name']==vnf_name:
+            if vnf['description']==vnf_description:
                 vnf_id=vnf['id']
             pass
         return vnf_id
