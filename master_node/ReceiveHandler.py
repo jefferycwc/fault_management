@@ -2,12 +2,11 @@ from flask import Flask,render_template,request,jsonify
 import requests
 import os
 import time
-#from oslo_log import log as logging
 import logging
 from HealVnfHandler import OpenStackAPI
 from PublishHandler import publisher
 from threading import Thread
-import vnf_detect
+import instance_detect
 LOG = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -23,7 +22,7 @@ def AddMonitor():
     #print('vnf name: {}'.format(vnf_name))
     #LOG.info('Start monitoring %s',vnf_name)
     app.logger.info('Start monitoring %s',vnf_name)
-    thread = Thread(target=vnf_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
+    thread = Thread(target=instance_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
     thread.start()
     return 'succesful'
     
