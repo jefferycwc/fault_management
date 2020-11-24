@@ -18,7 +18,7 @@ def findProcessIdByName(processName):
     return listOfProcessObjects
 
 if __name__ == "__main__":
-    listOfProcessIds = findProcessIdByName('./bin/pcf')
+    listOfProcessIds = findProcessIdByName('pcf')
     if len(listOfProcessIds) > 0:
         print('Process Exists | PID and other details are')
         for elem in listOfProcessIds:
