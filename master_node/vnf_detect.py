@@ -19,11 +19,11 @@ def findProcessIdByName(processName):
 if __name__ == "__main__":
     listOfProcessIds = findProcessIdByName('./bin/pcf')
     if len(listOfProcessIds) > 0:
-    print('Process Exists | PID and other details are')
-    for elem in listOfProcessIds:
-        processID = elem['pid']
-        processName = elem['name']
-        processCreationTime =  time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(elem['create_time']))
-        print((processID ,processName,processCreationTime ))
+        print('Process Exists | PID and other details are')
+        for elem in listOfProcessIds:
+            processID = elem['pid']
+            processName = elem['name']
+            processCreationTime =  time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(elem['create_time']))
+            print((processID ,processName,processCreationTime ))
     else :
-    print('No Running Process found with given text')
+        print('No Running Process found with given text')
