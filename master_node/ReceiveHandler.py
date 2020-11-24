@@ -55,6 +55,10 @@ def ReceiveHealVnfRequest():
     #print('Send HealVnfResponse to EM')
     return 'succesful'
 
+@app.route('/process', methods=['POST'])
+    data = request.get_json()
+    return 'succesful'
+    
 if __name__ == "__main__":
     #app.debug = True
     handler = logging.FileHandler('/var/log/tacker/tacker.log', encoding='UTF-8')

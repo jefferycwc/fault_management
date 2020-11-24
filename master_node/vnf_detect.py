@@ -1,5 +1,6 @@
 import psutil
 import sys
+import socket
 def findProcessIdByName(processName):
     '''
     Get a list of all the PIDs of a all the running process whose name contains
@@ -20,13 +21,15 @@ def findProcessIdByName(processName):
 
 if __name__ == "__main__":
     process_name = sys.argv[1]
-    listOfProcessIds = findProcessIdByName(process_name)
-    if len(listOfProcessIds) > 0:
-        print('Process Exists | PID and other details are')
-        for elem in listOfProcessIds:
-            processID = elem['pid']
-            processName = elem['name']
-            #processCreationTime =  time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(elem['create_time']))
-            print(processID ,processName)
-    else :
-        print('No Running Process found with given text')
+    hostname = socket.gethostname()
+    print(hostname)
+    '''while 1:
+        listOfProcessIds = findProcessIdByName(process_name)
+        if len(listOfProcessIds) > 0:
+            print('Process Exists | PID and other details are')
+            for elem in listOfProcessIds:
+                processID = elem['pid']
+                processName = elem['name']
+                print(processID ,processName)
+        else :
+            print('No Running Process found with given text')'''
