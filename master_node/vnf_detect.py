@@ -24,7 +24,7 @@ def findProcessIdByName(processName):
 if __name__ == "__main__":
     process_name = sys.argv[1]
     hostname = socket.gethostname()
-    url = 'http://192.168.1.103:5010/process'
+    url = 'http://192.168.1.103:5010/alarm'
     body = {
         'vnf_name': hostname
     }
