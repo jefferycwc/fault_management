@@ -93,8 +93,8 @@ class TackerAPI():
         headers = {'X-Auth-Token': token}
         get_vnf_list_url = 'http://' + self.TACKER_IP + ':9890/v1.0/vnfs/'
         get_vnf_list_response = requests.get(get_vnf_list_url,headers=headers)
-        get_vnfd_list_result = get_vnf_list_response.json()
-        return get_instance_list_result
+        get_vnf_list_result = get_vnf_list_response.json()
+        return get_vnf_list_result
 
     def get_vnf_id(self,vnf_name):
         vnf_list = self.list_vnf()
