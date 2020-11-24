@@ -1,4 +1,5 @@
 import psutil
+import sys
 def findProcessIdByName(processName):
     '''
     Get a list of all the PIDs of a all the running process whose name contains
@@ -18,7 +19,8 @@ def findProcessIdByName(processName):
     return listOfProcessObjects
 
 if __name__ == "__main__":
-    listOfProcessIds = findProcessIdByName('pcf')
+    process_name = sys.argv[1]
+    listOfProcessIds = findProcessIdByName(process_name)
     if len(listOfProcessIds) > 0:
         print('Process Exists | PID and other details are')
         for elem in listOfProcessIds:
