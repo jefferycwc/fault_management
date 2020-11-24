@@ -56,7 +56,7 @@ def ReceiveHealVnfRequest():
     return 'succesful'
 
 @app.route('/alarm', methods=['POST'])
-def ReceiveVnfAlarm()
+def ReceiveVnfAlarm():
     data = request.get_json()
     vnf_name = data['vnf_name']
     return 'succesful'
