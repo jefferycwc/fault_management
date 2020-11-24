@@ -17,7 +17,7 @@ def ssh_jump(target_addr):
     target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
     ssh = target.invoke_shell()
-    while(1)
+    while(1):
         ssh.send('ps -aux | grep ./bin/pcf')
         out=ssh.recv(1024)
         print(out)
