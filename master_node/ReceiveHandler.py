@@ -57,8 +57,9 @@ def ReceiveHealVnfRequest():
 
 @app.route('/process', methods=['POST'])
     data = request.get_json()
+    vnf_name = data['vnf_name']
     return 'succesful'
-    
+
 if __name__ == "__main__":
     #app.debug = True
     handler = logging.FileHandler('/var/log/tacker/tacker.log', encoding='UTF-8')

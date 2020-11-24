@@ -1,6 +1,8 @@
 import psutil
 import sys
 import socket
+import requests
+import json
 def findProcessIdByName(processName):
     '''
     Get a list of all the PIDs of a all the running process whose name contains
@@ -22,14 +24,23 @@ def findProcessIdByName(processName):
 if __name__ == "__main__":
     process_name = sys.argv[1]
     hostname = socket.gethostname()
+    url = 'http://192.168.1.103:5010/process'
+    body = {
+        'vnf_name': hostname
+    }
+    lock = 0
     print(hostname)
-    '''while 1:
+    while 1:
         listOfProcessIds = findProcessIdByName(process_name)
         if len(listOfProcessIds) > 0:
-            print('Process Exists | PID and other details are')
+            '''print('Process Exists | PID and other details are')
             for elem in listOfProcessIds:
                 processID = elem['pid']
                 processName = elem['name']
-                print(processID ,processName)
+                print(processID ,processName)'''
+            lock=0
         else :
-            print('No Running Process found with given text')'''
+            print('No Running Process found with given text')
+            if lock==0:
+                response = requests.post(url,json=body)
+                lock=1:
