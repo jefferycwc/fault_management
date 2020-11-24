@@ -9,7 +9,7 @@ def findProcessIdByName(processName):
     for proc in psutil.process_iter():
         #try:
             pinfo = proc.as_dict(attrs=['pid', 'name'])
-            print(pinfo)
+            #print(pinfo)
             # Check if process name contains the given name string.
             if processName.lower() in pinfo['name'].lower() :
                 listOfProcessObjects.append(pinfo)
