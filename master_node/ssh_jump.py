@@ -22,6 +22,8 @@ def ssh_jump(target_addr,cmds):
             time.sleep(30)
         elif cmd=='sudo make install\n':
             time.sleep(20)
+        elif cmd=='exit\n':
+            time.sleep(2)
         else:
             time.sleep(1)
         ssh.send(cmd)
