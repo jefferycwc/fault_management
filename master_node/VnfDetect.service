@@ -2,7 +2,7 @@
 Description=VnfDetect Service
 
 [Service]
-User=root
+User=ubuntu
 WorkingDirectory=/home/ubuntu/fault_management
 ExecStart=/usr/bin/python3 /home/ubuntu/fault_management/master_node/vnf_detect.py
 
