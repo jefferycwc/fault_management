@@ -222,13 +222,13 @@ class OpenStackAPI():
             self.lock=0
 
         if instance_status=='PAUSED' and self.lock==0:
-            publisher(vnf_id,instance_id,'paused',vnf_name,'instance')
+            publisher(vnf_id,instance_id,'paused',vnf_name,'report')
             self.lock=1
         elif instance_status=='SHUTOFF' and self.lock==0:
-            publisher(vnf_id,instance_id,'shutoff',vnf_name,'instance')
+            publisher(vnf_id,instance_id,'shutoff',vnf_name,'report')
             self.lock=1
         elif instance_status=='SUSPENDED' and self.lock==0:
-            publisher(vnf_id,instance_id,'suspended',vnf_name,'instance')
+            publisher(vnf_id,instance_id,'suspended',vnf_name,'report')
             self.lock=1
 
 def start(vnf_name,vnf_id):

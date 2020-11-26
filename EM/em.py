@@ -21,16 +21,16 @@ def subscriber():
             cause = data['cause']
             name = data['name']
             type = data['type']
-            if type=='instance':
+            if type=='report':
                 #print('Receive vnf instance fault report : {name} {cause}'.format(name=name,cause=cause))
                 print('Receive vnf instance fault report: ')
                 print(data)
                 cmds = cmds_dict[name]
                 ip = ip_dict[name]
                 SendHealVnfRequest(vnf_id,instance_id,cause,name,cmds,ip)
-            elif type=='vnf':
+            '''elif type=='vnf':
                 print('Receive vnf fault report: ')
-                print(data)
+                print(data)'''
             elif type=='notification1':
                 print('Got notification from VNFM, heal VNF ({}) process start'.format(name))
             elif type=='notification2':

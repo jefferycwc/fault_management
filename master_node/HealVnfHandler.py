@@ -130,7 +130,7 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume instance successfully!!')
-        return restart(instance_id,name,cmds,ip)
+        return self.restart(instance_id,name,cmds,ip)
 
     def reboot(self,instance_id,name,cmds,ip):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
@@ -151,37 +151,37 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('reboot instance successfully!!')
-        return restart(instance_id,name,cmds,ip)
+        return self.restart(instance_id,name,cmds,ip)
 
-def restart(instance_id,name,cmds,ip):
-    print('resart instance')
-    count=0
-    while 1:
-        time.sleep(1)
-        count = count+1
-        print('wait ' + str(count) + 's')
-        if count==25:
-            break
+    def restart(self,instance_id,name,cmds,ip):
+        print('resart instance')
+        count=0
+        while 1:
+            time.sleep(1)
+            count = count+1
+            print('wait ' + str(count) + 's')
+            if count==25:
+                break
 
-    if name == 'smf':
-        Reset_for_SMF()
-    ssh_jump(ip,cmds)
-    #print('resart instance successfully')
-    if name == 'upf':
-        Reset_for_UPF()
-    elif name == 'nrf':
-        Reset_for_NRF()
-    return True
+        if name == 'smf':
+            self.Reset_for_SMF()
+        ssh_jump(ip,cmds)
+        #print('resart instance successfully')
+        if name == 'upf':
+            self.Reset_for_UPF()
+        elif name == 'nrf':
+            self.Reset_for_NRF()
+        return True
 
-def Reset_for_UPF():
-    ip ='172.24.4.103'
-    reset(ip)
-
-def Reset_for_SMF():
-    ip = '172.24.4.111'
-    reset(ip)
-
-def Reset_for_NRF():
-    IP = ['172.24.4.111','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
-    for ip in IP:
+    def Reset_for_UPF(self):
+        ip ='172.24.4.103'
         reset(ip)
+
+    def Reset_for_SMF(self):
+        ip = '172.24.4.111'
+        reset(ip)
+
+    def Reset_for_NRF(self):
+        IP = ['172.24.4.111','172.24.4.102','172.24.4.103','172.24.4.104','172.24.4.105','172.24.4.106','172.24.4.107','172.2.4.4.108']
+        for ip in IP:
+            reset(ip)

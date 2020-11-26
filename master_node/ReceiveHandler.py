@@ -51,6 +51,8 @@ def ReceiveHealVnfRequest():
             result = new_item.resume(instance_id,name,cmds,ip)
         elif cause == 'shutoff':
             result = new_item.reboot(instance_id,name,cmds,ip)
+        elif cause == 'vnf stop running'
+            result = new_item.restart(instance_id,name,cmds,ip)
         publisher(vnf_id,instance_id,cause,name,'notification2')
     thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name,'cmds':cmds,'ip':ip})
     thread.start()
@@ -67,7 +69,7 @@ def ReceiveVnfAlarm():
     instance_id = openstack.get_instance_id(vnf_name)
     vnf_id = tacker.get_vnf_id(vnf_name)
     cause = 'vnf stop running'
-    publisher(vnf_id,instance_id,cause,vnf_name,'vnf')
+    publisher(vnf_id,instance_id,cause,vnf_name,'report')
     return 'succesful'
 
 if __name__ == "__main__":
