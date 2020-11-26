@@ -28,9 +28,6 @@ def subscriber():
                 cmds = cmds_dict[name]
                 ip = ip_dict[name]
                 SendHealVnfRequest(vnf_id,instance_id,cause,name,cmds,ip)
-            '''elif type=='vnf':
-                print('Receive vnf fault report: ')
-                print(data)'''
             elif type=='notification1':
                 print('Got notification from VNFM, heal VNF ({}) process start'.format(name))
             elif type=='notification2':
