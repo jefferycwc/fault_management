@@ -25,7 +25,7 @@ class VNF_Start():
         print('Start to activate NRF')
         ssh_jump(self.nrf_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.nrf_instance_ip,cmds)
         print('Finish activate NRF')
 
     def amf_start(self):
@@ -33,7 +33,7 @@ class VNF_Start():
         print('Start to activate AMF')
         ssh_jump(self.amf_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.amf_instance_ip,cmds)
         print('Finish activate AMF')
 
     def smf_start(self):
@@ -41,7 +41,7 @@ class VNF_Start():
         print('Start to activate SMF')
         ssh_jump(self.smf_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.smf_instance_ip,cmds)
         print('Finish activate SMF')
 
     def udr_start(self):
@@ -49,7 +49,7 @@ class VNF_Start():
         print('Start to activate UDR')
         ssh_jump(self.udr_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.udr_instance_ip,cmds)
         print('Finish activate UDR')
 
     def pcf_start(self):
@@ -57,7 +57,7 @@ class VNF_Start():
         print('Start to activate PCF')
         ssh_jump(self.pcf_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.pcf_instance_ip,cmds)
         print('Finish activate PCF')
 
     def udm_start(self):
@@ -65,7 +65,7 @@ class VNF_Start():
         print('Start to activate UDM')
         ssh_jump(self.udm_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.udm_instance_ip,cmds)
         print('Finish activate UDM')
 
     def nssf_start(self):
@@ -73,7 +73,7 @@ class VNF_Start():
         print('Start to activate NSSF')
         ssh_jump(self.nssf_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.nssf_instance_ip,cmds)
         print('Finish activate NSSF')
 
     def ausf_start(self):
@@ -81,7 +81,7 @@ class VNF_Start():
         print('Start to activate AUSF')
         ssh_jump(self.ausf_instance_ip,cmds)
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        ssh_jump(self.ausf_instance_ip,cmds)
         print('Finish activate AUSF')
 
     
