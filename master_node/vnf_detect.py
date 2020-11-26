@@ -22,7 +22,7 @@ def findProcessIdByName(processName):
     return listOfProcessObjects
 
 if __name__ == "__main__":
-    process_name = sys.argv[1]
+    #process_name = sys.argv[1]
     hostname = socket.gethostname()
     url = 'http://192.168.1.103:5010/alarm'
     body = {
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     lock = 0
     print(hostname)
     while 1:
-        listOfProcessIds = findProcessIdByName(process_name)
+        listOfProcessIds = findProcessIdByName(hostname)
         if len(listOfProcessIds) > 0:
             '''print('Process Exists | PID and other details are')
             for elem in listOfProcessIds:
