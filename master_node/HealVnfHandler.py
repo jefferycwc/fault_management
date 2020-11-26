@@ -166,6 +166,8 @@ class OpenStackAPI():
         if name == 'smf':
             self.Reset_for_SMF()
         ssh_jump(ip,cmds)
+        cmds = ['sudo service VnfDetect start\n','exit\n']
+        ssh_jump(ip,cmds)
         #print('resart instance successfully')
         if name == 'upf':
             self.Reset_for_UPF()
