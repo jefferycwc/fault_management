@@ -52,7 +52,7 @@ def ReceiveHealVnfRequest():
         elif cause == 'shutoff':
             result = new_item.reboot(instance_id,name,cmds,ip)
         elif cause == 'vnf stop running':
-            result = new_item.restart(instance_id,name,cmds,ip)
+            result = new_item.restart(name,cmds,ip,cause)
         publisher(vnf_id,instance_id,cause,name,'notification2')
     thread = Thread(target=HealVnfProcessStart, kwargs={'vnf_id':vnf_id,'instance_id':instance_id,'cause':cause,'name':name,'cmds':cmds,'ip':ip})
     thread.start()

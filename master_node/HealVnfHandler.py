@@ -130,7 +130,7 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('resume instance successfully!!')
-        return self.restart(instance_id,name,cmds,ip)
+        return self.restart(name,cmds,ip,cause)
 
     def reboot(self,instance_id,name,cmds,ip):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
@@ -151,17 +151,18 @@ class OpenStackAPI():
             count = count+1
             print('wait ' + str(count) + 's')
         print('reboot instance successfully!!')
-        return self.restart(instance_id,name,cmds,ip)
+        return self.restart(name,cmds,ip,cause)
 
-    def restart(self,instance_id,name,cmds,ip):
+    def restart(self,name,cmds,ip,cause):
         print('resart instance')
-        count=0
-        while 1:
-            time.sleep(1)
-            count = count+1
-            print('wait ' + str(count) + 's')
-            if count==25:
-                break
+        if cause != 'vnf stop running':
+            count=0
+            while 1:
+                time.sleep(1)
+                count = count+1
+                print('wait ' + str(count) + 's')
+                if count==25:
+                    break
 
         if name == 'smf':
             self.Reset_for_SMF()
