@@ -13,7 +13,7 @@ class VNF_Start():
         self.ausf_instance_ip='172.24.4.108'
     
     def upf_start(self):
-        cmds = ['sudo systemctl daemon-reload','cd /home/ubuntu/stage3/gtp5g\n','make\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf\n','mkdir build\n','cd build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','sudo service VnfDetect restart\n','exit\n']
+        cmds = ['cd /home/ubuntu/stage3/gtp5g\n','make\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf\n','mkdir build\n','cd build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','sudo systemctl daemon-reload','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate UPF')
         ssh_jump(self.upf_instance_ip,cmds)
         print('Finish activate UPF')
