@@ -25,8 +25,8 @@ def ssh_jump(target_addr,cmds):
         else:
             time.sleep(1)
         ssh.send(cmd)
-        #out=ssh.recv(1024)
-        #print(out)
+        out=ssh.recv(1024)
+        print(out)
     time.sleep(1)
 
     target.close()
