@@ -16,7 +16,7 @@ class VNF_Start():
         cmds = ['cd /home/ubuntu/stage3/gtp5g\n','make\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf\n','mkdir build\n','cd build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
         print('Start to activate UPF')
         ssh_jump(self.upf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.upf_instance_ip,cmds)
         print('Finish activate UPF')
 
@@ -24,7 +24,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/nrf\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate NRF')
         ssh_jump(self.nrf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.nrf_instance_ip,cmds)
         print('Finish activate NRF')
 
@@ -32,7 +32,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/amf\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate AMF')
         ssh_jump(self.amf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.amf_instance_ip,cmds)
         print('Finish activate AMF')
 
@@ -40,7 +40,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/smf\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate SMF')
         ssh_jump(self.smf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.smf_instance_ip,cmds)
         print('Finish activate SMF')
 
@@ -48,7 +48,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/udr\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate UDR')
         ssh_jump(self.udr_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.udr_instance_ip,cmds)
         print('Finish activate UDR')
 
@@ -56,7 +56,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/pcf\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate PCF')
         ssh_jump(self.pcf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.pcf_instance_ip,cmds)
         print('Finish activate PCF')
 
@@ -64,7 +64,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/udm\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate UDM')
         ssh_jump(self.udm_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.udm_instance_ip,cmds)
         print('Finish activate UDM')
 
@@ -72,7 +72,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/nssf\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate NSSF')
         ssh_jump(self.nssf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.nssf_instance_ip,cmds)
         print('Finish activate NSSF')
 
@@ -80,7 +80,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/ausf\n','sudo service VnfDetect restart\n','exit\n']
         print('Start to activate AUSF')
         ssh_jump(self.ausf_instance_ip,cmds)
-        cmds = ['sudo service VnfDetect start\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.ausf_instance_ip,cmds)
         print('Finish activate AUSF')
 
