@@ -1,0 +1,10 @@
+[Unit]
+Description=VnfDetect Service
+
+[Service]
+User=root
+WorkingDirectory=/home/ubuntu/fault_management
+ExecStart=/usr/bin/python /home/ubuntu/fault_management/master_node/vnf_detect.py
+
+[Install]
+WantedBy=multi-user.target
