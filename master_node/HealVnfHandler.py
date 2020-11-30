@@ -113,7 +113,7 @@ class OpenStackAPI():
         print('unpause instance successfully!!')
         return True
 
-    def resume(self,instance_id,name,cmds,ip):
+    def resume(self,instance_id,cause,name,cmds,ip):
         resume_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -132,7 +132,7 @@ class OpenStackAPI():
         print('resume instance successfully!!')
         return self.restart(name,cmds,ip,cause)
 
-    def reboot(self,instance_id,name,cmds,ip):
+    def reboot(self,instance_id,cause,name,cmds,ip):
         reboot_instance_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id + '/action'
         token = self.get_token()
         headers = {'X-Auth-Token': token}

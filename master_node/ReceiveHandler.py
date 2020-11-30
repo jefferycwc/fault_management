@@ -48,9 +48,9 @@ def ReceiveHealVnfRequest():
         if cause == 'paused':
             result = new_item.unpause(instance_id,name)
         elif cause == 'suspended':
-            result = new_item.resume(instance_id,name,cmds,ip)
+            result = new_item.resume(instance_id,cause,name,cmds,ip)
         elif cause == 'shutoff':
-            result = new_item.reboot(instance_id,name,cmds,ip)
+            result = new_item.reboot(instance_id,cause,name,cmds,ip)
         elif cause == 'vnf stop running':
             result = new_item.restart(name,cmds,ip,cause)
         publisher(vnf_id,instance_id,cause,name,'notification2')
