@@ -80,7 +80,7 @@ class VNF_Start():
         cmds = ['cd stage3\n','sudo nohup ./bin/ausf\n','exit\n']
         print('Start to activate AUSF')
         ssh_jump(self.ausf_instance_ip,cmds)
-        cmds = ['sudo systemctl enable VnfDetect\n','sudo service VnfDetect restart\n','exit\n']
+        cmds = ['sudo systemctl enable VnfDetect','sudo service VnfDetect restart\n','exit\n']
         ssh_jump(self.ausf_instance_ip,cmds)
         print('Finish activate AUSF')
 
