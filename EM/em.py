@@ -31,7 +31,7 @@ def subscriber():
             elif type=='notification1':
                 print('Got notification from VNFM, heal VNF ({}) process start'.format(name))
             elif type=='notification2':
-                print('Got notification from VNFM, heal VNF ({})process finish, cause is {}'.format(name,cause))
+                print('Got notification from VNFM, heal VNF ({})process finish'.format(name,cause))
 def kill_process():
    for line in os.popen("ps ax | grep em.py | grep -v grep"):
         fields = line.split()
