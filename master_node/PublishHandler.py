@@ -12,6 +12,6 @@ def publisher(vnf_id,instance_id,cause,name,type):
     if type=='instance':
         print('Send vnf instance fault report')
     r.publish(
-        'error_report',
+        name,
         payload_values
     )
