@@ -17,8 +17,8 @@ class VNF_Start():
         print('Start to activate UPF')
         ssh_jump(self.upf_instance_ip,cmds)
         #cmds = ['sudo systemctl enable VnfDetect\n','sudo service VnfDetect restart\n','exit\n']
-        #cmds = ['sudo service VnfDetect restart\n','exit\n']
-        cmds = ['cd /home/ubuntu/fault_management/master_node\n','nohup python3 vnf_detect.py\n','exit\n']
+        cmds = ['sudo service VnfDetect restart\n','exit\n']
+        #cmds = ['cd /home/ubuntu/fault_management/master_node\n','nohup python3 vnf_detect.py\n','exit\n']
         ssh_jump(self.upf_instance_ip,cmds)
         print('Finish activate UPF')
 
