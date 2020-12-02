@@ -8,7 +8,7 @@ from cmds import cmds_dict,ip_dict
 def subscriber(tunnel_name):
     r = redis.Redis(host='192.168.1.103', port=6379, db=0)
     sub = r.pubsub()
-    print(tunnel_name)
+    #print(tunnel_name)
     sub.subscribe(tunnel_name)
     for message in sub.listen():
         if message['type'] == 'subscribe':
