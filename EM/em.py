@@ -5,11 +5,11 @@ import os
 import sys
 from HealVnfRequest import SendHealVnfRequest
 from cmds import cmds_dict,ip_dict
-def subscriber():
+def subscriber(tunnel_name):
     r = redis.Redis(host='192.168.1.103', port=6379, db=0)
     sub = r.pubsub()
-    sub.subscribe('error_report')
-    #sub.psubscribe('__keyspace@0__:*')
+    print(tunnel_name)
+    sub.subscribe(tunnel_name)
     for message in sub.listen():
         if message['type'] == 'subscribe':
             if message['data'] == 1:
@@ -42,11 +42,10 @@ def kill_process():
 
 if __name__ == '__main__':
     argv = sys.argv[1]
-    print(argv)
     original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGINT, original_sigint_handler)
     try:
-        subscriber()
+        subscriber(argv)
     except KeyboardInterrupt:
         print("Terminate EM")
         kill_process()
