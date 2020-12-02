@@ -2,6 +2,7 @@ import redis
 import json
 import signal
 import os
+import sys
 from HealVnfRequest import SendHealVnfRequest
 from cmds import cmds_dict,ip_dict
 def subscriber():
@@ -40,6 +41,8 @@ def kill_process():
         os.kill(int(pid), signal.SIGKILL)
 
 if __name__ == '__main__':
+    argv = sys.argv[1]
+    print(argv)
     original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGINT, original_sigint_handler)
     try:
