@@ -46,7 +46,7 @@ def ReceiveHealVnfRequest():
         publisher(vnf_id,instance_id,cause,name,'notification1')
         new_item = OpenStackAPI()
         if cause == 'paused':
-            result = new_item.unpause(instance_id,name)
+            result = new_item.unpause(instance_id)
         elif cause == 'suspended':
             result = new_item.resume(instance_id,cause,name,cmds,ip)
         elif cause == 'shutoff':
