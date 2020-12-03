@@ -53,4 +53,6 @@ def transport_dir(target_addr):
         sftp.mkdir('/home/ubuntu/stage3/src/upf/build', ignore_existing=True)
         sftp.put_dir('/home/free5gmano/fault_management/build', '/home/ubuntu/stage3/src/upf/build')
         sftp.close()
+        target.close()
+        jumpbox.close()
         print('finish transfering files')
