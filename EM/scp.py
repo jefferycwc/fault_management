@@ -24,7 +24,7 @@ class MySFTPClient(paramiko.SFTPClient):
             else:
                 raise
 
-def transport_dir(self,target_addr):
+def transport_dir(target_addr):
         key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
         jumpbox=paramiko.SSHClient()
         jumpbox.set_missing_host_key_policy(paramiko.AutoAddPolicy())
