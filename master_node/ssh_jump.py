@@ -11,11 +11,11 @@ def ssh_jump(target_addr,cmds):
     jumpbox_transport = jumpbox.get_transport()
     src_addr = ('192.168.1.77', 22)
     dest_addr = (target_addr, 22)
-    jumpbox_channel = jumpbox_transport.open_channel("direct-tcpip", dest_addr, src_addr)
 
     #count = 0
     while True:
         try:
+            jumpbox_channel = jumpbox_transport.open_channel("direct-tcpip", dest_addr, src_addr)
             target=paramiko.SSHClient()
             target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
