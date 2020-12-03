@@ -57,5 +57,5 @@ def reset(ip):
         ssh_jump(ip,cmds)
         #stdin,stdout,stderr = client.exec_command('sudo kill $(pidof ./bin/ausf);cd /home/ubuntu/stage3;sudo ./bin/ausf')
 
-    print('reset finish')
+    #print('reset finish')
     return 

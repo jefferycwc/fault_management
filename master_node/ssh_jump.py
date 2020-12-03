@@ -13,9 +13,19 @@ def ssh_jump(target_addr,cmds):
     dest_addr = (target_addr, 22)
     jumpbox_channel = jumpbox_transport.open_channel("direct-tcpip", dest_addr, src_addr)
 
-    target=paramiko.SSHClient()
-    target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
+    count = 0
+    while True:
+        try:
+            target=paramiko.SSHClient()
+            target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
+            time.sleep(1)
+            count = count + 1
+            print(count)
+            break
+        except paramiko.AuthenticationException:
+            sys.exit(1)
+
     ssh = target.invoke_shell()
     for cmd in cmds:
         if cmd=='sudo nohup ./bin/free5gc-upfd\n':

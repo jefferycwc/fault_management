@@ -155,14 +155,14 @@ class OpenStackAPI():
 
     def restart(self,name,cmds,ip,cause):
         print('resart instance')
-        if cause != 'vnf stop running':
+        '''if cause != 'vnf stop running':
             count=0
             while 1:
                 time.sleep(1)
                 count = count+1
                 print('wait ' + str(count) + 's')
                 if count==25:
-                    break
+                    break'''
 
         if name == 'smf':
             self.Reset_for_SMF()

@@ -29,7 +29,7 @@ if __name__ == "__main__":
         'vnf_name': hostname
     }
     lock = 0
-    print(hostname)
+    #print(hostname)
     while 1:
         listOfProcessIds = findProcessIdByName(hostname)
         if len(listOfProcessIds) > 0:
@@ -41,6 +41,6 @@ if __name__ == "__main__":
             lock=0
         else :
             if lock==0:
-                print('No Running Process found with given text')
+                #print('No Running Process found with given text')
                 response = requests.post(url,json=body)
                 lock=1

@@ -172,7 +172,7 @@ class OpenStackAPI():
             if project['name'] == project_name:
                 self.project_id = project['id']
             pass
-        print("Project ID:" + self.project_id)
+        #print("Project ID:" + self.project_id)
         return self.project_id
 
     def list_instance(self):
@@ -203,7 +203,7 @@ class OpenStackAPI():
         try:
             get_instance_status_url = 'http://' + self.OPENSTACK_IP + '/compute/v2.1/servers/' + instance_id
         except Exception, e:
-            print >> sys.stderr, "Exception: %s" % str(e)
+            #print >> sys.stderr, "Exception: %s" % str(e)
             sys.exit(1)
         token = self.get_token()
         headers = {'X-Auth-Token': token}
@@ -211,7 +211,7 @@ class OpenStackAPI():
         try:
             status = get_instance_status_response.json()['server']['status']
         except Exception, e:
-            print >> sys.stderr, "Exception: %s" % str(e)
+            #print >> sys.stderr, "Exception: %s" % str(e)
             sys.exit(1)
         return status
 
@@ -233,14 +233,14 @@ class OpenStackAPI():
 
 def start(vnf_name,vnf_id):
     tid = libc.syscall(SYS_gettid)
-    print('thread id: {}'.format(tid))
+    #print('thread id: {}'.format(tid))
     tacker = TackerAPI()
     vnf_status = tacker.get_vnf_status(vnf_id)
     while(vnf_status!='ACTIVE'):
-        print('vnf status: {}'.format(vnf_status))
+        #print('vnf status: {}'.format(vnf_status))
         time.sleep(1)
         vnf_status = tacker.get_vnf_status(vnf_id)
-    print('start detecting {}'.format(vnf_name))
+    #print('start detecting {}'.format(vnf_name))
     openstack = OpenStackAPI()
     while 1:
         openstack.instance_detect(vnf_name,vnf_id)

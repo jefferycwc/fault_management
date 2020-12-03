@@ -10,7 +10,7 @@ def publisher(vnf_id,instance_id,cause,name,type):
     payload['type'] = type
     payload_values = json.dumps(payload)
     if type=='instance':
-        print('Send vnf instance fault report')
+        #print('Send vnf instance fault report')
     r.publish(
         name,
         payload_values
