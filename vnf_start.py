@@ -1,6 +1,6 @@
 import paramiko, base64,getpass,time
 from master_node.ssh_jump import ssh_jump 
-from scp import transport_dir
+from EM.scp import transport_dir
 class VNF_Start():
     def __init__(self):
         self.upf_instance_ip='172.24.4.111'
