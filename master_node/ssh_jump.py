@@ -23,9 +23,9 @@ def ssh_jump(target_addr,cmds):
             #count = count + 1
             #print(count)
             break
-        except paramiko.AuthenticationException:
-            sys.exit(1)
-
+        except:
+            print('connection failed')
+        continue
     ssh = target.invoke_shell()
     for cmd in cmds:
         if cmd=='sudo nohup ./bin/free5gc-upfd\n':
