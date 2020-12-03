@@ -1,6 +1,6 @@
 import paramiko
 import os
-
+import socks
 class MySFTPClient(paramiko.SFTPClient):
     def put_dir(self, source, target):
         ''' Uploads the contents of the source directory to the target path. The
@@ -26,21 +26,23 @@ class MySFTPClient(paramiko.SFTPClient):
 
 def transport_dir(target_addr):
         key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
-        jumpbox=paramiko.SSHClient()
-        jumpbox.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        jumpbox.connect('192.168.1.77', username='jeffery', password='jeffery71')
-
-        jumpbox_transport = jumpbox.get_transport()
-        src_addr = ('192.168.1.77', 22)
-        dest_addr = (target_addr, 22)
-
+        sock = socks.socksocket()
+        sock.set_proxy(
+            proxy_type=socks.SOCKS5,
+            addr='192.168.1.77',
+            port='22',
+            username='jeffery',
+            password='jeffery71',
+        )
+        sock.connect(target_addr, '22')
         #count = 0
         while True:
             try:
-                jumpbox_channel = jumpbox_transport.open_channel("direct-tcpip", dest_addr, src_addr)
-                target=paramiko.SSHClient()
-                target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                target.connect(target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
+                transport = paramiko.Transport(sock)
+                transport.connect(
+                    username='ubuntu',
+                    key=key,
+                )
                 #time.sleep(1)
                 #count = count + 1
                 #print(count)
@@ -49,10 +51,10 @@ def transport_dir(target_addr):
                 print('connection failed')
             continue
         print('start transfering files')
-        sftp = MySFTPClient.from_transport(target)
+        sftp = MySFTPClient.from_transport(transport)
         sftp.mkdir('/home/ubuntu/stage3/src/upf/build', ignore_existing=True)
         sftp.put_dir('/home/free5gmano/fault_management/build', '/home/ubuntu/stage3/src/upf/build')
         sftp.close()
-        target.close()
-        jumpbox.close()
+        transport.close()
+        #jumpbox.close()
         print('finish transfering files')
