@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfree5GC_knet.a  CMakeFiles/free5GC_knet.dir/src/route.c.o
+/usr/bin/ranlib libfree5GC_knet.a

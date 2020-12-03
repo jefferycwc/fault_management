@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../lib/test/include/test_utlt.h
+utlt_test.h
+../lib/test/include/utlt_test.h
+utlt_debug.h
+../lib/test/include/utlt_debug.h
+
+../lib/utlt/include/utlt_debug.h
+string.h
+-
+
+../lib/utlt/include/utlt_list.h
+
+../lib/utlt/include/utlt_test.h
+utlt_debug.h
+../lib/utlt/include/utlt_debug.h
+utlt_list.h
+../lib/utlt/include/utlt_list.h
+
+/home/ubuntu/stage3/src/upf/lib/test/test.c
+stdio.h
+-
+string.h
+-
+test_utlt.h
+/home/ubuntu/stage3/src/upf/lib/test/test_utlt.h
+utlt_debug.h
+/home/ubuntu/stage3/src/upf/lib/test/utlt_debug.h
+
