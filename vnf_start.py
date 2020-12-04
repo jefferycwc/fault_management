@@ -25,7 +25,6 @@ class VNF_Start():
 
     def nrf_start(self):
         connector = RemoteConnect(self.nrf_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/nrf\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/nrf\n','exit\n']
         print('Start to activate NRF')
         connector.ssh_jump(cmds)
@@ -36,7 +35,6 @@ class VNF_Start():
 
     def amf_start(self):
         connector = RemoteConnect(self.amf_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/amf\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/amf\n','exit\n']
         print('Start to activate AMF')
         connector.ssh_jump(cmds)
@@ -46,7 +44,6 @@ class VNF_Start():
 
     def smf_start(self):
         connector = RemoteConnect(self.smf_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/smf\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/smf\n','exit\n']
         print('Start to activate SMF')
         connector.ssh_jump(cmds)
@@ -57,7 +54,6 @@ class VNF_Start():
 
     def udr_start(self):
         connector = RemoteConnect(self.udr_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/udr\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/udr\n','exit\n']
         print('Start to activate UDR')
         connector.ssh_jump(cmds)
@@ -68,7 +64,6 @@ class VNF_Start():
 
     def pcf_start(self):
         connector = RemoteConnect(self.pcf_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/pcf\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/pcf\n','exit\n']
         print('Start to activate PCF')
         connector.ssh_jump(cmds)
@@ -79,7 +74,6 @@ class VNF_Start():
 
     def udm_start(self):
         connector = RemoteConnect(self.udm_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/udm\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/udm\n','exit\n']
         print('Start to activate UDM')
         connector.ssh_jump(cmds)
@@ -90,7 +84,6 @@ class VNF_Start():
 
     def nssf_start(self):
         connector = RemoteConnect(self.nssf_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/nssf\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/nssf\n','exit\n']
         print('Start to activate NSSF')
         connector.ssh_jump(cmds)
@@ -101,7 +94,6 @@ class VNF_Start():
 
     def ausf_start(self):
         connector = RemoteConnect(self.ausf_instance_ip)
-        #cmds = ['cd stage3\n','sudo nohup ./bin/ausf\n','exit\n']
         cmds = ['sudo nohup ./stage3/bin/ausf\n','exit\n']
         print('Start to activate AUSF')
         connector.ssh_jump(cmds)
