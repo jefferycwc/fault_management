@@ -1,6 +1,7 @@
 import paramiko, base64,getpass,time
-from master_node.ssh_jump import ssh_jump 
-from EM.scp import transport_dir
+#from master_node.ssh_jump import ssh_jump 
+#from EM.scp import transport_dir
+from master_node.remote_connect import RemoteConnect
 class VNF_Start():
     def __init__(self):
         self.upf_instance_ip='172.24.4.111'
@@ -14,104 +15,123 @@ class VNF_Start():
         self.ausf_instance_ip='172.24.4.108'
     
     def upf_start(self):
-        transport_dir(self.upf_instance_ip)
+        connector = RemoteConnect(self.upf_instance_ip)
+        connector.transport_dir()
+        #transport_dir(self.upf_instance_ip)
         #cmds = ['cd /home/ubuntu/stage3/gtp5g\n','make\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf\n','mkdir build\n','cd build\n','cmake ..\n','make -j`nproc`\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
         cmds = ['chmod 777 stage3/src/upf/build/bin/free5gc-upfd\n','cd /home/ubuntu/stage3/gtp5g\n','make\n','sudo make install\n','cd /home/ubuntu/stage3/src/upf/build\n','sudo nohup ./bin/free5gc-upfd\n','exit\n']
         print('Start to activate UPF')
-        ssh_jump(self.upf_instance_ip,cmds)
-        
+        #ssh_jump(self.upf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.upf_instance_ip,cmds)
+        #ssh_jump(self.upf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate UPF')
 
     def nrf_start(self):
+        connector = RemoteConnect(self.nrf_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/nrf\n','exit\n']
         print('Start to activate NRF')
-        ssh_jump(self.nrf_instance_ip,cmds)
-        
+        #ssh_jump(self.nrf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.nrf_instance_ip,cmds)
+        # ssh_jump(self.nrf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate NRF')
 
     def amf_start(self):
+        connector = RemoteConnect(self.amf_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/amf\n','exit\n']
         print('Start to activate AMF')
-        ssh_jump(self.amf_instance_ip,cmds)
-       
+        #ssh_jump(self.amf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.amf_instance_ip,cmds)
+        #ssh_jump(self.amf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate AMF')
 
     def smf_start(self):
+        connector = RemoteConnect(self.smf_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/smf\n','exit\n']
         print('Start to activate SMF')
-        ssh_jump(self.smf_instance_ip,cmds)
-        
+        #ssh_jump(self.smf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.smf_instance_ip,cmds)
+        #ssh_jump(self.smf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate SMF')
 
     def udr_start(self):
+        connector = RemoteConnect(self.udr_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/udr\n','exit\n']
         print('Start to activate UDR')
-        ssh_jump(self.udr_instance_ip,cmds)
-
+        #ssh_jump(self.udr_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.udr_instance_ip,cmds)
+        #ssh_jump(self.udr_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate UDR')
 
     def pcf_start(self):
+        connector = RemoteConnect(self.pcf_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/pcf\n','exit\n']
         print('Start to activate PCF')
-        ssh_jump(self.pcf_instance_ip,cmds)
-        
+        #ssh_jump(self.pcf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.pcf_instance_ip,cmds)
+        #ssh_jump(self.pcf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate PCF')
 
     def udm_start(self):
+        connector = RemoteConnect(self.udm_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/udm\n','exit\n']
         print('Start to activate UDM')
-        ssh_jump(self.udm_instance_ip,cmds)
-        
+        #ssh_jump(self.udm_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.udm_instance_ip,cmds)
+        #ssh_jump(self.udm_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate UDM')
 
     def nssf_start(self):
+        connector = RemoteConnect(self.nssf_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/nssf\n','exit\n']
         print('Start to activate NSSF')
-        ssh_jump(self.nssf_instance_ip,cmds)
-        
+        #ssh_jump(self.nssf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.nssf_instance_ip,cmds)
+        #ssh_jump(self.nssf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate NSSF')
 
     def ausf_start(self):
+        connector = RemoteConnect(self.ausf_instance_ip)
         cmds = ['cd stage3\n','sudo nohup ./bin/ausf\n','exit\n']
         print('Start to activate AUSF')
-        ssh_jump(self.ausf_instance_ip,cmds)
-        
+        #ssh_jump(self.ausf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         #time.sleep(1)
 
         cmds = ['sudo service VnfDetect start\n','exit\n']
-        ssh_jump(self.ausf_instance_ip,cmds)
+        #ssh_jump(self.ausf_instance_ip,cmds)
+        connector.ssh_jump(cmds)
         print('Finish activate AUSF')
 
     
