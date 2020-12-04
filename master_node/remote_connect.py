@@ -53,20 +53,33 @@ class RemoteConnect():
                 print('connection failed')
             continue
         return target, jumpbox 
+    
+    def ssh_direct(self,cmds,target_username,target_password):
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(self.target_addr, username=self.target_username, password=self.target_password)
+        chan = ssh.invoke_shell()
+        for cmd in cmds:
+            chan.send(cmd)
+            out=chan.recv(1024)
+            print(out)
+        
+        time.sleep(1)
+        ssh.close()
 
     def ssh_jump(self,cmds):
         transport, jumpbox = self.build_transport()
-        ssh = transport.invoke_shell()
+        chan = transport.invoke_shell()
         for cmd in cmds:
             if cmd=='sudo make install\n':
                 time.sleep(20)
             else:
                 time.sleep(1)
-            ssh.send(cmd)
-            out=ssh.recv(1024)
+            chan.send(cmd)
+            out=chan.recv(1024)
             print(out)
-        time.sleep(1)
 
+        time.sleep(1)
         transport.close()
         jumpbox.close()
     

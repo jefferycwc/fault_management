@@ -1,6 +1,6 @@
 import paramiko, base64,getpass,time
 from master_node.remote_connect import RemoteConnect
-class VNF_Start():
+class VnfStart():
     def __init__(self):
         self.upf_instance_ip='172.24.4.111'
         self.nrf_instance_ip='172.24.4.101'
@@ -104,7 +104,7 @@ class VNF_Start():
 
     
 if __name__ == '__main__':
-    test=VNF_Start()
+    test=VnfStart()
     test.upf_start()
     test.nrf_start()
     test.amf_start()
