@@ -31,7 +31,7 @@ class RemoteConnect():
         self.jumpbox_password = 'jeffery71'
         self.target_addr = target_addr
 
-    def build_transport(self,target_addr):
+    def build_transport(self):
         key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
 
         jumpbox=paramiko.SSHClient()
