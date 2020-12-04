@@ -72,12 +72,12 @@ class RemoteConnect():
     
     def transport_dir(self):
         transport, jumpbox = self.build_transport()
-        print('start transfering files')
+        #print('start transfering files')
         sftp = MySFTPClient.from_transport(transport.get_transport())
         sftp.mkdir('/home/ubuntu/stage3/src/upf/build', ignore_existing=True)
         sftp.put_dir('/home/free5gmano/fault_management/build', '/home/ubuntu/stage3/src/upf/build')
         sftp.close()
         transport.close()
         jumpbox.close()
-        print('finish transfering files')
+        #print('finish transfering files')
 
