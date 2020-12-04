@@ -56,10 +56,10 @@ class RemoteConnect():
             except:
                 print('connection failed')
             continue
-        return target 
+        return target, jumpbox 
 
     def ssh_jump(self,cmds):
-        transport = self.build_transport()
+        transport, jumpbox = self.build_transport()
         ssh = transport.invoke_shell()
         for cmd in cmds:
             if cmd=='sudo make install\n':
@@ -71,17 +71,17 @@ class RemoteConnect():
             print(out)
         time.sleep(1)
 
-        target.close()
+        transport.close()
         jumpbox.close()
     
     def transport_dir(self):
-        transport = self.build_transport()
+        transport, jumpbox = self.build_transport()
         print('start transfering files')
         sftp = MySFTPClient.from_transport(transport.get_transport())
         sftp.mkdir('/home/ubuntu/stage3/src/upf/build', ignore_existing=True)
         sftp.put_dir('/home/free5gmano/fault_management/build', '/home/ubuntu/stage3/src/upf/build')
         sftp.close()
         transport.close()
-        #jumpbox.close()
+        jumpbox.close()
         print('finish transfering files')
 
