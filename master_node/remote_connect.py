@@ -58,7 +58,7 @@ class RemoteConnect():
             continue
         return target 
 
-    def ssh_jump(target_addr,cmds):
+    def ssh_jump(cmds):
         transport = self.build_transport()
         ssh = transport.invoke_shell()
         for cmd in cmds:
@@ -74,7 +74,7 @@ class RemoteConnect():
         target.close()
         jumpbox.close()
     
-    def transport_dir(target_addr):
+    def transport_dir():
         transport = self.build_transport()
         print('start transfering files')
         sftp = MySFTPClient.from_transport(transport.get_transport())
