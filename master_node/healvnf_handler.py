@@ -1,7 +1,5 @@
 import requests,json,time
 import sys
-#sys.path.append("..")
-#from ssh_jump import ssh_jump
 from remote_connect import RemoteConnect
 from function_reset import reset
 class OpenStackAPI():
@@ -156,23 +154,13 @@ class OpenStackAPI():
 
     def restart(self,name,cmds,ip,cause):
         print('resart instance')
-        '''if cause != 'vnf stop running':
-            count=0
-            while 1:
-                time.sleep(1)
-                count = count+1
-                print('wait ' + str(count) + 's')
-                if count==25:
-                    break'''
 
         if name == 'smf':
             self.Reset_for_SMF()
         connector = RemoteConnect(ip)
-        #ssh_jump(ip,cmds)
         connector.ssh_jump(cmds)
         if cause != 'vnf stop running' or cause!='pause':
             cmds = ['sudo service VnfDetect restart\n','exit\n']
-            #ssh_jump(ip,cmds)
             connector.ssh_jump(cmds)
         #print('resart instance successfully')
         if name == 'upf':

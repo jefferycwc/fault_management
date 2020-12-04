@@ -42,16 +42,12 @@ class RemoteConnect():
         src_addr = (self.jumpbox_addr, 22)
         dest_addr = (self.target_addr, 22)
 
-        #count = 0
         while True:
             try:
                 jumpbox_channel = jumpbox_transport.open_channel("direct-tcpip", dest_addr, src_addr)
                 target=paramiko.SSHClient()
                 target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 target.connect(self.target_addr, username='ubuntu', pkey=key, sock=jumpbox_channel)
-                #time.sleep(1)
-                #count = count + 1
-                #print(count)
                 break
             except:
                 print('connection failed')
