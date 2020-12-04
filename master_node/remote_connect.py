@@ -55,10 +55,9 @@ class RemoteConnect():
         return target, jumpbox 
     
     def ssh_direct(self,cmds,target_username,target_password):
-        key=paramiko.RSAKey.from_private_key_file('./free5gc.key')
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(self.target_addr, username=target_username, password=target_password)
+        ssh.connect(self.target_addr,22,username=target_username, password=target_password)
         chan = ssh.invoke_shell()
         for cmd in cmds:
             chan.send(cmd)
