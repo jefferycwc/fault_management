@@ -5,7 +5,7 @@ import sys
 import threading
 from params.openstack_params import OPENSTACK_IP,OS_AUTH_URL,OS_USER_DOMAIN_NAME,OS_USERNAME,OS_PASSWORD,OS_PROJECT_DOMAIN_NAME,OS_PROJECT_NAME
 from params.tacker_params import *
-from PublishHandler import publisher
+from publish_handler import publisher
 
 import ctypes
 

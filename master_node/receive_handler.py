@@ -3,10 +3,10 @@ import requests
 import os
 import time
 import logging
-from HealVnfHandler import OpenStackAPI
+from healvnf_handler import OpenStackAPI
 from instance_detect import OpenStackAPI as OpenStack
 from instance_detect import TackerAPI as Tacker
-from PublishHandler import publisher
+from publish_handler import publisher
 from threading import Thread
 import instance_detect
 LOG = logging.getLogger(__name__)

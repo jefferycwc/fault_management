@@ -3,7 +3,7 @@ import json
 import signal
 import os
 import sys
-from HealVnfRequest import SendHealVnfRequest
+from healvnf_request import SendHealVnfRequest
 from cmds import cmds_dict,ip_dict
 def subscriber(tunnel_name):
     r = redis.Redis(host='192.168.1.103', port=6379, db=0)
