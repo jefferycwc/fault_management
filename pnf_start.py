@@ -12,7 +12,7 @@ class PnfStart():
    
     def start(self):
         connector = RemoteConnect(self.target_addr)
-        connector.ssh_jump(cmds,target_username,target_password)
+        connector.ssh_direct(self.cmds,self.target_username,self.target_password)
     
 if __name__ == '__main__':
     test=PnfStart()
