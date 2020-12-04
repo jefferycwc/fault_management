@@ -35,7 +35,7 @@ def subscriber(tunnel_name):
                 print('Got notification from VNFM, heal VNF ({})process finish'.format(name,cause))
 def kill_process():
     sys.exit(1)
-   '''for line in os.popen("ps ax | grep em.py | grep -v grep"):
+    '''for line in os.popen("ps ax | grep em.py | grep -v grep"):
         fields = line.split()
         pid = fields[0]
         #print(pid)
