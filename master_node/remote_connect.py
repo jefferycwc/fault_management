@@ -63,8 +63,8 @@ class RemoteConnect():
         for cmd in cmds:
             time.sleep(2)
             chan.send(cmd)
-            while not re.search(".*\[sudo\].*",channel.recv(1024)): time.sleep(1)
-                channel.send( "%s\n" % target_password )
+            while not re.search(".*\[sudo\].*",chan.recv(1024)): time.sleep(1)
+                chan.send( "%s\n" % target_password )
             '''out=chan.recv(1024)
             print(out)'''
         
