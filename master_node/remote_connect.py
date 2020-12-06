@@ -65,13 +65,13 @@ class RemoteConnect():
             chan.send(cmd)
             #while not re.search(".*\[sudo\].*",chan.recv(1024)): time.sleep(1)
             time.sleep(1)
-            chan.send("{}\n".foramt(target_password))
+            chan.send("%s\n" % target_password)
             '''out=chan.recv(1024)
             print(out)'''
         
         time.sleep(1)
         ssh.close()
-
+ 
     def ssh_jump(self,cmds):
         transport, jumpbox = self.build_transport()
         chan = transport.invoke_shell()
