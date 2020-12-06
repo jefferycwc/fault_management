@@ -22,7 +22,7 @@ class PnfStart():
     def amf_start(self):
         cmds = ['nohup ./all_in_one/bin/amf\n','exit\n']
         connector = RemoteConnect(self.target_addr)
-        connector.ssh_direct(self.cmds,self.target_username,self.target_password)
+        connector.ssh_direct(cmds,self.target_username,self.target_password)
 
     def smf_start(self):
         cmds = ['nohup ./all_in_one/bin/smf\n','exit\n']
