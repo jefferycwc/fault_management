@@ -1,5 +1,6 @@
 import os
 import paramiko
+import re
 import time
 class MySFTPClient(paramiko.SFTPClient):
     def put_dir(self, source, target):
@@ -62,8 +63,10 @@ class RemoteConnect():
         for cmd in cmds:
             time.sleep(2)
             chan.send(cmd)
-            out=chan.recv(1024)
-            print(out)
+            while not re.search(".*\[sudo\].*",channel.recv(1024)): time.sleep(1)
+                channel.send( "%s\n" % target_password )
+            '''out=chan.recv(1024)
+            print(out)'''
         
         time.sleep(1)
         ssh.close()
