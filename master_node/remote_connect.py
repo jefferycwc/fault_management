@@ -60,6 +60,7 @@ class RemoteConnect():
         ssh.connect(self.target_addr,22,username=target_username, password=target_password)
         chan = ssh.invoke_shell()
         for cmd in cmds:
+            time.sleep(1)
             chan.send(cmd)
             out=chan.recv(1024)
             print(out)
