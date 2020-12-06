@@ -11,6 +11,7 @@ class PnfStart():
    
     def upf_start(self):
         cmds = ['nohup ./all_in_one/src/upf/build/bin/free5gc-upfd\n','exit\n']
+        connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
 
     def nrf_start(self):
