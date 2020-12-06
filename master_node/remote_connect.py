@@ -62,7 +62,7 @@ class RemoteConnect():
         chan = ssh.invoke_shell()
         chan.send('sudo su\n')
         #while not re.search(".*\[sudo\].*",chan.recv(1024)): time.sleep(1)
-        out = chan.recn(1024)
+        out = chan.recv(1024)
         if re.search('[Pp]assword', out):
             chan.send( "%s\n" % target_password )
         for cmd in cmds:
