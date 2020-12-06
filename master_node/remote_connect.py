@@ -64,6 +64,7 @@ class RemoteConnect():
             time.sleep(2)
             chan.send(cmd)
             #while not re.search(".*\[sudo\].*",chan.recv(1024)): time.sleep(1)
+            time.sleep(1)
             chan.send("{}\n".foramt(target_password))
             '''out=chan.recv(1024)
             print(out)'''
