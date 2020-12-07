@@ -21,14 +21,14 @@ class PnfStart():
         connector = RemoteConnect(self.target_addr)
         print('Start to activate NRF')
         connector.ssh_direct(cmds,self.target_username,self.target_password)
-        print('Finish to activate NRF')
+        print('Start to activate NRF')
 
     def amf_start(self):
         cmds = ['nohup ./all_in_one/bin/amf\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         print('Start to activate AMF')
         connector.ssh_direct(cmds,self.target_username,self.target_password)
-        print('Finish to activate AMF')
+       print('Finish to activate AMF')
 
     def smf_start(self):
         cmds = ['nohup ./all_in_one/bin/smf\n','exit\n']
