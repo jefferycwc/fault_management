@@ -10,55 +10,55 @@ class PnfTerminate():
     
    
     def upf_terminate(self):
-        cmds = ['kill $(pidof ./bin/free5gc-upfd)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/free5gc-upfd)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('UPF terminated')
 
     def nrf_terminate(self):
-        cmds = ['kill $(pidof ./bin/nrf)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/nrf)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('NRF terminated')
 
     def amf_terminate(self):
-        cmds = ['kill $(pidof ./bin/amf)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/amf)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('AMF terminated')
 
     def smf_terminate(self):
-        cmds = ['kill $(pidof ./bin/smf)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/smf)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('SMF terminated')
 
     def udr_terminate(self):
-        cmds = ['kill $(pidof ./bin/udr)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/udr)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('UDR terminated')
 
     def pcf_terminate(self):
-        cmds = ['kill $(pidof ./bin/pcf)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/pcf)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('PCF terminated')
 
     def udm_terminate(self):
-        cmds = ['kill $(pidof ./bin/udm)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/udm)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('UDM terminated')
 
     def nssf_terminate(self):
-        cmds = ['kill $(pidof ./bin/nssf)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/nssf)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('NSSF terminated')
 
     def ausf_terminate(self):
-        cmds = ['kill $(pidof ./bin/ausf)\n','exit\n']
+        cmds = ['kill -9 $(pidof ./bin/ausf)\n','exit\n']
         connector = RemoteConnect(self.target_addr)
         connector.ssh_direct(cmds,self.target_username,self.target_password)
         print('AUSF terminated')
