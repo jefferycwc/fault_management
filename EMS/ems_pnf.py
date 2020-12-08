@@ -3,6 +3,7 @@ import paramiko
 import signal
 def DetectPnf(pnf_name):
     ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect('192.168.1.219',22,username='jeffery', password='jeffery71')
     while(1):
         stdin, stdout, stderr = ssh.exec_command('ps -aux | grep %s' % pnf_name)
