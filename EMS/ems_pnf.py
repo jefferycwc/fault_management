@@ -8,7 +8,7 @@ from cmds_vnf import cmds_dict
 from settings import *
 
 def HealPnf(pnf_name):
-    print('EM detected {} fail'.fromat(pnf_name))
+    print('EM detected {} fail'.format(pnf_name))
     connector = RemoteConnect(target_addr)
     print('EM start to heal {}'.format(pnf_name))
     if pnf_name=='nrf':
