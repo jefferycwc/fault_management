@@ -3,6 +3,7 @@ import paramiko
 import redis
 import signal
 import os
+import json
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from master_node.remote_connect import RemoteConnect
 from cmds_pnf import cmds_dict
