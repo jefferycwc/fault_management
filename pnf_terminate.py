@@ -9,7 +9,7 @@ class PnfTerminate():
     
     def put_data(self,tunnel_name):
         r = redis.Redis(host='localhost', port=6379, db=0)
-        r.set(tunnel_name,'break')
+        r.set(tunnel_name,'terminate',ex=3)
 
     def upf_terminate(self):
         cmds = ['kill -9 $(pidof ./bin/free5gc-upfd)\n','exit\n']

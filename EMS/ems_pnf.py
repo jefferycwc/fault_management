@@ -116,8 +116,8 @@ class EMS():
             time.sleep(1)
             lock = self.r.get(pnf_name)
             print('lock:{}'.format(lock))
-            if lock=='break':
-                print('break')
+            if lock=='terminate':
+                print('terminate')
                 sys.exit(1)
             if lock==None or lock=='on':
                 #print('match')
