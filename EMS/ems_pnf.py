@@ -8,7 +8,7 @@ def DetectPnf(pnf_name):
     while(1):
         stdin, stdout, stderr = ssh.exec_command('ps -aux | grep %s' % pnf_name)
         out = stdout.read().decode()
-        print(out.size())
+        print(len(out))
         #print(stdout.read().decode())
 
 def kill_process():
