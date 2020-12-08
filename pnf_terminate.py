@@ -4,10 +4,7 @@ from master_node.remote_connect import RemoteConnect
 from EMS.settings import *
 class PnfTerminate():
     def __init__(self):
-        '''self.target_addr = '192.168.1.219'
-        self.target_username = 'jeffery'
-        self.target_password = 'jeffery71''''
-    
+        pass
    
     def upf_terminate(self):
         cmds = ['kill -9 $(pidof ./bin/free5gc-upfd)\n','exit\n']
