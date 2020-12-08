@@ -9,22 +9,23 @@ class PnfStart():
     def __init__(self):
         pass
     
-    def publisher(self,tunnel_name):
+    def put_data(self,tunnel_name):
         r = redis.Redis(host='localhost', port=6379, db=0)
-        payload = {}
+        r.set(tunnel_name,'off')
+        '''payload = {}
         payload['lock'] = 'off'
         payload_values = json.dumps(payload)
         r.publish(
             tunnel_name,
             payload_values
-        )
+        )'''
    
     def upf_start(self):
         cmds=cmds_dict['upf']
         connector = RemoteConnect(target_addr)
         print('Start to activate UPF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('upf')
+        self.put_data('upf')
         print('Finish to activate UPF')
 
     def nrf_start(self):
@@ -32,7 +33,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate NRF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('nrf')
+        self.put_data('nrf')
         print('Start to activate NRF')
 
     def amf_start(self):
@@ -40,7 +41,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate AMF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('amf')
+        self.put_data('amf')
         print('Finish to activate AMF')
 
     def smf_start(self):
@@ -48,7 +49,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate SMF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('smf')
+        self.put_data('smf')
         print('Finish to activate SMF')
 
     def udr_start(self):
@@ -56,7 +57,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate UDR')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('udr')
+        self.put_data('udr')
         print('Finish to activate UDR')
 
     def pcf_start(self):
@@ -64,7 +65,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate PCF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('pcf')
+        self.put_data'pcf')
         print('Finish to activate PCF')
 
     def udm_start(self):
@@ -72,7 +73,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate UDM')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('udm')
+        self.put_data('udm')
         print('Finish to activate UDM')
 
     def nssf_start(self):
@@ -80,7 +81,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate NSSF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('nssf')
+        self.put_data('nssf')
         print('Finish to activate NSSF')
 
     def ausf_start(self):
@@ -88,7 +89,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate AUSF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.publisher('ausf')
+        self.put_data('ausf')
         print('Finish to activate AUSF')
         
 if __name__ == '__main__':

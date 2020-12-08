@@ -61,20 +61,23 @@ def DetectPnf(pnf_name):
     else:
         cmd = 'ps -aux | grep ./all_in_one/bin/%s' % pnf_name
     r = redis.Redis(host='localhost', port=6379, db=0)
-    sub = r.pubsub()
+    '''sub = r.pubsub()
     sub.subscribe(pnf_name)
     for message in sub.listen():
         if message['type'] == 'message':
             data = json.loads(message['data'])
             lock = data['lock']
-            print('lock: {}'.format(lock))
+            print('lock: {}'.format(lock))'''
     
     while(1):
+        lock = r.get(pnf_name)
+        if lock=='on':
+            continue
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split("\n")
         '''if len(out)==4:
             lock = False'''
-        if len(out)!=4 and lock=='off':
+        if len(out)!=4:
             HealPnf(pnf_name)
 
       
