@@ -14,7 +14,7 @@ def DetectPnf(pnf_name):
     while(1):
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split("\n")
-        print(out.size())
+        print(len(out))
         #print(stdout.read().decode())
 
 def kill_process():
