@@ -67,6 +67,7 @@ def DetectPnf(pnf_name):
         if message['type'] == 'message':
             data = json.loads(message['data'])
             lock = data['lock']
+            print('lock: {}'.format(lock))
     
     while(1):
         stdin, stdout, stderr = ssh.exec_command(cmd)
