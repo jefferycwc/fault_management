@@ -7,8 +7,13 @@ def DetectPnf(pnf_name):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect('192.168.1.219',22,username='jeffery', password='jeffery71')
+    if pnf_name == 'upf':
+        cmd = 'ps -aux | grep ./bin/free5gc-upfd'
+    else:
+        cmd = 'ps -aux | grep ./all_in_one/bin/%s' % pnf_name
+    else:
     while(1):
-        stdin, stdout, stderr = ssh.exec_command('ps -aux | grep %s' % pnf_name)
+        stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split(" ")
         print(out)
         #print(stdout.read().decode())
