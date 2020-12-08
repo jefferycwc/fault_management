@@ -9,7 +9,7 @@ class PnfTerminate():
     def upf_terminate(self):
         cmds = ['kill -9 $(pidof ./bin/free5gc-upfd)\n','exit\n']
         connector = RemoteConnect(target_addr)
-        connector.ssh_direct(cmds,.target_username,target_password)
+        connector.ssh_direct(cmds,target_username,target_password)
         print('UPF terminated')
 
     def nrf_terminate(self):
