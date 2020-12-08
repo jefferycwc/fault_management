@@ -110,11 +110,11 @@ class EMS():
             cmd = 'ps -aux | grep ./bin/free5gc-upfd'
         else:
             cmd = 'ps -aux | grep ./all_in_one/bin/%s' % pnf_name
-        r = redis.Redis(host='localhost', port=6379, db=0)
+        #r = redis.Redis(host='localhost', port=6379, db=0)
         
         while(1):
             time.sleep(1)
-            lock = r.get(pnf_name)
+            lock = self.r.get(pnf_name)
             print('lock:{}'.format(lock))
             if lock=='break':
                 sys.exit(1)
