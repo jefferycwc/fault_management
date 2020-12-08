@@ -1,12 +1,51 @@
 import sys
 import paramiko
 import signal
+from master_node.remote_connect import RemoteConnect
+from cmds_vnf import cmds_dict
+from settings import *
 
+def HealPnf(pnf_name):
+    print('EM detected {} fail'.fromat(pnf_name))
+    connector = RemoteConnect(target_addr)
+    print('EM start to heal {}'.format(pnf_name))
+    if pnf_name=='nrf':
+        cmds = cmds_dict[pnf_name]
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['amf']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['smf']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['udr']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['pcf']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['udm']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['nssf']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['ausf']
+        connector.ssh_direct(cmds,target_username,target_password)
+    elif pnf_name=='upf':
+        cmds = cmds_dict[pnf_name]
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict['smf']
+        connector.ssh_direct(cmds,target_username,target_password)
+    elif pnf_name=='smf':
+        cmds = cmds_dict['upf']
+        connector.ssh_direct(cmds,target_username,target_password)
+        cmds = cmds_dict[pnf_name]
+        connector.ssh_direct(cmds,target_username,target_password)
+    else:
+        cmds = cmds_dict[pnf_name]
+        connector.ssh_direct(cmds,target_username,target_password)
+    print('EM finish heal {}'.format(pnf_name))
 
 def DetectPnf(pnf_name):
+    lock = True
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect('192.168.1.219',22,username='jeffery', password='jeffery71')
+    ssh.connect(target_addr,22,username=target_username, password=target_password)
     if pnf_name == 'upf':
         cmd = 'ps -aux | grep ./bin/free5gc-upfd'
     else:
@@ -14,10 +53,14 @@ def DetectPnf(pnf_name):
     while(1):
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split("\n")
-        print(len(out))
+        if len(out)==4:
+            lock = False
+        else if len(out)!=4 and lock==False:
+            HealPnf(pnf_name)
+        '''print(len(out))
         for i in range(1,len(out)):
-            print('{} : {}'.format(i,out[i]))
-        #print(stdout.read().decode())
+            print('{} : {}'.format(i,out[i]))'''
+      
 
 def kill_process():
     sys.exit(1)
