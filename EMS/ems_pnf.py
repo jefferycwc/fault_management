@@ -4,7 +4,7 @@ import signal
 import os
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from master_node.remote_connect import RemoteConnect
-from cmds_vnf import cmds_dict
+from cmds_pnf import cmds_dict
 from settings import *
 
 def HealPnf(pnf_name):
