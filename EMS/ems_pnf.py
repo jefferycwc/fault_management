@@ -11,7 +11,6 @@ def DetectPnf(pnf_name):
         cmd = 'ps -aux | grep ./bin/free5gc-upfd'
     else:
         cmd = 'ps -aux | grep ./all_in_one/bin/%s' % pnf_name
-    else:
     while(1):
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split(" ")
