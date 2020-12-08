@@ -43,5 +43,5 @@ if __name__ == '__main__':
     try:
         subscriber(argv)
     except KeyboardInterrupt:
-        print("Terminate EM")
+        print("Terminate EMS")
         kill_process()
