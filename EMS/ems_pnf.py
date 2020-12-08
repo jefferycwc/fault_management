@@ -12,7 +12,7 @@ from settings import *
 class EMS():
     def __init__(self):
         self.r = redis.Redis(host='localhost', port=6379, db=0)
-
+        self.connector = RemoteConnect(target_addr)
     def put_data(self,tunnel_name,flag):
         #r = redis.Redis(host='localhost', port=6379, db=0)
         self.r.set(tunnel_name,flag)
@@ -21,66 +21,65 @@ class EMS():
         cmds = cmds_dict['upf']
         cmds.insert(0,'kill -9 $(pidof ./bin/free5gc-upfd)\n')
         self.put_data('upf','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('upf','off')
 
     def ResetAMF(self):
         cmds = cmds_dict['amf']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/amf)\n')
         self.put_data('amf','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('amf','off')
 
     def ResetSMF(self):
         cmds = cmds_dict['smf']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/smf)\n')
         self.put_data('smf','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('smf','off')
 
     def ResetUDR(self):
         cmds = cmds_dict['udr']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/udr)\n')
         self.put_data('udr','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('udr','off')
 
     def ResetPCF(self):
         cmds = cmds_dict['pcf']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/pcf)\n')
         self.put_data('pcf','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('pcf','off')
 
     def ResetUDM(self):
         cmds = cmds_dict['udm']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/udm)\n')
         self.put_data('udm','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('udm','off')
 
     def ResetNSSF(self):
         cmds = cmds_dict['nssf']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/nssf)\n')
         self.put_data('nssf','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('nssf','off')
 
     def ResetAUSF(self):
         cmds = cmds_dict['ausf']
         cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/ausf)\n')
         self.put_data('ausf','on')
-        connector.ssh_direct(cmds,target_username,target_password)
+        self.connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('ausf','off')
 
     def HealPnf(self,pnf_name):
         print('EM detected {} fail'.format(pnf_name))
-        connector = RemoteConnect(target_addr)
         print('EM start to heal {}'.format(pnf_name))
         if pnf_name=='nrf':
             self.ResetUPF()
             cmds = cmds_dict[pnf_name]
-            connector.ssh_direct(cmds,target_username,target_password)
+            self.connector.ssh_direct(cmds,target_username,target_password)
             self.ResetAMF()
             self.ResetSMF()
             self.resetUDR()
@@ -90,15 +89,15 @@ class EMS():
             self.ResetAUSF()    
         elif pnf_name=='upf':
             cmds = cmds_dict[pnf_name]
-            connector.ssh_direct(cmds,target_username,target_password)
+            self.connector.ssh_direct(cmds,target_username,target_password)
             self.ResetSMF()
         elif pnf_name=='smf':
             self.ResetUPF()
             cmds = cmds_dict[pnf_name]
-            connector.ssh_direct(cmds,target_username,target_password)
+            self.connector.ssh_direct(cmds,target_username,target_password)
         else:
             cmds = cmds_dict[pnf_name]
-            connector.ssh_direct(cmds,target_username,target_password)
+            self.connector.ssh_direct(cmds,target_username,target_password)
         print('EM finish heal {}'.format(pnf_name))
 
     def DetectPnf(self,pnf_name):
