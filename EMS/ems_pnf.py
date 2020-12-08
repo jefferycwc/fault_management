@@ -73,7 +73,7 @@ class EMS():
         connector.ssh_direct(cmds,target_username,target_password)
         self.put_data('ausf','off')
 
-    def HealPnf(pnf_name):
+    def HealPnf(self,pnf_name):
         print('EM detected {} fail'.format(pnf_name))
         connector = RemoteConnect(target_addr)
         print('EM start to heal {}'.format(pnf_name))
