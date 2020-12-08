@@ -113,7 +113,7 @@ class EMS():
         
         while(1):
             time.sleep(1)
-            lock = self.r.get(pnf_name)
+            lock = self.r.get(pnf_name).decode()
             print('lock:{}'.format(lock))
             if lock=='terminate':
                 print('Terminate EM')
