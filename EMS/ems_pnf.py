@@ -67,7 +67,7 @@ def DetectPnf(pnf_name):
         out = stdout.read().decode().split("\n")
         if len(out)==4:
             lock = False
-        else if len(out)!=4 and lock==False:
+        if len(out)!=4 and lock==False:
             HealPnf(pnf_name)
         '''print(len(out))
         for i in range(1,len(out)):
