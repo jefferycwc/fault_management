@@ -1,7 +1,8 @@
 import sys
 import paramiko
 import signal
-from fault_management.master_node.remote_connect import RemoteConnect
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from master_node.remote_connect import RemoteConnect
 from cmds_vnf import cmds_dict
 from settings import *
 
