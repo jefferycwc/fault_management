@@ -4,7 +4,7 @@ import redis
 import json
 from master_node.remote_connect import RemoteConnect
 from EMS.settings import *
-from cmds_pnf import cmds_dict
+from EMS.cmds_pnf import cmds_dict
 class PnfStart():
     def __init__(self):
         pass
