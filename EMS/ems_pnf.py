@@ -13,7 +13,7 @@ def DetectPnf(pnf_name):
         cmd = 'ps -aux | grep ./all_in_one/bin/%s' % pnf_name
     while(1):
         stdin, stdout, stderr = ssh.exec_command(cmd)
-        out = stdout.read().decode().split("\n")
+        out = stdout.read().decode().split("\r\n")
         print(len(out))
         for i in range(1,len(out)):
             print('{} : {}'.format(i,out[i]))
