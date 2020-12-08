@@ -113,12 +113,16 @@ class EMS():
         
         while(1):
             time.sleep(1)
-            lock = self.r.get(pnf_name).decode()
+            lock = self.r.get(pnf_name)
+            if lock==None:
+                continue
+            else:
+                lock = lock.decode()
             print('lock:{}'.format(lock))
             if lock=='terminate':
                 print('Terminate EM')
                 sys.exit(1)
-            if lock==None or lock=='on':
+            if lock=='on':
                 #print('match')
                 continue
             stdin, stdout, stderr = ssh.exec_command(cmd)
