@@ -15,7 +15,7 @@ def DetectPnf(pnf_name):
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split("\n")
         print(len(out))
-        for i in range(1,len(out)+1):
+        for i in range(1,len(out)):
             print(out[i])
         #print(stdout.read().decode())
 
