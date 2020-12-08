@@ -1,7 +1,7 @@
 import paramiko
 import time
 from master_node.remote_connect import RemoteConnect
-from settings import *
+from EMS.settings import *
 class PnfStart():
     def __init__(self):
         '''self.target_addr = '192.168.1.219'
