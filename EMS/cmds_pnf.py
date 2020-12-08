@@ -1,4 +1,4 @@
-upf_list = ['cd /home/jeffery/all_in_one/src/upf/build\n','nohup ./bin/free5gc-upfd\n','exit\n']
+upf_list = ['rm /dev/mqueue/*','cd /home/jeffery/all_in_one/src/upf/lib/libgtp5gnl/tools','./gtp5g-link del upfgtp0','cd /home/jeffery/all_in_one/src/upf/build\n','nohup ./bin/free5gc-upfd\n','exit\n']
 nrf_list = ['nohup ./all_in_one/bin/nrf\n','exit\n']
 amf_list = ['nohup ./all_in_one/bin/amf\n','exit\n']
 smf_list = ['nohup ./all_in_one/bin/smf\n','exit\n']
