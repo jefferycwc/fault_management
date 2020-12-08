@@ -1,7 +1,7 @@
 import sys
 import paramiko
 import signal
-from . master_node.remote_connect import RemoteConnect
+from .master_node.remote_connect import RemoteConnect
 from cmds_vnf import cmds_dict
 from settings import *
 
