@@ -10,29 +10,41 @@ def HealPnf(pnf_name):
     connector = RemoteConnect(target_addr)
     print('EM start to heal {}'.format(pnf_name))
     if pnf_name=='nrf':
+        cmds = cmds_dict['upf']
+        cmds.insert(0,'kill -9 $(pidof ./bin/free5gc-upfd)\n')
+        connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict[pnf_name]
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['amf']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/amf)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['smf']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/smf)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['udr']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/udr)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['pcf']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/pcf)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['udm']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/udm)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['nssf']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/nssf)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['ausf']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/ausf)\n')
         connector.ssh_direct(cmds,target_username,target_password)
     elif pnf_name=='upf':
         cmds = cmds_dict[pnf_name]
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict['smf']
+        cmds.insert(0,'kill -9 $(pidof ./all_in_one/bin/smf)\n')
         connector.ssh_direct(cmds,target_username,target_password)
     elif pnf_name=='smf':
         cmds = cmds_dict['upf']
+        cmds.insert(0,'kill -9 $(pidof ./bin/free5gc-upfd)\n')
         connector.ssh_direct(cmds,target_username,target_password)
         cmds = cmds_dict[pnf_name]
         connector.ssh_direct(cmds,target_username,target_password)
