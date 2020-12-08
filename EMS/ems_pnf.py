@@ -116,7 +116,7 @@ class EMS():
             lock = self.r.get(pnf_name)
             print('lock:{}'.format(lock))
             if lock=='terminate':
-                print('terminate')
+                print('Terminate EM')
                 sys.exit(1)
             if lock==None or lock=='on':
                 #print('match')
