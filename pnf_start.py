@@ -65,7 +65,7 @@ class PnfStart():
         connector = RemoteConnect(target_addr)
         print('Start to activate PCF')
         connector.ssh_direct(cmds,target_username,target_password)
-        self.put_data'pcf')
+        self.put_data('pcf')
         print('Finish to activate PCF')
 
     def udm_start(self):
