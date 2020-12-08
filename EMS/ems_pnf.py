@@ -52,7 +52,7 @@ def HealPnf(pnf_name):
     print('EM finish heal {}'.format(pnf_name))
 
 def DetectPnf(pnf_name):
-    lock = 'on'
+    #lock = 'on'
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(target_addr,22,username=target_username, password=target_password)
@@ -72,7 +72,7 @@ def DetectPnf(pnf_name):
     while(1):
         lock = r.get(pnf_name)
         print('lock:{}'.format(lock))
-        if lock=='on':
+        if lock=='None' or lock=='on':
             continue
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split("\n")
