@@ -1,7 +1,6 @@
 import paramiko
 import time
 import redis
-import json
 from master_node.remote_connect import RemoteConnect
 from EMS.settings import *
 from EMS.cmds_pnf import cmds_dict
@@ -12,13 +11,6 @@ class PnfStart():
     def put_data(self,tunnel_name):
         r = redis.Redis(host='localhost', port=6379, db=0)
         r.set(tunnel_name,'off')
-        '''payload = {}
-        payload['lock'] = 'off'
-        payload_values = json.dumps(payload)
-        r.publish(
-            tunnel_name,
-            payload_values
-        )'''
    
     def upf_start(self):
         cmds=cmds_dict['upf']
