@@ -73,6 +73,7 @@ def DetectPnf(pnf_name):
         lock = r.get(pnf_name)
         print('lock:{}'.format(lock))
         if lock=='None' or lock=='on':
+            print('match')
             continue
         stdin, stdout, stderr = ssh.exec_command(cmd)
         out = stdout.read().decode().split("\n")
