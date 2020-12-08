@@ -1,5 +1,6 @@
 import sys
 import paramiko
+import signal
 def DetectPnf(pnf_name):
     ssh = paramiko.SSHClient()
     ssh.connect('192.168.1.219',22,username='jeffery', password='jeffery71')
