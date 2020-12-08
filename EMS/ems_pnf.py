@@ -7,7 +7,9 @@ def DetectPnf(pnf_name):
     ssh.connect('192.168.1.219',22,username='jeffery', password='jeffery71')
     while(1):
         stdin, stdout, stderr = ssh.exec_command('ps -aux | grep %s' % pnf_name)
-        print(stdout.read().decode())
+        out = stdout.read().decode()
+        print(out.size())
+        #print(stdout.read().decode())
 
 def kill_process():
     sys.exit(1)
