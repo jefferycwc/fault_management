@@ -16,7 +16,7 @@ def DetectPnf(pnf_name):
         out = stdout.read().decode().split("\n")
         print(len(out))
         for i in range(1,len(out)):
-            print(out[i])
+            print('{} : {}'.format(i,out[i]))
         #print(stdout.read().decode())
 
 def kill_process():
