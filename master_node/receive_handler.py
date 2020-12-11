@@ -34,9 +34,13 @@ def VnfMonitor():
     data = request.get_json()
     management_urls = data['management_urls']
     cmds = ['sudo service VnfDetect start\n','exit\n']
-    for ip in management_urls:
-        connector = RemoteConnect(ip)
-        connector.ssh_jump(cmds)
+    def VnfMonitor_(cmds,management_urls):
+        for ip in management_urls:
+            connector = RemoteConnect(ip)
+            connector.ssh_jump(cmds)
+    thread = Thread(target=VnfMonitor_, kwargs={'cmds':cmds,'management_urls':management_urls})
+    thread.start()
+    thread.join()
     return 'successful'
 
 @app.route('/healvnf', methods=['POST'])
