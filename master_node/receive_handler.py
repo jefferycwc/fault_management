@@ -9,7 +9,7 @@ from instance_detect import TackerAPI as Tacker
 from publish_handler import publisher
 from threading import Thread
 import instance_detect
-fro, remote_connect import RemoteConnect
+from remote_connect import RemoteConnect
 LOG = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config["DEBUG"] = True
