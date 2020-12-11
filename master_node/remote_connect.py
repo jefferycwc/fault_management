@@ -82,8 +82,8 @@ class RemoteConnect():
             else:
                 time.sleep(1)
             chan.send(cmd)
-            out=chan.recv(1024)
-            print(out)
+            #out=chan.recv(1024)
+            #print(out)
 
         time.sleep(1)
         transport.close()
