@@ -36,7 +36,7 @@ def AddMonitor():
     for ip in management_urls:
         connector = RemoteConnect(ip)
         connector.ssh_jump(cmds)
-
+    return 'successful'
 
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
