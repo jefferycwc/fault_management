@@ -9,11 +9,12 @@ from instance_detect import TackerAPI as Tacker
 from publish_handler import publisher
 from threading import Thread
 import instance_detect
+fro, remote_connect import RemoteConnect
 LOG = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-pid_dict = {}
+
 @app.route('/addmonitor', methods=['POST'])
 def AddMonitor():
     data = request.get_json()
@@ -27,7 +28,16 @@ def AddMonitor():
     thread = Thread(target=instance_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
     thread.start()
     return 'succesful'
-    
+
+@app.route('/vnf_monitor', methods=['POST'])
+    data = request.get_json()
+    management_urls = data['management_urls']
+    cmds = ['sudo service VnfDetect start\n','exit\n']
+    for ip in management_urls:
+        connector = RemoteConnect(ip)
+        connector.ssh_jump(cmds)
+
+
 @app.route('/healvnf', methods=['POST'])
 def ReceiveHealVnfRequest():
     #print('Receive HealVnfRequest from EM')
