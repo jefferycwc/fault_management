@@ -30,6 +30,7 @@ def AddMonitor():
     return 'succesful'
 
 @app.route('/vnf_monitor', methods=['POST'])
+def VnfMonitor():
     data = request.get_json()
     management_urls = data['management_urls']
     cmds = ['sudo service VnfDetect start\n','exit\n']
