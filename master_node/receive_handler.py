@@ -15,8 +15,8 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route('/addmonitor', methods=['POST'])
-def AddMonitor():
+@app.route('/vm_monitor', methods=['POST'])
+def VMMonitor():
     data = request.get_json()
     vnf_id = data['id']
     description = data['description']
@@ -24,22 +24,24 @@ def AddMonitor():
     vnf_name = description.split(':')[1]
     #print('vnf name: {}'.format(vnf_name))
     #LOG.info('Start monitoring %s',vnf_name)
-    app.logger.info('Start monitoring %s',vnf_name)
+    app.logger.info('Start monitoring %s VM status',vnf_name)
     thread = Thread(target=instance_detect.start, kwargs={'vnf_name':vnf_name,'vnf_id':vnf_id})
     thread.start()
     return 'succesful'
 
 @app.route('/vnf_monitor', methods=['POST'])
-def VnfMonitor():
+def VNFMonitor():
     #print('add vnf monitor')
     data = request.get_json()
+    vnf_name = data['vnf_name']
     floating_ip_address = data['floating_ip_address']
+    app.logger.info('Start monitoring %s VNF status',vnf_name)
     cmds = ['sudo service VnfDetect start\n','exit\n']
-    def VnfMonitor_(cmds,floating_ip_address):
+    def VNFMonitor_(cmds,floating_ip_address):
         #print(floating_ip_address)
         connector = RemoteConnect(floating_ip_address)
         connector.ssh_jump(cmds)
-    thread = Thread(target=VnfMonitor_, kwargs={'cmds':cmds,'floating_ip_address':floating_ip_address})
+    thread = Thread(target=VNFMonitor_, kwargs={'cmds':cmds,'floating_ip_address':floating_ip_address})
     thread.start()
     thread.join()
     return 'successful'
