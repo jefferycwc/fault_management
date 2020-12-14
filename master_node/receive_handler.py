@@ -31,12 +31,12 @@ def AddMonitor():
 
 @app.route('/vnf_monitor', methods=['POST'])
 def VnfMonitor():
-    print('add vnf monitor')
+    #print('add vnf monitor')
     data = request.get_json()
     floating_ip_address = data['floating_ip_address']
     cmds = ['sudo service VnfDetect start\n','exit\n']
     def VnfMonitor_(cmds,floating_ip_address):
-        print(floating_ip_address)
+        #print(floating_ip_address)
         connector = RemoteConnect(floating_ip_address)
         connector.ssh_jump(cmds)
     thread = Thread(target=VnfMonitor_, kwargs={'cmds':cmds,'floating_ip_address':floating_ip_address})
