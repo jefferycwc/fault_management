@@ -40,7 +40,7 @@ def VnfMonitor():
             connector.ssh_jump(cmds)
     thread = Thread(target=VnfMonitor_, kwargs={'cmds':cmds,'management_urls':management_urls})
     thread.start()
-    #thread.join()
+    thread.join()
     return 'successful'
 
 @app.route('/healvnf', methods=['POST'])
