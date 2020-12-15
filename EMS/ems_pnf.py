@@ -118,7 +118,7 @@ class EMS():
                 continue
             else:
                 lock = lock.decode()
-            print('lock:{}'.format(lock))
+            #print('lock:{}'.format(lock))
             if lock=='terminate':
                 print('Terminate EM')
                 sys.exit(1)

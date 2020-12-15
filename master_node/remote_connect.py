@@ -67,8 +67,8 @@ class RemoteConnect():
             time.sleep(2)
             chan.send(cmd)
             #while not re.search(".*\[sudo\].*",chan.recv(1024)): time.sleep(1)
-            out=chan.recv(1024)
-            print(out)
+            #out=chan.recv(1024)
+            #print(out)
             
         time.sleep(1)
         ssh.close()
