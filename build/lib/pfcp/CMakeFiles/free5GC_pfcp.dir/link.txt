@@ -1,2 +1,0 @@
-/usr/bin/ar qc libfree5GC_pfcp.a  CMakeFiles/free5GC_pfcp.dir/src/pfcp_convert.c.o CMakeFiles/free5GC_pfcp.dir/src/pfcp_message.c.o CMakeFiles/free5GC_pfcp.dir/src/pfcp_node.c.o CMakeFiles/free5GC_pfcp.dir/src/pfcp_path.c.o CMakeFiles/free5GC_pfcp.dir/src/pfcp_types.c.o CMakeFiles/free5GC_pfcp.dir/src/pfcp_xact.c.o
-/usr/bin/ranlib libfree5GC_pfcp.a

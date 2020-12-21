@@ -1,1 +1,0 @@
-/usr/bin/gcc    CMakeFiles/testutlt.dir/test.c.o  -o /home/ubuntu/stage3/src/upf/build/bin/testutlt  -L/home/ubuntu/stage3/src/upf/build/utlt_logger -Wl,-rpath,/home/ubuntu/stage3/src/upf/build/utlt_logger ../utlt/libfree5GC_utlt.a -llogger -lyaml libfree5GC_utlt_test.a ../utlt/libfree5GC_utlt.a -lrt -lpthread -llogger -lyaml 

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libfree5GC_gtpv1.a  CMakeFiles/free5GC_gtpv1.dir/src/gtp_buffer.c.o CMakeFiles/free5GC_gtpv1.dir/src/gtp_link.c.o CMakeFiles/free5GC_gtpv1.dir/src/gtp_path.c.o CMakeFiles/free5GC_gtpv1.dir/src/gtp_tunnel.c.o
-/usr/bin/ranlib libfree5GC_gtpv1.a

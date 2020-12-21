@@ -1,1 +1,0 @@
-/usr/bin/gcc    CMakeFiles/testpfcp.dir/test.c.o  -o /home/ubuntu/stage3/src/upf/build/bin/testpfcp  -L/home/ubuntu/stage3/src/upf/build/utlt_logger 
