@@ -28,7 +28,7 @@ if __name__ == "__main__":
     body = {
         'vnf_name': hostname
     }
-    lock = 0
+    lock = 1
     #print(hostname)
     while 1:
         listOfProcessIds = findProcessIdByName(hostname)
