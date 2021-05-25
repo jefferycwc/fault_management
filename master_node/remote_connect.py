@@ -27,9 +27,9 @@ class MySFTPClient(paramiko.SFTPClient):
 
 class RemoteConnect():
     def __init__(self,target_addr):
-        self.jumpbox_addr = '192.168.1.77'
+        self.jumpbox_addr = '192.168.1.197'
         self.jumpbox_username = 'jeffery'
-        self.jumpbox_password = 'jeffery71'
+        self.jumpbox_password = '0000'
         self.target_addr = target_addr
 
     def build_transport(self):
